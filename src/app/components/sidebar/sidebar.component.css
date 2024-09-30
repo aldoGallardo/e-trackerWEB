@@ -1,0 +1,27 @@
+.bg-darkblue-900 {
+  background-color: #1e3a8a; /* Ajuste del color oscuro */
+}
+
+.shadow-lg {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para el sidebar */
+}
+
+.min-h-screen {
+  min-height: 100vh; /* Asegura que el sidebar ocupe toda la altura */
+}
+
+.flex {
+  display: flex;
+}
+
+.transition-colors {
+  transition: background-color 0.2s;
+}
+
+.hover\:bg-darkblue-800:hover {
+  background-color: #1e40af; /* Oscurece al hacer hover */
+}
+
+.z-10 {
+  z-index: 10; /* Mantener el sidebar por encima */
+}

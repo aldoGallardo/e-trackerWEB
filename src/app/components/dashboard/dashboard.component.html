@@ -1,0 +1,101 @@
+<div class="parent p-6">
+  <!-- Navbar in div1 -->
+  <div class="div1">
+    <p-menubar [model]="items" class="shadow-lg rounded-lg">
+      <ng-template pTemplate="start">
+        <span class="font-bold text-primary">HRMS Dashboard</span>
+      </ng-template>
+      <ng-template pTemplate="item" let-item let-root="root">
+        <a pRipple class="flex align-items-center p-menuitem-link">
+          <span [class]="item.icon"></span>
+          <span class="ml-2">{{ item.label }}</span>
+          <p-badge
+            *ngIf="item.badge"
+            [ngClass]="{ 'ml-auto': !root, 'ml-2': root }"
+            [value]="item.badge"
+          ></p-badge>
+          <span *ngIf="item.shortcut" class="ml-auto text-xs p-1">{{
+            item.shortcut
+          }}</span>
+          <i
+            *ngIf="item.items"
+            [ngClass]="[
+              'pi',
+              root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto'
+            ]"
+          ></i>
+        </a>
+      </ng-template>
+      <ng-template pTemplate="end">
+        <div class="flex align-items-center gap-2">
+          <input
+            type="text"
+            pInputText
+            placeholder="Buscar"
+            class="w-8rem sm:w-auto"
+          />
+          <p-avatar
+            image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+            shape="circle"
+          ></p-avatar>
+        </div>
+      </ng-template>
+    </p-menubar>
+  </div>
+
+  <!-- Stats Cards -->
+  <div
+    class="div2 bg-gradient-to-r from-pink-400 to-red-500 text-white p-4 rounded-lg shadow-lg"
+  >
+    <h2 class="text-xl font-bold">80% Reportabilidad</h2>
+  </div>
+  <div
+    class="div3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white p-4 rounded-lg shadow-lg"
+  >
+    <h2 class="text-xl font-bold">95% Uso Eficiente de Suministros</h2>
+  </div>
+  <div
+    class="div4 bg-gradient-to-r from-green-400 to-green-500 text-white p-4 rounded-lg shadow-lg"
+  >
+    <h2 class="text-xl font-bold">70% Eficiencia en Uso de Tiempo</h2>
+  </div>
+  <div
+    class="div5 bg-gradient-to-r from-purple-400 to-purple-500 text-white p-4 rounded-lg shadow-lg"
+  >
+    <h2 class="text-xl font-bold">85% Puntualidad</h2>
+  </div>
+
+  <!-- Main Graph -->
+  <div class="div6 bg-white p-6 rounded-lg shadow-lg">
+    <h3 class="text-xl font-bold mb-4">Número de actividades completadas</h3>
+    <div class="flex justify-between items-center mb-4">
+      <div class="flex items-center">
+        <button class="px-4 py-2 bg-gray-200 rounded-md mr-2">
+          El Porvenir
+        </button>
+        <button class="px-4 py-2 bg-gray-200 rounded-md">Mensual</button>
+      </div>
+    </div>
+    <canvas id="activitiesChart"></canvas>
+  </div>
+
+  <!-- Additional Charts -->
+  <div class="div7 bg-white p-6 rounded-lg shadow-lg">
+    <h3 class="text-lg font-bold mb-4">Tiempo promedio por actividad</h3>
+    <div class="text-center">
+      <p class="text-2xl font-bold">1:30</p>
+      <p class="text-sm text-gray-500">Excelente</p>
+    </div>
+  </div>
+
+  <div class="div8 bg-white p-6 rounded-lg shadow-lg">
+    <h3 class="text-lg font-bold mb-4">Tiempo promedio reportado</h3>
+    <p class="text-xl font-bold">6h 30m</p>
+    <p class="text-gray-500">Sucursal Nuevo Cajamarca</p>
+  </div>
+
+  <div class="div9 bg-white p-6 rounded-lg shadow-lg">
+    <h3 class="text-lg font-bold mb-4">Chart Order</h3>
+    <canvas id="chartOrder"></canvas>
+  </div>
+</div>

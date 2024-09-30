@@ -1,0 +1,56 @@
+<aside
+  class="w-64 bg-darkblue-900 text-white min-h-screen p-4 rounded-lg shadow-lg"
+>
+  <div class="flex items-center justify-center mb-8">
+    <h1 class="text-xl font-bold text-white">HRMS</h1>
+  </div>
+  <nav>
+    <ul>
+      <li class="mb-6">
+        <button
+          (click)="navigateTo('dashboard')"
+          class="flex items-center p-2 hover:bg-darkblue-800 rounded-md text-white w-full"
+        >
+          <span class="material-icons">dashboard</span>
+          <span class="ml-4">Dashboard</span>
+        </button>
+      </li>
+      <li class="mb-6">
+        <button
+          (click)="navigateTo('employees')"
+          class="flex items-center p-2 hover:bg-darkblue-800 rounded-md text-white w-full"
+        >
+          <span class="material-icons">people</span>
+          <span class="ml-4">Empleados</span>
+        </button>
+      </li>
+      <li class="mb-6">
+        <button
+          (click)="navigateTo('branches')"
+          class="flex items-center p-2 hover:bg-darkblue-800 rounded-md text-white w-full"
+        >
+          <span class="material-icons">business</span>
+          <span class="ml-4">Sucursales</span>
+        </button>
+      </li>
+      <li class="mb-6">
+        <button
+          (click)="navigateTo('activities')"
+          class="flex items-center p-2 hover:bg-darkblue-800 rounded-md text-white w-full"
+        >
+          <span class="material-icons">assignment</span>
+          <span class="ml-4">Actividades</span>
+        </button>
+      </li>
+      <li class="mb-6">
+        <button
+          (click)="navigateTo('supplies')"
+          class="flex items-center p-2 hover:bg-darkblue-800 rounded-md text-white w-full"
+        >
+          <span class="material-icons">inventory</span>
+          <span class="ml-4">Suministros</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+</aside>
