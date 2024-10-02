@@ -1,0 +1,61 @@
+table {
+  width: 100%;
+  border-collapse: collapse; /* Quitar espacio entre celdas */
+}
+
+th.mat-header-cell {
+  font-weight: bold;
+  background-color: #4b5563; /* Fondo de la cabecera */
+  color: #ffffff; /* Texto blanco */
+}
+
+.mat-elevation-z8 {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+td.mat-cell {
+  padding: 12px;
+  background-color: #121127; /* Fondo de celdas */
+  color: #ffffff; /* Texto blanco */
+}
+
+.bg-white {
+  background-color: #1f2937; /* Fondo oscuro */
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.rounded-lg {
+  border-radius: 0.75rem;
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-add,
+.btn-filter {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+.btn-add {
+  background-color: #fbbf24; /* Amarillo */
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.btn-add:hover {
+  background-color: #f59e0b; /* Más oscuro en hover */
+}
+
+.btn-filter {
+  background-color: #f1f1f1;
+  color: black;
+}

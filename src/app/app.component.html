@@ -1,11 +1,15 @@
 <div class="flex min-h-screen bg-gray-100">
-  <!-- Sidebar -->
   <app-sidebar
     class="w-64 bg-darkblue-900 text-white shadow-lg z-10"
   ></app-sidebar>
 
-  <!-- Main Content -->
-  <main class="flex-1 p-6">
-    <router-outlet></router-outlet>
-  </main>
+  <div class="flex-1">
+    <!-- Navbar Component -->
+    <app-navbar></app-navbar>
+
+    <!-- Main Content Wrapper -->
+    <div class="component-wrapper p-6">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>

@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Variables globales */
 :root {
   --bg-color: #ffffff;
   --text-color: #000000;
@@ -12,7 +13,15 @@
   --text-color: #ffffff;
 }
 
+/* Estilos globales */
 body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  font-family: "Roboto", sans-serif;
+  font-size: 16px; /* Tamaño de fuente estándar */
+  color: #000; /* Color estándar de texto */
+}
+html,
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
 }
