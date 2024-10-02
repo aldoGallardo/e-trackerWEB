@@ -1,39 +1,16 @@
 <div class="search-bar flex justify-between items-center mb-4">
-  <div class="search-input">
-    <input type="text" placeholder="Buscar" class="p-2 border rounded-md" />
-  </div>
+  <app-searchbar (searchChange)="filterEmployees($event)"></app-searchbar>
   <div class="actions flex">
-    <button
-      type="button"
-      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-    >
-      <svg
-        class="w-3.5 h-3.5 me-2"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M12 4v16m8-8H4"
-        />
-      </svg>
-      Agregar Nuevo Empleado
-    </button>
-
-    <button
-      class="btn-filter flex items-center px-4 py-2 bg-gray-200 rounded-md ml-4"
-    >
-      <span class="mr-2">Filtros</span>
-    </button>
+    <app-create-button
+      [buttonLabel]="'Agregar Nuevo Empleado'"
+      [icon]="'plus'"
+    ></app-create-button>
+    <app-filter></app-filter>
   </div>
 </div>
 
 <div class="bg-white p-6 rounded-lg shadow-lg">
-  <table mat-table [dataSource]="employees" class="mat-elevation-z8">
+  <table mat-table [dataSource]="filteredEmployees" class="mat-elevation-z8">
     <!-- Foto de Perfil Column -->
     <ng-container matColumnDef="profilePicture">
       <th mat-header-cell *matHeaderCellDef></th>

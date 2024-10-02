@@ -4,6 +4,7 @@ export interface Employee {
   name: string;
   lastName: string;
   email: string;
+  dni: string;
   password: string;
   phoneNumber?: string;
   profilePicture?: string;
