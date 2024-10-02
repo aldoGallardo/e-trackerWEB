@@ -1,50 +1,50 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
 import { ApiService } from '../../core/services/api.service';
 import { Employee } from '../../core/models/employee.model';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { SearchbarComponent } from '../searchbar/searchbar.component';
 import { CreateButtonComponent } from '../create-button/create-button.component';
 import { FilterComponent } from '../filter/filter.component';
+import { ListComponent } from '../list/list.component';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-employees',
   standalone: true,
   imports: [
-    MatTableModule,
-    NavbarComponent,
     SearchbarComponent,
     CreateButtonComponent,
     FilterComponent,
+    ListComponent,
+    MatPaginatorModule,
   ],
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.css'],
 })
 export class EmployeesComponent implements OnInit {
   employees: Employee[] = [];
-  filteredEmployees: Employee[] = [];
-  displayedColumns: string[] = [
-    'profilePicture',
-    'name',
-    'dni',
-    'branchOffice',
-    'userType',
-    'journey',
-    'contract',
-  ];
+  paginatedEmployees: Employee[] = [];
+  pageSize = 10;
+  totalEmployees: number = 0;
+  lastUserNumber: number | undefined = undefined;
+  usersData: Employee[][] = [];
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.getEmployees();
+    this.loadUsers();
   }
 
-  getEmployees() {
-    this.apiService.getAllEmployees().subscribe(
-      (data: Employee[]) => {
-        this.employees = data;
-        this.filteredEmployees = [...this.employees]; // Inicialmente mostrar todos
-        console.log(this.employees);
+  // Cargar usuarios con paginación
+  loadUsers(startAfterUserNumber: number | undefined = undefined) {
+    this.apiService.getEmployees(this.pageSize, startAfterUserNumber).subscribe(
+      (data: any) => {
+        if (data.length > 0) {
+          this.employees = data;
+          this.totalEmployees = data.total || 0;
+          this.lastUserNumber = data[data.length - 1].userNumber; // Último usuario de la página
+          this.usersData.push(data); // Guarda la página actual
+          this.paginatedEmployees = data;
+        }
       },
       (error) => {
         console.error('Error al obtener los empleados', error);
@@ -52,9 +52,24 @@ export class EmployeesComponent implements OnInit {
     );
   }
 
-  // Método para filtrar empleados según búsqueda
+  // Función para cargar la página siguiente
+  loadNextPage() {
+    this.loadUsers(this.lastUserNumber);
+  }
+
+  // Función para cargar la página anterior
+  loadPreviousPage() {
+    if (this.usersData.length > 1) {
+      this.usersData.pop(); // Remueve la página actual
+      const previousPage = this.usersData[this.usersData.length - 1];
+      this.paginatedEmployees = previousPage;
+      this.lastUserNumber = previousPage[previousPage.length - 1].userNumber; // Actualiza el último número
+    }
+  }
+
+  // Filtrar empleados
   filterEmployees(query: string) {
-    this.filteredEmployees = this.employees.filter(
+    this.paginatedEmployees = this.employees.filter(
       (employee) =>
         employee.name.toLowerCase().includes(query.toLowerCase()) ||
         employee.dni.includes(query)

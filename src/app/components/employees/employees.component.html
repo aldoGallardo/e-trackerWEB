@@ -9,59 +9,17 @@
   </div>
 </div>
 
-<div class="bg-white p-6 rounded-lg shadow-lg">
-  <table mat-table [dataSource]="filteredEmployees" class="mat-elevation-z8">
-    <!-- Foto de Perfil Column -->
-    <ng-container matColumnDef="profilePicture">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element">
-        <img
-          [src]="element.profilePicture"
-          alt="Foto de {{ element.name }}"
-          width="50"
-          height="50"
-          class="rounded-full"
-        />
-      </td>
-    </ng-container>
+<!-- Lista de empleados -->
+<app-list [employees]="paginatedEmployees"></app-list>
 
-    <!-- Nombre Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Nombre</th>
-      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-    </ng-container>
-
-    <!-- DNI Column -->
-    <ng-container matColumnDef="dni">
-      <th mat-header-cell *matHeaderCellDef>DNI</th>
-      <td mat-cell *matCellDef="let element">{{ element.dni }}</td>
-    </ng-container>
-
-    <!-- Sucursal Column -->
-    <ng-container matColumnDef="branchOffice">
-      <th mat-header-cell *matHeaderCellDef>Sucursal</th>
-      <td mat-cell *matCellDef="let element">{{ element.branchOffice }}</td>
-    </ng-container>
-
-    <!-- Tipo de Usuario Column -->
-    <ng-container matColumnDef="userType">
-      <th mat-header-cell *matHeaderCellDef>Tipo de Usuario</th>
-      <td mat-cell *matCellDef="let element">{{ element.userType }}</td>
-    </ng-container>
-
-    <!-- Jornada Column -->
-    <ng-container matColumnDef="journey">
-      <th mat-header-cell *matHeaderCellDef>Jornada</th>
-      <td mat-cell *matCellDef="let element">{{ element.journey }}</td>
-    </ng-container>
-
-    <!-- Contrato Column -->
-    <ng-container matColumnDef="contract">
-      <th mat-header-cell *matHeaderCellDef>Contrato</th>
-      <td mat-cell *matCellDef="let element">{{ element.contract }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
+<!-- Paginación -->
+<div class="pagination-controls flex justify-between mt-4">
+  <button
+    (click)="loadPreviousPage()"
+    class="btn btn-secondary"
+    [disabled]="usersData.length === 1"
+  >
+    Anterior
+  </button>
+  <button (click)="loadNextPage()" class="btn btn-primary">Siguiente</button>
 </div>
