@@ -1,4 +1,3 @@
-<button class="btn-add">
-  <svg class="icon-plus"></svg>
-  {{ buttonLabel }}
+<button (click)="navigateTo('employees/create')">
+  <i [class]="icon"></i> {{ buttonLabel }}
 </button>
