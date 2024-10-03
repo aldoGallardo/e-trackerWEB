@@ -1,1 +1,29 @@
-<p>supplies works!</p>
+<div class="search-bar flex justify-between items-center mb-4">
+  <app-searchbar (searchChange)="filterSupplies($event)"></app-searchbar>
+  <div class="actions flex">
+    <app-create-button
+      [buttonLabel]="'Agregar Nuevo Suministro'"
+      [icon]="'plus'"
+    ></app-create-button>
+    <app-filter></app-filter>
+  </div>
+</div>
+
+<!-- Lista de suministros -->
+<app-list
+  [data]="paginatedSupplies"
+  [columnsConfig]="[
+    { key: 'name', header: 'Nombre' },
+    { key: 'unit', header: 'Unidad de medida' },
+    { key: 'description', header: 'Descripción' }
+  ]"
+></app-list>
+
+<!-- Paginación -->
+<app-paginator
+  [length]="totalSupplies"
+  [pageSize]="pageSize"
+  [pageIndex]="pageIndex"
+  (pageChange)="handlePageEvent($event)"
+  aria-label="Seleccionar página"
+></app-paginator>

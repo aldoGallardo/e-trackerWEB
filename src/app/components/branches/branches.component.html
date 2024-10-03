@@ -1,1 +1,25 @@
-<p>branches works!</p>
+<div class="search-bar flex justify-between items-center mb-4">
+  <app-searchbar (searchChange)="filterBranches($event)"></app-searchbar>
+  <div class="actions flex">
+    <app-create-button
+      [buttonLabel]="'Agregar Nueva Sucursal'"
+      [icon]="'plus'"
+    ></app-create-button>
+    <app-filter></app-filter>
+  </div>
+</div>
+
+<!-- Lista de sucursales -->
+<app-list
+  [data]="paginatedBranches"
+  [columnsConfig]="[{ key: 'branchName', header: 'Sede' }]"
+></app-list>
+
+<!-- Paginación -->
+<app-paginator
+  [length]="totalBranches"
+  [pageSize]="pageSize"
+  [pageIndex]="pageIndex"
+  (pageChange)="handlePageEvent($event)"
+  aria-label="Seleccionar página"
+></app-paginator>

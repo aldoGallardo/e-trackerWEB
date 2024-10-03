@@ -1,12 +1,78 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ApiActivitiesService } from '../../core/services/api-activities.service';
+import { SearchbarComponent } from '../searchbar/searchbar.component';
+import { CreateButtonComponent } from '../create-button/create-button.component';
+import { FilterComponent } from '../filter/filter.component';
+import { ListComponent } from '../list/list.component';
+import {
+  PaginatorComponent,
+  PageEvent,
+} from '../paginator/paginator.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-activities',
   standalone: true,
-  imports: [],
+  imports: [
+    CommonModule,
+    SearchbarComponent,
+    CreateButtonComponent,
+    FilterComponent,
+    ListComponent,
+    PaginatorComponent,
+  ],
   templateUrl: './activities.component.html',
   styleUrls: ['./activities.component.css'],
 })
-export class ActivitiesComponent {
-  // Aquí puedes agregar la lógica para el componente de Actividades
+export class ActivitiesComponent implements OnInit {
+  activities: any[] = [];
+  paginatedActivities: any[] = [];
+  pageSize = 10;
+  totalActivities: number = 0;
+  lastActivityId: number | undefined = undefined;
+  pageIndex = 0;
+
+  constructor(private apiActivitiesService: ApiActivitiesService) {}
+
+  ngOnInit(): void {
+    this.apiActivitiesService
+      .getTotalActivities()
+      .subscribe((response: any) => {
+        this.totalActivities = response.total; // Total de actividades desde el backend
+        this.loadActivities();
+      });
+  }
+
+  loadActivities(startAfterActivityId: number | undefined = undefined) {
+    this.apiActivitiesService
+      .getActivities(this.pageSize, startAfterActivityId)
+      .subscribe(
+        (data: any) => {
+          if (data && data.length > 0) {
+            this.activities = data;
+            this.lastActivityId = data[data.length - 1].activityId;
+            this.paginatedActivities = data;
+          }
+        },
+        (error) => {
+          console.error('Error al obtener las actividades', error);
+        }
+      );
+  }
+
+  handlePageEvent(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
+
+    const startAfter = this.pageIndex === 0 ? undefined : this.lastActivityId;
+
+    this.loadActivities(startAfter);
+  }
+
+  filterActivities(query: string) {
+    this.paginatedActivities = this.activities.filter((activity) =>
+      activity.name.toLowerCase().includes(query.toLowerCase())
+    );
+    this.totalActivities = this.paginatedActivities.length;
+  }
 }

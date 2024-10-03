@@ -1,23 +1,23 @@
-import { Component, Input } from '@angular/core';
-import { Employee } from '../../core/models/employee.model';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
+import { CommonModule } from '@angular/common'; // Importar CommonModule
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [MatTableModule],
+  imports: [MatTableModule, CommonModule], // Asegúrate de importar CommonModule
   templateUrl: './list.component.html',
-  styleUrl: './list.component.css',
+  styleUrls: ['./list.component.css'],
 })
-export class ListComponent {
-  @Input() employees: Employee[] = [];
-  displayedColumns: string[] = [
-    'profilePicture',
-    'name',
-    'dni',
-    'branchOffice',
-    'userType',
-    'journey',
-    'contract',
-  ];
+export class ListComponent implements OnChanges {
+  @Input() data: any[] = [];
+  @Input() columnsConfig: { key: string; header: string }[] = [];
+
+  displayedColumnKeys: string[] = [];
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['columnsConfig'] && changes['columnsConfig'].currentValue) {
+      this.displayedColumnKeys = this.columnsConfig.map((col) => col.key);
+    }
+  }
 }

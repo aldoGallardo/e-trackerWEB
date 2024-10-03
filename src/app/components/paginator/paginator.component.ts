@@ -9,12 +9,17 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
   imports: [MatPaginatorModule],
 })
 export class PaginatorComponent {
+  hidePageSize = true;
+  showPageSizeOptions = false;
   @Input() length: number = 0;
   @Input() pageSize: number = 10;
-  @Input() pageSizeOptions: number[] = [5, 10, 20];
+  @Input() pageSizeOptions: number[] = [5, 10, 25, 100];
+  @Input() pageIndex: number = 0;
   @Output() pageChange = new EventEmitter<PageEvent>();
 
   handlePageEvent(event: PageEvent) {
     this.pageChange.emit(event);
   }
 }
+
+export { PageEvent };

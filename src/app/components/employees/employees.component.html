@@ -10,16 +10,24 @@
 </div>
 
 <!-- Lista de empleados -->
-<app-list [employees]="paginatedEmployees"></app-list>
+<app-list
+  [data]="paginatedEmployees"
+  [columnsConfig]="[
+    { key: 'profilePicture', header: '' },
+    { key: 'name', header: 'Nombre' },
+    { key: 'dni', header: 'DNI' },
+    { key: 'branchOffice', header: 'Sucursal' },
+    { key: 'userType', header: 'Tipo de Usuario' },
+    { key: 'journey', header: 'Jornada' },
+    { key: 'contract', header: 'Contrato' }
+  ]"
+></app-list>
 
-<!-- Paginación -->
-<div class="pagination-controls flex justify-between mt-4">
-  <button
-    (click)="loadPreviousPage()"
-    class="btn btn-secondary"
-    [disabled]="usersData.length === 1"
-  >
-    Anterior
-  </button>
-  <button (click)="loadNextPage()" class="btn btn-primary">Siguiente</button>
-</div>
+<!-- MatPaginator control -->
+<app-paginator
+  [length]="totalEmployees"
+  [pageSize]="pageSize"
+  [pageIndex]="pageIndex"
+  (pageChange)="handlePageEvent($event)"
+  aria-label="Seleccionar página"
+></app-paginator>

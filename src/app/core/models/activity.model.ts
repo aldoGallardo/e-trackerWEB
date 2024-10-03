@@ -1,4 +1,4 @@
-export interface Employee {
+export interface Activity {
   userId: string;
   name: string;
   lastName: string;
