@@ -1,0 +1,21 @@
+.employee-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+mat-form-field {
+  width: 100%;
+}

@@ -4,14 +4,59 @@ import { EmployeesComponent } from './components/employees/employees.component';
 import { BranchesComponent } from './components/branches/branches.component';
 import { ActivitiesComponent } from './components/activities/activities.component';
 import { SuppliesComponent } from './components/supplies/supplies.component';
-import { CreateEmployeeComponent } from './components/create-employee/create-employee.component'; // Importa el componente
+import { CreateEmployeeFormComponent } from './components/employees/create-employee-form/create-employee-form.component';
 
 export const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'employees', component: EmployeesComponent },
-  { path: 'employees/create', component: CreateEmployeeComponent }, // Agrega esta línea
-  { path: 'branches', component: BranchesComponent },
-  { path: 'activities', component: ActivitiesComponent },
-  { path: 'supplies', component: SuppliesComponent },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    data: {
+      breadcrumb: 'Dashboard',
+      title: 'Dashboard',
+    },
+  },
+  {
+    path: 'employees',
+    component: EmployeesComponent,
+    data: {
+      breadcrumb: 'Todos los empleados',
+      title: 'Todos los empleados',
+    },
+  },
+  {
+    path: 'employees/create',
+    component: CreateEmployeeFormComponent, // Cambiado a CreateEmployeeFormComponent
+    data: {
+      breadcrumb: 'Agregar Empleado',
+      title: 'Agregar Empleado',
+    },
+  },
+  {
+    path: 'branches',
+    component: BranchesComponent,
+    data: {
+      breadcrumb: 'Sucursales',
+      title: 'Sucursales',
+      subtitle: 'Mostrar todas las sucursales',
+    },
+  },
+  {
+    path: 'activities',
+    component: ActivitiesComponent,
+    data: {
+      breadcrumb: 'Actividades',
+      title: 'Actividades',
+      subtitle: 'Seguimiento de actividades',
+    },
+  },
+  {
+    path: 'supplies',
+    component: SuppliesComponent,
+    data: {
+      breadcrumb: 'Suministros',
+      title: 'Suministros',
+      subtitle: 'Administrar suministros',
+    },
+  },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, // Redirect to dashboard by default
 ];

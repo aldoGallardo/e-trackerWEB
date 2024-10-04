@@ -1,0 +1,12 @@
+.search-bar {
+  flex: 1;
+  min-width: 200px;
+  max-width: 500px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

@@ -1,0 +1,41 @@
+<nav class="navbar">
+  <div class="navbar-content">
+    <h1>{{ title }}</h1>
+    <span *ngIf="showSubtitle" class="navbar-subtitle">{{ subtitle }}</span>
+    <app-breadcrumb
+      *ngIf="showBreadcrumbs"
+      [breadcrumbItems]="breadcrumbItems"
+    ></app-breadcrumb>
+  </div>
+</nav>
+<!-- 
+<div class="navbar">
+  <div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li
+          *ngFor="let breadcrumb of breadcrumbs; let last = last"
+          [ngClass]="{ active: last }"
+        >
+          <a *ngIf="!last; else lastBreadcrumb" [routerLink]="breadcrumb.url">{{
+            breadcrumb.label
+          }}</a>
+          <ng-template #lastBreadcrumb>
+            <span>{{ breadcrumb.label }}</span>
+          </ng-template>
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <div class="ml-4 flex items-center">
+    <img
+      src="https://via.placeholder.com/50"
+      alt="User"
+      class="w-10 h-10 rounded-full"
+    />
+    <div class="ml-2">
+      <p class="text-sm font-bold">Robert Allen</p>
+      <p class="text-xs text-gray-500">Admin</p>
+    </div>
+  </div>
+</div> -->

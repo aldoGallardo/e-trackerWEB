@@ -1,33 +1,22 @@
-<div class="search-bar flex justify-between items-center mb-4">
-  <app-searchbar (searchChange)="filterEmployees($event)"></app-searchbar>
-  <div class="actions flex">
-    <app-create-button
-      [buttonLabel]="'Agregar Nuevo Empleado'"
-      [icon]="'plus'"
-    ></app-create-button>
-    <app-filter></app-filter>
-  </div>
+<div class="employee-wrapper">
+  <!-- Searchbar -->
+  <app-employee-searchbar (search)="filterEmployees($event)">
+  </app-employee-searchbar>
+
+  <!-- Filter -->
+  <app-employee-searchbar
+    (search)="filterEmployees($event)"
+  ></app-employee-searchbar>
+
+  <!-- Employee List -->
+  <app-employee-list [employees]="employees"> </app-employee-list>
+
+  <!-- Paginator -->
+  <app-employee-paginator
+    [length]="totalEmployees"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    (pageChange)="handlePageEvent($event)"
+  >
+  </app-employee-paginator>
 </div>
-
-<!-- Lista de empleados -->
-<app-list
-  [data]="paginatedEmployees"
-  [columnsConfig]="[
-    { key: 'profilePicture', header: '' },
-    { key: 'name', header: 'Nombre' },
-    { key: 'dni', header: 'DNI' },
-    { key: 'branchOffice', header: 'Sucursal' },
-    { key: 'userType', header: 'Tipo de Usuario' },
-    { key: 'journey', header: 'Jornada' },
-    { key: 'contract', header: 'Contrato' }
-  ]"
-></app-list>
-
-<!-- MatPaginator control -->
-<app-paginator
-  [length]="totalEmployees"
-  [pageSize]="pageSize"
-  [pageIndex]="pageIndex"
-  (pageChange)="handlePageEvent($event)"
-  aria-label="Seleccionar página"
-></app-paginator>

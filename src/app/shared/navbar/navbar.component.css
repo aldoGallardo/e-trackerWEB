@@ -1,0 +1,48 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  font-family: "Inter", sans-serif;
+}
+
+.navbar h1 {
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
+.navbar p {
+  font-size: 1rem;
+  color: #9ca3af;
+}
+
+img {
+  border-radius: 50%;
+}
+
+.app-breadcrumb {
+  margin-top: 8px;
+  font-size: 0.875rem;
+  color: #6b7280; /* Color gris */
+}
+
+.app-breadcrumb a {
+  text-decoration: none;
+  color: #3b82f6; /* Color azul */
+}
+
+.app-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos para el subtítulo */
+.navbar-subtitle {
+  font-size: 16px;
+  color: #6b7280; /* Color gris */
+  margin-top: 8px;
+}

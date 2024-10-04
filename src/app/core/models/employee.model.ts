@@ -1,14 +1,13 @@
 export interface Employee {
-  userId: string;
   name: string;
   lastName: string;
+  userType: string;
   email: string;
-  userNumber: number;
   dni: string;
   password: string;
-  phoneNumber?: string;
-  profilePicture?: string;
+  phoneNumber?: string; // Optional field
+  profilePicture?: string; // Optional field
   birthDate: string;
   branchOffice: string;
-  userType: string;
+  dailyAssistance: any[]; // Could be typed more strictly if the shape of this data is known
 }

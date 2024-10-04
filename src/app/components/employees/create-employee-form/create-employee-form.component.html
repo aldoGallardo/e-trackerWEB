@@ -1,0 +1,126 @@
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="employee-form">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Agregar Empleado</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="form-grid">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="name" required />
+          <mat-error *ngIf="employeeForm.get('name')?.hasError('required')">
+            El nombre es obligatorio.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Apellidos</mat-label>
+          <input matInput formControlName="lastName" required />
+          <mat-error *ngIf="employeeForm.get('lastName')?.hasError('required')">
+            Los apellidos son obligatorios.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Correo</mat-label>
+          <input matInput formControlName="email" type="email" required />
+          <mat-error *ngIf="employeeForm.get('email')?.hasError('required')">
+            El correo es obligatorio.
+          </mat-error>
+          <mat-error *ngIf="employeeForm.get('email')?.hasError('email')">
+            El correo no es válido.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Clave de Ingreso</mat-label>
+          <input matInput formControlName="password" type="password" required />
+          <mat-error *ngIf="employeeForm.get('password')?.hasError('required')">
+            La clave de ingreso es obligatoria.
+          </mat-error>
+          <mat-error
+            *ngIf="employeeForm.get('password')?.hasError('minlength')"
+          >
+            La clave de ingreso debe tener al menos 6 caracteres.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Teléfono</mat-label>
+          <input matInput formControlName="phoneNumber" required />
+          <mat-error
+            *ngIf="employeeForm.get('phoneNumber')?.hasError('required')"
+          >
+            El teléfono es obligatorio.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>DNI</mat-label>
+          <input matInput formControlName="dni" required />
+          <mat-error *ngIf="employeeForm.get('dni')?.hasError('required')">
+            El DNI es obligatorio.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo de Usuario</mat-label>
+          <mat-select formControlName="userType" required>
+            <mat-option value="userAdmin">Administrador</mat-option>
+            <mat-option value="userTechnician">Técnico</mat-option>
+          </mat-select>
+          <mat-error *ngIf="employeeForm.get('userType')?.hasError('required')">
+            El tipo de usuario es obligatorio.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Sucursal</mat-label>
+          <mat-select formControlName="branchOffice" required>
+            <mat-option *ngFor="let branch of branches" [value]="branch.name">
+              {{ branch.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="employeeForm.get('branchOffice')?.hasError('required')"
+          >
+            La sucursal es obligatoria.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha de nacimiento</mat-label>
+          <input
+            matInput
+            formControlName="birthDate"
+            [matDatepicker]="picker"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error
+            *ngIf="employeeForm.get('birthDate')?.hasError('required')"
+          >
+            La fecha de nacimiento es obligatoria.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Foto de Perfil</mat-label>
+          <input matInput formControlName="profilePicture" />
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="actions">
+      <button mat-raised-button color="primary" type="submit">Agregar</button>
+      <button mat-raised-button color="warn" (click)="cancel()">
+        Cancelar
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

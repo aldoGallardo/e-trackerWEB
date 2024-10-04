@@ -1,78 +1,105 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiEmployeesService } from '../../core/services/api-employees.service';
-import { Employee } from '../../core/models/employee.model';
-import { SearchbarComponent } from '../searchbar/searchbar.component';
-import { CreateButtonComponent } from '../create-button/create-button.component';
-import { FilterComponent } from '../filter/filter.component';
-import { ListComponent } from '../list/list.component';
-import {
-  PaginatorComponent,
-  PageEvent,
-} from '../paginator/paginator.component';
+import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { ApiEmployeesService } from '@core/services/api-employees.service';
+import { Employee } from '@core/models/employee.model';
+import { EmployeeListComponent } from 'src/app/components/employees/employee-list/employee-list.component';
+import { FormsModule } from '@angular/forms';
+import { EmployeeSearchbarComponent } from './employee-searchbar/employee-searchbar.component';
+import { EmployeeFilterComponent } from './employee-filter/employee-filter.component';
+import { EmployeePaginatorComponent } from './employee-paginator/employee-paginator.component';
 
 @Component({
   selector: 'app-employees',
   standalone: true,
   imports: [
     CommonModule,
-    SearchbarComponent,
-    CreateButtonComponent,
-    FilterComponent,
-    ListComponent,
-    PaginatorComponent,
+    RouterOutlet,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    EmployeeListComponent,
+    EmployeeFilterComponent,
+    EmployeePaginatorComponent,
+    EmployeeSearchbarComponent,
+    FormsModule,
   ],
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.css'],
 })
 export class EmployeesComponent implements OnInit {
   employees: Employee[] = [];
-  paginatedEmployees: Employee[] = [];
-  pageSize = 10;
+  filteredEmployees: Employee[] = [];
   totalEmployees: number = 0;
-  lastUserNumber: number | undefined = undefined;
+  pageSize = 10;
   pageIndex = 0;
 
   constructor(private apiEmployeesService: ApiEmployeesService) {}
 
+  displayedColumns: string[] = [
+    'id',
+    'name',
+    'email',
+    'phoneNumber',
+    'actions',
+  ];
+
   ngOnInit(): void {
-    this.apiEmployeesService.getTotalUsers().subscribe((response: any) => {
-      this.totalEmployees = response.total; // Total de empleados desde el backend
-      this.loadUsers();
-    });
+    this.loadEmployees();
   }
 
-  loadUsers(startAfterUserNumber: number | undefined = undefined) {
-    this.apiEmployeesService
-      .getEmployees(this.pageSize, startAfterUserNumber)
-      .subscribe(
-        (data: any) => {
-          if (data && data.length > 0) {
-            this.employees = data;
-            this.lastUserNumber = data[data.length - 1].userNumber;
-            this.paginatedEmployees = data;
-          }
-        },
-        (error) => {
-          console.error('Error al obtener los empleados', error);
-        }
+  loadEmployees(): void {
+    this.apiEmployeesService.getEmployees(10).subscribe(
+      (employees: Employee[]) => {
+        this.employees = employees;
+        this.filteredEmployees = employees; // Inicialmente se muestran todos
+        this.totalEmployees = employees.length;
+      },
+      (error: any) => {
+        console.error('Error fetching employees:', error);
+      }
+    );
+  }
+
+  filterEmployees(query: string): void {
+    if (query) {
+      this.filteredEmployees = this.employees.filter(
+        (employee) =>
+          employee.name.toLowerCase().includes(query.toLowerCase()) ||
+          employee.dni.includes(query)
       );
+    } else {
+      this.filteredEmployees = this.employees;
+    }
   }
 
-  handlePageEvent(event: PageEvent) {
+  handlePageEvent(event: any): void {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
-    const startAfter = this.pageIndex === 0 ? undefined : this.lastUserNumber;
-
-    this.loadUsers(startAfter);
+    // Aquí podrías ajustar la lógica para manejar la paginación real
   }
 
-  filterEmployees(query: string) {
-    this.paginatedEmployees = this.employees.filter(
-      (employee) =>
-        employee.name.toLowerCase().includes(query.toLowerCase()) ||
-        employee.dni.includes(query)
+  deleteEmployee(id: number): void {
+    this.apiEmployeesService.deleteEmployee(id).subscribe(
+      () => {
+        this.loadEmployees(); // Reload employees after deletion
+      },
+      (error: any) => {
+        console.error('Error deleting employee:', error);
+      }
     );
-    this.totalEmployees = this.paginatedEmployees.length;
   }
 }

@@ -1,0 +1,10 @@
+<app-searchbar>
+  <div class="searchbar">
+    <input
+      type="text"
+      placeholder="Buscar empleado..."
+      [(ngModel)]="searchQuery"
+      (input)="onSearch()"
+    />
+  </div>
+</app-searchbar>

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiBranchesService } from '../../core/services/api-branches.service';
 import { Branch } from '../../core/models/branch.model'; // Modelo de Sucursales
-import { SearchbarComponent } from '../searchbar/searchbar.component';
-import { CreateButtonComponent } from '../create-button/create-button.component';
-import { FilterComponent } from '../filter/filter.component';
-import { ListComponent } from '../list/list.component';
+import { SearchbarComponent } from '../../shared/searchbar/searchbar.component';
+import { CreateButtonComponent } from '../../shared/create-button/create-button.component';
+import { FilterComponent } from '../../shared/filter/filter.component';
+import { ListComponent } from '../../shared/list/list.component';
 import {
   PaginatorComponent,
   PageEvent,
-} from '../paginator/paginator.component';
+} from '../../shared/paginator/paginator.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
