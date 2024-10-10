@@ -3,7 +3,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EmployeesComponent } from './components/employees/employees.component';
 import { BranchesComponent } from './components/branches/branches.component';
 import { ActivitiesComponent } from './components/activities/activities.component';
-import { SuppliesComponent } from './components/supplies/supplies.component';
+// import { SuppliesComponent } from './components/supplies/supplies.component';
 import { CreateEmployeeFormComponent } from './components/employees/create-employee-form/create-employee-form.component';
 
 export const routes: Routes = [
@@ -25,7 +25,7 @@ export const routes: Routes = [
   },
   {
     path: 'employees/create',
-    component: CreateEmployeeFormComponent, // Cambiado a CreateEmployeeFormComponent
+    component: CreateEmployeeFormComponent,
     data: {
       breadcrumb: 'Agregar Empleado',
       title: 'Agregar Empleado',
@@ -49,14 +49,14 @@ export const routes: Routes = [
       subtitle: 'Seguimiento de actividades',
     },
   },
-  {
-    path: 'supplies',
-    component: SuppliesComponent,
-    data: {
-      breadcrumb: 'Suministros',
-      title: 'Suministros',
-      subtitle: 'Administrar suministros',
-    },
-  },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, // Redirect to dashboard by default
+  // {
+  //   path: 'supplies',
+  //   component: SuppliesComponent,
+  //   data: {
+  //     breadcrumb: 'Suministros',
+  //     title: 'Suministros',
+  //     subtitle: 'Administrar suministros',
+  //   },
+  // },
+  // { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, // Redirect to dashboard by default
 ];

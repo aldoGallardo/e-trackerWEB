@@ -9,7 +9,6 @@ import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component'; // Aju
   standalone: true,
   imports: [CommonModule, BreadcrumbComponent],
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
   title = 'My Application';

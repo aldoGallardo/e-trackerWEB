@@ -1,24 +1,39 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatLabel } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-filter',
   standalone: true,
-  imports: [MatPaginatorModule, MatLabel, MatSelectModule, MatOptionModule],
+  imports: [
+    MatSelectModule,
+    MatOptionModule,
+    CommonModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './filter.component.html',
-  styleUrl: './filter.component.css',
+  styleUrls: ['./filter.component.css'],
 })
 export class FilterComponent {
   @Output() filter = new EventEmitter<string>();
+  filterForm: FormGroup;
+
   filterOptions = [
-    { label: 'Option 1', value: 'option1' },
-    { label: 'Option 2', value: 'option2' },
+    { label: 'Todos', value: '' },
+    { label: 'Administradores', value: 'admin' },
+    { label: 'Técnicos', value: 'technician' },
   ];
 
-  applyFilter(event: any) {
-    this.filter.emit(event.value);
+  constructor(private fb: FormBuilder) {
+    this.filterForm = this.fb.group({
+      selectedFilter: [''],
+    });
+  }
+
+  applyFilter(): void {
+    const value = this.filterForm.get('selectedFilter')?.value || '';
+    this.filter.emit(value);
   }
 }

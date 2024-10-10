@@ -1,1 +1,65 @@
-<app-list [data]="employees" [columnsConfig]="columnsConfig"></app-list>
+<div class="bg-white p-4 rounded-lg">
+  <div class="table-container">
+    <mat-form-field appearance="outline" class="custom-form-field">
+      <mat-label>Filtrar</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Ingrese filtro"
+      />
+    </mat-form-field>
+
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      class="activity-table mat-elevation-z8"
+    >
+      <ng-container matColumnDef="profilePicture">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let element">{{ element.profilePicture }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dni">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID Empleado</th>
+        <td mat-cell *matCellDef="let element">{{ element.dni }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="branchOffice">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sucursal</th>
+        <td mat-cell *matCellDef="let element">{{ element.branchOffice }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="userType">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Categoría</th>
+        <td mat-cell *matCellDef="let element">{{ element.userType }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="journey">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Jornada</th>
+        <td mat-cell *matCellDef="let element">{{ element.journey }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="contract">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Contrato</th>
+        <td mat-cell *matCellDef="let element">{{ element.contract }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSize]="10"
+      showFirstLastButtons
+      [hidePageSize]="true"
+      (page)="changePage($event)"
+      [length]="length"
+    ></mat-paginator>
+  </div>
+</div>

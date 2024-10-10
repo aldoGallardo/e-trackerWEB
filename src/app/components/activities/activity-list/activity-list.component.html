@@ -1,0 +1,68 @@
+<div class="bg-white p-4 rounded-lg">
+  <div class="table-container">
+    <mat-form-field appearance="outline" class="custom-form-field">
+      <mat-label>Filtrar</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Ingrese filtro"
+      />
+    </mat-form-field>
+
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      class="activity-table mat-elevation-z8"
+    >
+      <!-- Columna de Número de Actividad -->
+      <ng-container matColumnDef="orderNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Número de Orden
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.orderNumber }}</td>
+      </ng-container>
+
+      <!-- Columna de Dirección -->
+      <ng-container matColumnDef="activityType">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+        <td mat-cell *matCellDef="let element">{{ element.activityType }}</td>
+      </ng-container>
+
+      <!-- Columna de Descripción -->
+      <ng-container matColumnDef="startedAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Inicio</th>
+        <td mat-cell *matCellDef="let element">{{ element.startedAt }}</td>
+      </ng-container>
+
+      <!-- Columna de Estado -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+        <td mat-cell *matCellDef="let element">
+          <span
+            class="px-2 py-1 rounded-sm"
+            [ngClass]="{
+              'text-green-500 bg-green-100': element.status === 'completed',
+              'text-yellow-500 bg-yellow-100': element.status === 'inProgress',
+              'text-red-500 bg-red-100': element.status === 'pending'
+            }"
+          >
+            {{ element.status }}
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- Header y filas -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSize]="10"
+      showFirstLastButtons
+      [hidePageSize]="true"
+      (page)="changePage($event)"
+      [length]="length"
+    ></mat-paginator>
+  </div>
+</div>

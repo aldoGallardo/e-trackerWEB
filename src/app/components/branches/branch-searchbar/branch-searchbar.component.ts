@@ -3,13 +3,13 @@ import { SearchbarComponent } from 'src/app/shared/searchbar/searchbar.component
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-employee-searchbar',
+  selector: 'app-branch-searchbar',
   standalone: true,
   imports: [SearchbarComponent, FormsModule],
-  templateUrl: './employee-searchbar.component.html',
-  styleUrl: './employee-searchbar.component.css',
+  templateUrl: './branch-searchbar.component.html',
+  styleUrls: ['./branch-searchbar.component.css'],
 })
-export class EmployeeSearchbarComponent {
+export class BranchSearchbarComponent {
   searchQuery: string = '';
   @Output() search = new EventEmitter<string>();
 

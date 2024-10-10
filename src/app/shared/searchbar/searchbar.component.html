@@ -1,4 +1,11 @@
-<mat-form-field appearance="fill">
-  <mat-label>Search</mat-label>
-  <input matInput (keyup)="onSearch($event)" placeholder="Search" />
-</mat-form-field>
+<form [formGroup]="searchForm" class="searchbar">
+  <mat-form-field appearance="fill">
+    <mat-label>Buscar</mat-label>
+    <input
+      matInput
+      placeholder="Buscar"
+      formControlName="searchQuery"
+      (input)="onSearch()"
+    />
+  </mat-form-field>
+</form>

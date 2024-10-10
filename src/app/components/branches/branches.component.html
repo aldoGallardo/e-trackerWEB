@@ -1,28 +1,27 @@
-<div class="search-bar flex justify-between items-center mb-4">
-  <app-searchbar
-    (searchChange)="filterActivities($event.target.value)"
-  ></app-searchbar>
+<div class="branches-wrapper">
+  <!-- Searchbar -->
+  <app-branch-searchbar
+    (search)="filterBranches($event)"
+  ></app-branch-searchbar>
 
-  <div class="actions flex">
-    <app-create-button
-      [buttonLabel]="'Agregar Nueva Sucursal'"
-      [icon]="'plus'"
-    ></app-create-button>
-    <app-filter></app-filter>
-  </div>
+  <!-- Filter -->
+  <app-branch-filter
+    (filterChange)="filterBranches($event)"
+  ></app-branch-filter>
+
+  <!-- Lista de Sucursales -->
+  <app-branch-list [branches]="filteredBranches"></app-branch-list>
+
+  <!-- Paginación -->
+  <app-branch-paginator
+    [length]="totalBranches"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    (pageChange)="handlePageEvent($event)"
+  ></app-branch-paginator>
+
+  <!-- Botón para agregar sucursal -->
+  <button mat-raised-button color="primary" (click)="openCreateBranchModal()">
+    Agregar Sucursal
+  </button>
 </div>
-
-<!-- Lista de sucursales -->
-<app-list
-  [data]="paginatedBranches"
-  [columnsConfig]="[{ key: 'branchName', header: 'Sede' }]"
-></app-list>
-
-<!-- Paginación -->
-<app-paginator
-  [length]="totalBranches"
-  [pageSize]="pageSize"
-  [pageIndex]="pageIndex"
-  (pageChange)="handlePageEvent($event)"
-  aria-label="Seleccionar página"
-></app-paginator>

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.mdc-notched-outline__notch {
+  border-right: none;
+}
+
 /* Variables globales */
 :root {
   --bg-color: #ffffff;

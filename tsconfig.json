@@ -1,32 +1,3 @@
-// {
-//   "compileOnSave": false,
-//   "compilerOptions": {
-//     "outDir": "./dist/out-tsc",
-//     "strict": true,
-//     "noImplicitOverride": true,
-//     "noPropertyAccessFromIndexSignature": true,
-//     "noImplicitReturns": true,
-//     "noFallthroughCasesInSwitch": true,
-//     "skipLibCheck": true,
-//     "isolatedModules": true,
-//     "esModuleInterop": true,
-//     "sourceMap": true,
-//     "declaration": false,
-//     "experimentalDecorators": true,
-//     "moduleResolution": "bundler",
-//     "importHelpers": true,
-//     "target": "ES2022",
-//     "module": "ES2022",
-//     "lib": ["ES2022", "dom"]
-//   },
-//   "angularCompilerOptions": {
-//     "enableI18nLegacyMessageIdFormat": false,
-//     "strictInjectionParameters": true,
-//     "strictInputAccessModifiers": true,
-//     "strictTemplates": true
-//   }
-// }
-
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -36,20 +7,19 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true, // Mantén esto en true, pero puedes ponerlo en false para pruebas.
     "isolatedModules": true,
     "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "moduleResolution": "node", // Cambiado a "node"
+    "moduleResolution": "node",
     "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022",
-    "lib": ["ES2022", "dom"],
-    "baseUrl": "./", // Agregado
+    "target": "ES2022", // Puedes cambiar a "ES2020" si encuentras problemas.
+    "module": "ESNext", // Esto ofrece más flexibilidad con los módulos modernos.
+    "lib": ["ES2022", "dom"], // Si encuentras problemas, puedes cambiar a "ES2020".
+    "baseUrl": "./",
     "paths": {
-      // Agregado
       "@core/*": ["src/app/core/*"]
     }
   },

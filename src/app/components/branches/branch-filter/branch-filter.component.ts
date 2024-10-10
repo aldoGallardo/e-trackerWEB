@@ -4,16 +4,16 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-employee-filter',
+  selector: 'app-branch-filter',
   standalone: true,
   imports: [FilterComponent, FormsModule, CommonModule],
-  templateUrl: './employee-filter.component.html',
-  styleUrls: ['./employee-filter.component.css'],
+  templateUrl: './branch-filter.component.html',
+  styleUrls: ['./branch-filter.component.css'],
 })
-export class EmployeeFilterComponent {
+export class BranchFilterComponent {
   @Output() filterChange = new EventEmitter<string>();
 
-  applyEmployeeFilter(event: string) {
+  applyBranchFilter(event: string) {
     this.filterChange.emit(event); // Emitir el filtro seleccionado
   }
 }

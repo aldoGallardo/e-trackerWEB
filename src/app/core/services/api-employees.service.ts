@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Employee } from '@core/models/employee.model';
 import { Branch } from '@core/models/branch.model';
 
@@ -9,15 +9,16 @@ import { Branch } from '@core/models/branch.model';
   providedIn: 'root',
 })
 export class ApiEmployeesService {
-  private urlApi = 'http://localhost:3000/users'; // Adjust this URL to your actual API
-  private branchApi = 'http://localhost:3000/branchOffices'; // Adjust this URL to your actual API
+  private urlApi = 'http://localhost:3000/users';
+  private branchApi = 'http://localhost:3000/branchOffices';
 
   constructor(private http: HttpClient) {}
 
   getEmployees(
     pageSize: number,
     startAfterUserNumber?: number
-  ): Observable<Employee[]> {
+  ): Observable<any> {
+    console.log(startAfterUserNumber);
     let params = new HttpParams().set('pageSize', pageSize.toString());
 
     if (startAfterUserNumber) {
@@ -27,21 +28,15 @@ export class ApiEmployeesService {
       );
     }
 
-    return this.http
-      .get<Employee[]>(this.urlApi, { params })
-      .pipe(catchError(this.handleError));
+    return this.http.get<any>(this.urlApi, { params });
   }
 
   getTotalUsers(): Observable<{ total: number }> {
-    return this.http
-      .get<{ total: number }>(`${this.urlApi}/total`)
-      .pipe(catchError(this.handleError));
+    return this.http.get<{ total: number }>(`${this.urlApi}/total`);
   }
 
   getEmployeeById(id: string): Observable<Employee> {
-    return this.http
-      .get<Employee>(`${this.urlApi}/${id}`)
-      .pipe(catchError(this.handleError));
+    return this.http.get<Employee>(`${this.urlApi}/${id}`);
   }
 
   addEmployee(employee: Employee): Observable<Employee> {

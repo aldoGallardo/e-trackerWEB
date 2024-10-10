@@ -1,19 +1,33 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatLabel } from '@angular/material/form-field';
-import { MatFormField } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-searchbar',
   standalone: true,
-  imports: [MatPaginatorModule, MatLabel, MatFormField],
+  imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    CommonModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './searchbar.component.html',
   styleUrls: ['./searchbar.component.css'],
 })
 export class SearchbarComponent {
   @Output() search = new EventEmitter<string>();
+  searchForm: FormGroup;
 
-  onSearch(event: any) {
-    this.search.emit(event.target.value);
+  constructor(private fb: FormBuilder) {
+    this.searchForm = this.fb.group({
+      searchQuery: [''],
+    });
+  }
+
+  onSearch(): void {
+    const value = this.searchForm.get('searchQuery')?.value || '';
+    this.search.emit(value);
   }
 }
