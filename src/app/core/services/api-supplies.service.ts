@@ -12,11 +12,17 @@ export class ApiSuppliesService {
   constructor(private http: HttpClient) {}
 
   // Método para obtener suministros con paginación
-  getSupplies(pageSize: number, startAfterSupplyId?: number): Observable<any> {
+  getSupplies(
+    pageSize: number,
+    startAfterSupplyNumber?: number
+  ): Observable<any> {
     let params = new HttpParams().set('pageSize', pageSize.toString());
 
-    if (startAfterSupplyId) {
-      params = params.set('startAfterSupplyId', startAfterSupplyId.toString());
+    if (startAfterSupplyNumber) {
+      params = params.set(
+        'startAfterSupplyNumber',
+        startAfterSupplyNumber.toString()
+      );
     }
 
     return this.http.get<any>(this.urlApi, { params });

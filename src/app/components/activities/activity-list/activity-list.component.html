@@ -1,13 +1,30 @@
 <div class="bg-white p-4 rounded-lg">
   <div class="table-container">
-    <mat-form-field appearance="outline" class="custom-form-field">
-      <mat-label>Filtrar</mat-label>
-      <input
-        matInput
-        (keyup)="applyFilter($event)"
-        placeholder="Ingrese filtro"
-      />
-    </mat-form-field>
+    <div class="flex items-center mb-5">
+      <!-- Form field para filtrar -->
+      <mat-form-field
+        appearance="outline"
+        class="custom-form-field w-full max-w-xs"
+      >
+        <mat-label>Filtrar</mat-label>
+        <mat-icon matSuffix>search</mat-icon>
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          placeholder="Ingrese filtro"
+        />
+      </mat-form-field>
+
+      <!-- Botón alineado a la derecha -->
+      <button
+        class="ml-auto bg-[#035397] text-white text-lg rounded-2xl flex items-center justify-center p-5 gap-2.5"
+        mat-raised-button
+        (click)="openDialog()"
+      >
+        <mat-icon matSuffix>add_circle</mat-icon>
+        Agregar Empleado
+      </button>
+    </div>
 
     <table
       mat-table

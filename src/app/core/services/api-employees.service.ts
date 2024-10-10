@@ -10,6 +10,7 @@ import { Branch } from '@core/models/branch.model';
 })
 export class ApiEmployeesService {
   private urlApi = 'http://localhost:3000/users';
+  private urlApi2 = 'http://localhost:3000/users/without-daily-assistance';
   private branchApi = 'http://localhost:3000/branchOffices';
 
   constructor(private http: HttpClient) {}
@@ -28,7 +29,7 @@ export class ApiEmployeesService {
       );
     }
 
-    return this.http.get<any>(this.urlApi, { params });
+    return this.http.get<any>(this.urlApi2, { params });
   }
 
   getTotalUsers(): Observable<{ total: number }> {

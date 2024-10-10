@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { ApiEmployeesService } from 'src/app/core/services/api-employees.service';
+import { ApiSuppliesService } from 'src/app/core/services/api-supplies.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -12,10 +12,10 @@ import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({
-  selector: 'app-employee-list',
+  selector: 'app-supply-list',
   standalone: true,
-  templateUrl: './employee-list.component.html',
-  styleUrls: ['./employee-list.component.css'],
+  templateUrl: './supply-list.component.html',
+  styleUrls: ['./supply-list.component.css'],
   imports: [
     CommonModule,
     MatTableModule,
@@ -26,44 +26,36 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
   ],
 })
-export class EmployeeListComponent implements OnInit {
+export class SupplyListComponent implements OnInit {
   length = 0;
-  displayedColumns: string[] = [
-    'profilePicture',
-    'name',
-    'dni',
-    'branchOffice',
-    'userType',
-    'journey',
-    'contract',
-  ];
+  displayedColumns: string[] = ['name', 'unit', 'description'];
   dataSource = new MatTableDataSource<any>();
 
   // @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private apiEmployeesService: ApiEmployeesService) {} // Inyecta el servicio
+  constructor(private apiSuppliesService: ApiSuppliesService) {} // Inyecta el servicio
 
   ngOnInit() {
-    this.apiEmployeesService.getTotalUsers().subscribe((data: any) => {
+    this.apiSuppliesService.getTotalSupplies().subscribe((data: any) => {
       this.length = data.total;
     });
-    this.loadEmployees();
+    this.loadSupplies();
   }
 
-  loadEmployees(startAfter?: number) {
-    this.apiEmployeesService.getEmployees(10, startAfter).subscribe({
+  loadSupplies(startAfter?: number) {
+    this.apiSuppliesService.getSupplies(10, startAfter).subscribe({
       next: (data: any) => {
         this.dataSource.data = data;
       },
       error: (error) => {
-        console.log('Error al obtener empleados', error);
+        console.log('Error al obtener suministros', error);
       },
     });
   }
 
   changePage(event: any) {
-    this.loadEmployees(event.pageIndex * 10);
+    this.loadSupplies(event.pageIndex * 10);
   }
 
   applyFilter(event: Event) {
