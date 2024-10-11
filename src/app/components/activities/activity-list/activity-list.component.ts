@@ -24,6 +24,7 @@ import {
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AddActivityDialogComponent } from '../add-activity-dialog/add-activity-dialog.component';
+import { EditActivityDialogComponent } from '../edit-activity-dialog/edit-activity-dialog.component'; // Ajusta según la ruta
 
 @Component({
   selector: 'app-activity-list',
@@ -46,8 +47,10 @@ export class ActivityListComponent implements OnInit {
   displayedColumns: string[] = [
     'orderNumber',
     'activityType',
+    'address',
     'startedAt',
     'status',
+    'actions',
   ];
   dataSource = new MatTableDataSource<any>();
 
@@ -91,6 +94,20 @@ export class ActivityListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
+    });
+  }
+
+  openEditDialog(activity: any): void {
+    const dialogRef = this.dialog.open(EditActivityDialogComponent, {
+      width: '400px',
+      data: activity, // Asegúrate de que 'activity' incluye 'id'
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // Recargar la lista de actividades si es necesario
+        this.loadActivities();
+      }
     });
   }
 }

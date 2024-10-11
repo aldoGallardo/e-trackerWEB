@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Editar Actividad</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Seleccionar sucursal</mat-label>
+    <mat-select [(ngModel)]="selectedBranch">
+      <mat-option *ngFor="let branch of branches" [value]="branch">
+        {{ branch.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Seleccionar tipo de actividad</mat-label>
+    <mat-select [(ngModel)]="selectedActivityType">
+      <mat-option
+        *ngFor="let activityType of activityTypes"
+        [value]="activityType"
+      >
+        {{ activityType.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Ingresar Dirección</mat-label>
+    <input matInput [(ngModel)]="activity.address" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Ingresar Número de Orden</mat-label>
+    <input matInput [(ngModel)]="activity.orderNumber" />
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="updateActivity()">
+    Guardar Cambios
+  </button>
+</mat-dialog-actions>

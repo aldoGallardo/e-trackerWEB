@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  signal,
   OnInit,
 } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,12 +17,11 @@ import {
 } from '@angular/material/dialog';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
-import { Activity } from 'src/app/core/models/activity.model';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ApiActivitiesService } from 'src/app/core/services/api-activities.service';
-import { ActivityType } from 'src/app/core/models/activityType.model';
 import { ApiActivityTypesService } from 'src/app/core/services/api-activityTypes.service';
+import { Activity } from 'src/app/core/models/activity.model';
 
 @Component({
   selector: 'app-add-activity-dialog',
@@ -48,13 +46,12 @@ import { ApiActivityTypesService } from 'src/app/core/services/api-activityTypes
 })
 export class AddActivityDialogComponent implements OnInit {
   readonly dialogRef = inject(MatDialogRef<AddActivityDialogComponent>);
-  readonly data = inject<Activity>(MAT_DIALOG_DATA);
-  readonly activityType = signal(this.data.activityType);
   branches: any[] = [];
   activityTypes: any[] = [];
+  selectedBranch: any = null;
+  selectedActivityType: any = null; // Ahora seleccionaremos el objeto completo
   orderNumber: string = '';
-  selectedBranch: string = '';
-  selectedActivityType: string = '';
+  address: string = '';
 
   constructor(
     private apiActivitiesService: ApiActivitiesService,
@@ -62,28 +59,33 @@ export class AddActivityDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Obtener sucursales y tipos de actividades
     this.apiActivitiesService.getBranches().subscribe((data: any[]) => {
       this.branches = data;
+      console.log('Sucursales:', this.branches); // Verificar las sucursales
     });
-    this.apiActivityTypesService.getActivityTypes().subscribe((data: any[]) => {
+    this.apiActivitiesService.getActivityTypes().subscribe((data: any[]) => {
       this.activityTypes = data;
+      console.log('Tipos de actividades:', this.activityTypes); // Verificar los tipos de actividades
     });
   }
 
+  // Cerrar el diálogo sin hacer nada
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  addActivity(
-    branchOffice: string,
-    activityType: string,
-    orderNumber: string
-  ): void {
+  // Agregar una nueva actividad
+  addActivity(): void {
     const activity: Activity = {
       branchOffice: this.selectedBranch,
-      activityType: this.selectedActivityType,
+      activityType: this.selectedActivityType, // Aquí asegúrate de que sea un string
       orderNumber: this.orderNumber,
+      address: this.address,
     };
+
+    console.log('Activity to be added:', activity); // Verifica que el activityType no esté vacío y sea string
+
     this.apiActivitiesService.addActivity(activity).subscribe({
       next: (data: any) => {
         console.log('Actividad añadida correctamente');

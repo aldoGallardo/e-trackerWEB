@@ -22,7 +22,7 @@
         (click)="openDialog()"
       >
         <mat-icon matSuffix>add_circle</mat-icon>
-        Agregar Empleado
+        Agregar Actividad
       </button>
     </div>
 
@@ -40,16 +40,30 @@
         <td mat-cell *matCellDef="let element">{{ element.orderNumber }}</td>
       </ng-container>
 
-      <!-- Columna de Dirección -->
+      <!-- Columna de Tipo -->
       <ng-container matColumnDef="activityType">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
         <td mat-cell *matCellDef="let element">{{ element.activityType }}</td>
       </ng-container>
 
+      <!-- Columna de Dirección -->
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Dirección</th>
+        <td mat-cell *matCellDef="let element">{{ element.address }}</td>
+      </ng-container>
+
       <!-- Columna de Descripción -->
       <ng-container matColumnDef="startedAt">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Inicio</th>
-        <td mat-cell *matCellDef="let element">{{ element.startedAt }}</td>
+        <td mat-cell *matCellDef="let element">
+          <!-- Si el estado no es 'completed', muestra las rayitas; de lo contrario, muestra la fecha de inicio -->
+          <span *ngIf="element.status !== 'completed'; else showDate"
+            >------------</span
+          >
+          <ng-template #showDate>{{
+            element.startedAt | date : "HH:mm a"
+          }}</ng-template>
+        </td>
       </ng-container>
 
       <!-- Columna de Estado -->
@@ -64,8 +78,30 @@
               'text-red-500 bg-red-100': element.status === 'pending'
             }"
           >
-            {{ element.status }}
+            {{
+              element.status === "completed"
+                ? "Completado"
+                : element.status === "inProgress"
+                ? "En progreso"
+                : element.status === "pending"
+                ? "Pendiente"
+                : element.status
+            }}
           </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let element">
+          <!-- Botón de edición -->
+          <button
+            mat-icon-button
+            (click)="openEditDialog(element)"
+            aria-label="Edit Activity"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
         </td>
       </ng-container>
 

@@ -74,7 +74,7 @@ export class CreateEmployeeFormComponent implements OnInit {
       const newEmployee: Employee = this.employeeForm.value;
       this.apiEmployeesService.addEmployee(newEmployee).subscribe(
         (response: any) => {
-          this.router.navigate(['/employees']);
+          this.router.navigate(['/employees']); // Redirigir a la lista de empleados después de agregar
         },
         (error: any) => {
           console.error('Error al agregar empleado', error);
@@ -84,6 +84,6 @@ export class CreateEmployeeFormComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/employees']);
+    this.router.navigate(['/employees']); // Redirigir a la lista de empleados si se cancela
   }
 }

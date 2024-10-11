@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Branch } from '@core/models/branch.model';
 import { ActivityType } from '@core/models/activityType.model';
+import { Activity } from '@core/models/activity.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { ActivityType } from '@core/models/activityType.model';
 export class ApiActivitiesService {
   private urlApi = 'http://localhost:3000/activities';
   private branchApi = 'http://localhost:3000/branchOffices';
-  private activityTypeApi = 'http://localhost:3000/activityTypes';
+  private activityTypeApi = 'http://localhost:3000/activity-types';
 
   constructor(private http: HttpClient) {}
 
@@ -46,7 +47,21 @@ export class ApiActivitiesService {
       .pipe(catchError(this.handleError));
   }
 
-  // Método para buscar actividades por término
+  updateActivity(
+    activity: {
+      orderNumber: string;
+      branchOffice: string;
+      address: string;
+      activityType: string;
+    },
+    id: string
+  ): Observable<any> {
+    console.log(activity);
+    return this.http
+      .patch<any>(`${this.urlApi}/${id}/update`, activity)
+      .pipe(catchError(this.handleError));
+  }
+
   searchActivities(term: string): Observable<any> {
     let params = new HttpParams().set('term', term);
     return this.http.get<any>(`${this.urlApi}/search`, { params });

@@ -24,7 +24,7 @@ export const routes: Routes = [
     },
   },
   {
-    path: 'employees/create',
+    path: 'employees/create', // Ruta específica para crear un nuevo empleado
     component: CreateEmployeeFormComponent,
     data: {
       breadcrumb: 'Agregar Empleado',
@@ -58,5 +58,6 @@ export const routes: Routes = [
       subtitle: 'Administrar suministros',
     },
   },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, // Redirect to dashboard by default
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, // Redirigir al dashboard por defecto
+  { path: '**', redirectTo: 'dashboard' }, // Redirigir cualquier ruta no válida al dashboard
 ];

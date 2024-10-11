@@ -10,6 +10,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-list',
@@ -39,10 +40,12 @@ export class EmployeeListComponent implements OnInit {
   ];
   dataSource = new MatTableDataSource<any>();
 
-  // @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private apiEmployeesService: ApiEmployeesService) {} // Inyecta el servicio
+  constructor(
+    private apiEmployeesService: ApiEmployeesService,
+    private router: Router
+  ) {} // Inyectar el Router
 
   ngOnInit() {
     this.apiEmployeesService.getTotalUsers().subscribe((data: any) => {
@@ -69,5 +72,10 @@ export class EmployeeListComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  // Método para redirigir al formulario de creación de empleado
+  goToCreateEmployeeForm() {
+    this.router.navigate(['/create-employee']); // Ruta hacia el formulario
   }
 }

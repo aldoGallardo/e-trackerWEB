@@ -1,10 +1,11 @@
 export interface Activity {
   activityType: string;
+  address: string;
   branchOffice: string;
   orderNumber: string;
   createdAt?: string;
   description?: string;
-  id?: number;
+  id?: string;
   status?: string;
   updatedAt?: string;
 }

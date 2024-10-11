@@ -10,6 +10,19 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
+import { AddSupplyDialogComponent } from '../add-supply-dialog/add-supply-dialog.component';
+import { ChangeDetectionStrategy, inject, model, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-supply-list',
@@ -27,6 +40,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
 })
 export class SupplyListComponent implements OnInit {
+  readonly dialog = inject(MatDialog);
   length = 0;
   displayedColumns: string[] = ['name', 'unit', 'description'];
   dataSource = new MatTableDataSource<any>();
@@ -61,5 +75,16 @@ export class SupplyListComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddSupplyDialogComponent, {
+      width: '250px',
+      data: { name: 'Nombre del suministro' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
   }
 }

@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Supply } from '../models/supply.model';
 
 @Injectable({
@@ -36,5 +37,15 @@ export class ApiSuppliesService {
   // Método para obtener un suministro por ID
   public getSupplyById(id: string): Observable<Supply> {
     return this.http.get<Supply>(`${this.urlApi}/${id}`);
+  }
+
+  addSupply(activity: any): Observable<any> {
+    return this.http
+      .post<any>(this.urlApi, activity)
+      .pipe(catchError(this.handleError));
+  }
+  private handleError(error: any) {
+    console.error('Request error:', error);
+    return throwError(() => new Error('Error occurred, please try again.'));
   }
 }

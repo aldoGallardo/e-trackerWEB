@@ -1,29 +1,38 @@
 <h2 mat-dialog-title>Agregar Actividad</h2>
+
 <mat-dialog-content>
+  <!-- Selección de la sucursal -->
   <mat-form-field>
     <mat-label>Seleccionar sucursal</mat-label>
     <mat-select [(ngModel)]="selectedBranch">
-      <mat-option *ngFor="let branch of branches" [value]="branch">
+      <mat-option *ngFor="let branch of branches" [value]="branch.id">
         {{ branch.name }}
       </mat-option>
     </mat-select>
   </mat-form-field>
 
+  <!-- Selección del tipo de actividad -->
+  <mat-form-field>
+    <mat-label>Seleccionar tipo de actividad</mat-label>
+    <mat-select [(ngModel)]="selectedActivityType">
+      <mat-option
+        *ngFor="let activityType of activityTypes"
+        [value]="activityType.id"
+      >
+        {{ activityType.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Ingreso del número de orden -->
   <mat-form-field>
     <mat-label>Ingresar Número de Orden</mat-label>
     <input matInput [(ngModel)]="orderNumber" />
   </mat-form-field>
 
   <mat-form-field>
-    <mat-label>Seleccionar tipo de actividad</mat-label>
-    <mat-select [(ngModel)]="selectedActivityType">
-      <mat-option
-        *ngFor="let activityType of activityTypes"
-        [value]="activityType"
-      >
-        {{ activityType.name }}
-      </mat-option>
-    </mat-select>
+    <mat-label>Ingresar Dirección</mat-label>
+    <input matInput [(ngModel)]="address" />
   </mat-form-field>
 </mat-dialog-content>
 
@@ -32,7 +41,7 @@
   <button
     class="ml-auto bg-[#035397] text-white text-lg rounded-2xl"
     mat-raised-button
-    (click)="addActivity(selectedBranch, orderNumber, selectedActivityType)"
+    (click)="addActivity()"
   >
     Agregar
   </button>
