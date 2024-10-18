@@ -3,11 +3,21 @@ import { MenubarModule } from 'primeng/menubar';
 import { BadgeModule } from 'primeng/badge';
 import { AvatarModule } from 'primeng/avatar';
 import { NgClass, NgIf, CommonModule } from '@angular/common';
+import { MatCard } from '@angular/material/card';
+import { MatCardContent } from '@angular/material/card';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MenubarModule, BadgeModule, AvatarModule, NgClass, CommonModule],
+  imports: [
+    MatCard,
+    MatCardContent,
+    MenubarModule,
+    BadgeModule,
+    AvatarModule,
+    NgClass,
+    CommonModule,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })

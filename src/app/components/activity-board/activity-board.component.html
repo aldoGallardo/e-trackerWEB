@@ -1,0 +1,98 @@
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <!-- Actividades Pendientes -->
+  <div class="border rounded-lg p-4 shadow-sm">
+    <h2 class="text-amber-700 font-semibold mb-2 flex items-center">
+      <span class="material-icons mr-2">pending</span> Pendiente
+    </h2>
+    <ng-container *ngIf="pendingActivities.length; else noPending">
+      <ng-container *ngFor="let activity of pendingActivities">
+        <mat-card class="mb-4 shadow-md">
+          <mat-card-header>
+            <div class="flex items-center space-x-4">
+              <span class="material-icons">work_outline</span>
+              <div>
+                <mat-card-title>{{ activity.orderNumber }}</mat-card-title>
+                <mat-card-subtitle>{{
+                  activity.activityType
+                }}</mat-card-subtitle>
+              </div>
+            </div>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="font-semibold text-blue-600">
+              Asignado a: {{ activity.assignTo }}
+            </p>
+            <p>📍 {{ activity.address }}</p>
+            <div class="flex space-x-4">
+              <p>Inicio: {{ activity.startedAt | date : "shortTime" }}</p>
+              <p>Fin: {{ activity.completedAt }}</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
+    </ng-container>
+    <ng-template #noPending>
+      <p>No hay actividades pendientes para la sucursal seleccionada.</p>
+    </ng-template>
+  </div>
+
+  <!-- Actividades en Progreso -->
+  <div class="border rounded-lg p-4 shadow-sm">
+    <h2 class="text-red-600 font-semibold mb-2 flex items-center">
+      <span class="material-icons mr-2">autorenew</span> En Progreso
+    </h2>
+    <ng-container *ngFor="let activity of inProgressActivities">
+      <mat-card class="mb-4 shadow-md">
+        <mat-card-header>
+          <div class="flex items-center space-x-4">
+            <span class="material-icons">work_outline</span>
+            <div>
+              <mat-card-title>{{ activity.orderNumber }}</mat-card-title>
+              <mat-card-subtitle>{{ activity.activityType }}</mat-card-subtitle>
+            </div>
+          </div>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="font-semibold text-blue-600">
+            Asignado a: {{ activity.assignTo }}
+          </p>
+          <p>📍 {{ activity.address }}</p>
+          <div class="flex space-x-4">
+            <p>Inicio: {{ activity.startedAt | date : "shortTime" }}</p>
+            <p>Fin: ---</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </div>
+
+  <!-- Actividades Completadas -->
+  <div class="border rounded-lg p-4 shadow-sm">
+    <h2 class="text-green-700 font-semibold mb-2 flex items-center">
+      <span class="material-icons mr-2">check_circle_outline</span> Completadas
+    </h2>
+    <ng-container *ngFor="let activity of completedActivities">
+      <mat-card class="mb-4 shadow-md">
+        <mat-card-header>
+          <div class="flex items-center space-x-4">
+            <span class="material-icons">work_outline</span>
+            <div>
+              <mat-card-title>{{ activity.orderNumber }}</mat-card-title>
+              <mat-card-subtitle>{{ activity.activityType }}</mat-card-subtitle>
+            </div>
+          </div>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="font-semibold text-blue-600">
+            Asignado a: {{ activity.assignTo }}
+          </p>
+          <p>📍 {{ activity.address }}</p>
+          <div class="flex space-x-4">
+            <p>Inicio: {{ activity.startedAt | date : "shortTime" }}</p>
+            <p>Fin: {{ activity.completedAt }}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </div>
+</div>

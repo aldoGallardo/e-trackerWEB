@@ -44,65 +44,58 @@ import { CreateBranchFormComponent } from './create-branch-form/create-branch-fo
   templateUrl: './branches.component.html',
   styleUrls: ['./branches.component.css'],
 })
-export class BranchesComponent implements OnInit {
-  branches: Branch[] = [];
-  filteredBranches: Branch[] = [];
-  totalBranches: number = 0;
-  pageSize = 10;
-  pageIndex = 0;
-
-  constructor(
-    private apiBranchesService: ApiBranchesService,
-    private dialog: MatDialog // Para manejar el modal
-  ) {}
-
-  ngOnInit(): void {
-    this.loadBranches();
-  }
-
-  loadBranches(): void {
-    this.apiBranchesService.getBranches(10).subscribe(
-      (branches: Branch[]) => {
-        this.branches = branches;
-        this.filteredBranches = branches;
-        this.totalBranches = branches.length;
-      },
-      (error: any) => {
-        console.error('Error fetching branches:', error);
-      }
-    );
-  }
-
-  filterBranches(query: string): void {
-    if (query) {
-      this.filteredBranches = this.branches.filter((branch) =>
-        branch.name.toLowerCase().includes(query.toLowerCase())
-      );
-    } else {
-      this.filteredBranches = this.branches;
-    }
-  }
-
-  openCreateBranchModal(): void {
-    const dialogRef = this.dialog.open(CreateBranchFormComponent, {
-      width: '400px',
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'success') {
-        this.loadBranches(); // Recargar la lista después de crear
-      }
-    });
-  }
-
-  handlePageEvent(event: any): void {
-    this.pageSize = event.pageSize;
-    this.pageIndex = event.pageIndex;
-  }
-
-  deleteBranch(id: number): void {
-    this.apiBranchesService.deleteBranch(id).subscribe(() => {
-      this.loadBranches();
-    });
-  }
+export class BranchesComponent {
+  //  implements OnInit
+  // branches: Branch[] = [];
+  // filteredBranches: Branch[] = [];
+  // totalBranches: number = 0;
+  // pageSize = 10;
+  // pageIndex = 0;
+  // constructor(
+  //   private apiBranchesService: ApiBranchesService,
+  //   private dialog: MatDialog
+  // ) {}
+  // ngOnInit(): void {
+  //   this.loadBranches();
+  // }
+  // loadBranches(): void {
+  //   this.apiBranchesService.getBranches(10).subscribe(
+  //     (branches: Branch[]) => {
+  //       this.branches = branches;
+  //       this.filteredBranches = branches;
+  //       this.totalBranches = branches.length;
+  //     },
+  //     (error: any) => {
+  //       console.error('Error fetching branches:', error);
+  //     }
+  //   );
+  // }
+  // filterBranches(query: string): void {
+  //   if (query) {
+  //     this.filteredBranches = this.branches.filter((branch) =>
+  //       branch.name.toLowerCase().includes(query.toLowerCase())
+  //     );
+  //   } else {
+  //     this.filteredBranches = this.branches;
+  //   }
+  // }
+  // openCreateBranchModal(): void {
+  //   const dialogRef = this.dialog.open(CreateBranchFormComponent, {
+  //     width: '400px',
+  //   });
+  //   dialogRef.afterClosed().subscribe((result) => {
+  //     if (result === 'success') {
+  //       this.loadBranches();
+  //     }
+  //   });
+  // }
+  // handlePageEvent(event: any): void {
+  //   this.pageSize = event.pageSize;
+  //   this.pageIndex = event.pageIndex;
+  // }
+  // deleteBranch(id: number): void {
+  //   this.apiBranchesService.deleteBranch(id).subscribe(() => {
+  //     this.loadBranches();
+  //   });
+  // }
 }

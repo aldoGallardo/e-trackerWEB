@@ -20,8 +20,11 @@ import { MatSelect } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ApiActivitiesService } from 'src/app/core/services/api-activities.service';
+import { ApiBranchesService } from 'src/app/core/services/api-branches.service';
 import { ApiActivityTypesService } from 'src/app/core/services/api-activityTypes.service';
 import { Activity } from 'src/app/core/models/activity.model';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-edit-activity-dialog',
@@ -47,64 +50,94 @@ import { Activity } from 'src/app/core/models/activity.model';
 export class EditActivityDialogComponent implements OnInit {
   activity: Activity;
   branches: any[] = [];
-  address: string = '';
   activityTypes: any[] = [];
-  selectedBranch: any = null; // Se usará para almacenar la sucursal seleccionada
-  selectedActivityType: any = null; // Se usará para almacenar el tipo de actividad seleccionada
+  selectedBranch: any = null;
+  selectedActivityType: any = null;
 
   constructor(
     private dialogRef: MatDialogRef<EditActivityDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private apiActivitiesService: ApiActivitiesService,
+    private apiBranchesService: ApiBranchesService,
     private apiActivityTypesService: ApiActivityTypesService
   ) {
-    this.activity = { ...data }; // Clona la actividad para edición
+    this.activity = { ...data };
   }
 
   ngOnInit(): void {
-    // Obtener sucursales
-    this.apiActivitiesService.getBranches().subscribe((data: any[]) => {
-      this.branches = data;
-      // Seleccionar la sucursal actual
-      this.selectedBranch = this.branches.find(
-        (branch) => branch.id === this.activity.branchOffice
-      );
-    });
-
-    // Obtener tipos de actividades
-    this.apiActivityTypesService.getActivityTypes().subscribe((data: any[]) => {
-      this.activityTypes = data;
-      // Seleccionar el tipo de actividad actual
-      this.selectedActivityType = this.activityTypes.find(
-        (activityType) => activityType.id === this.activity.activityType
-      );
-    });
+    this.loadBranches();
+    this.loadActivityTypes();
   }
 
-  // Método para actualizar la actividad
-  updateActivity(): void {
-    this.apiActivitiesService
-      .updateActivity(
-        {
-          orderNumber: this.activity.orderNumber,
-          branchOffice: this.selectedBranch.id,
-          address: this.activity.address,
-          activityType: this.selectedActivityType.id,
-        },
-        this.activity.id!
+  loadBranches(): void {
+    this.apiBranchesService
+      .getBranches(10)
+      .pipe(
+        catchError((error) => {
+          console.error('Error al cargar sucursales', error);
+          return of([]);
+        })
       )
-      .subscribe({
-        next: (response) => {
-          console.log('Actividad actualizada con éxito');
-          this.dialogRef.close(true); // Cierra el diálogo y notifica éxito
-        },
-        error: (error) => {
-          console.log('Error al actualizar la actividad', error);
-        },
+      .subscribe((data: any[]) => {
+        this.branches = data;
+        this.selectedBranch = this.branches.find(
+          (branch) => branch.id === this.activity.branchOffice
+        );
       });
   }
 
-  // Método para cancelar y cerrar el diálogo sin hacer cambios
+  loadActivityTypes(): void {
+    this.apiActivityTypesService
+      .getActivityTypes()
+      .pipe(
+        catchError((error) => {
+          console.error('Error al cargar tipos de actividad', error);
+          return of([]);
+        })
+      )
+      .subscribe((data: any[]) => {
+        this.activityTypes = data;
+        this.selectedActivityType = this.activityTypes.find(
+          (type) => type.id === this.activity.activityType
+        );
+      });
+  }
+
+  updateActivity(): void {
+    if (
+      !this.selectedBranch ||
+      !this.selectedBranch.id ||
+      !this.selectedActivityType ||
+      !this.selectedActivityType.id
+    ) {
+      console.error('Faltan datos para actualizar la actividad.');
+      return;
+    }
+
+    const updatedActivity: Activity = {
+      id: this.activity.id,
+      orderNumber: this.activity.orderNumber,
+      branchOffice: this.selectedBranch.id,
+      address: this.activity.address,
+      activityType: this.selectedActivityType.id,
+    };
+
+    this.apiActivitiesService
+      .updateActivity(updatedActivity)
+      .pipe(
+        catchError((error) => {
+          console.error('Error al actualizar la actividad', error);
+          return of(null);
+        })
+      )
+      .subscribe((response) => {
+        if (response) {
+          console.log('Actividad actualizada con éxito');
+          this.dialogRef.close(true);
+        }
+      });
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
   }

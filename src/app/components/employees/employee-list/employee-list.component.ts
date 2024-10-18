@@ -1,7 +1,6 @@
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { ApiEmployeesService } from 'src/app/core/services/api-employees.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
@@ -75,7 +74,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   // Método para redirigir al formulario de creación de empleado
-  goToCreateEmployeeForm() {
-    this.router.navigate(['/create-employee']); // Ruta hacia el formulario
+  goToCreateEmployeeForm(): void {
+    this.router.navigate(['/employees/create']);
   }
 }

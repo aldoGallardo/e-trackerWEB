@@ -1,26 +1,30 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { Branch } from '@core/models/branch.model';
-import { ActivityType } from '@core/models/activityType.model';
+import { Observable, forkJoin, of, throwError } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Activity } from '@core/models/activity.model';
+import { ApiActivityTypesService } from './api-activityTypes.service';
+import { ApiBranchesService } from './api-branches.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiActivitiesService {
   private urlApi = 'http://localhost:3000/activities';
-  private branchApi = 'http://localhost:3000/branchOffices';
-  private activityTypeApi = 'http://localhost:3000/activity-types';
+  private usersApi = 'http://localhost:3000/users'; // Endpoint para obtener usuarios
+  private userCache = new Map<string, string>(); // Cache para los nombres de usuario
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private apiActivityTypesService: ApiActivityTypesService,
+    private apiBranchesService: ApiBranchesService
+  ) {}
 
+  // Obtener actividades con paginación y mapeo de tipos de actividad
   getActivities(
     pageSize: number,
     startAfterActivityNumber?: number
-  ): Observable<any> {
-    console.log(startAfterActivityNumber);
+  ): Observable<any[]> {
     let params = new HttpParams().set('pageSize', pageSize.toString());
 
     if (startAfterActivityNumber) {
@@ -30,14 +34,68 @@ export class ApiActivitiesService {
       );
     }
 
-    return this.http.get<any>(this.urlApi, { params });
+    return this.http.get<any[]>(this.urlApi, { params }).pipe(
+      switchMap((activities) =>
+        this.apiActivityTypesService.getActivityTypes().pipe(
+          map((activityTypes) => {
+            const typeMap = new Map(
+              activityTypes.map((type) => [type.id, type.name])
+            );
+
+            return activities.map((activity) => {
+              if (activity.startedAt?._seconds) {
+                activity.startedAt = new Date(
+                  activity.startedAt._seconds * 1000
+                );
+              }
+              if (activity.assignmentDate?._seconds) {
+                activity.assignmentDate = new Date(
+                  activity.assignmentDate._seconds * 1000
+                );
+              }
+
+              activity.activityType =
+                typeMap.get(activity.activityType) || 'Desconocido';
+              return activity;
+            });
+          })
+        )
+      ),
+      catchError(this.handleError)
+    );
   }
 
-  getTotalActivities(): Observable<{ total: number }> {
-    return this.http.get<{ total: number }>(`${this.urlApi}/total`);
+  // Obtener todas las actividades sin paginación
+  getAllActivities(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.urlApi}`).pipe(
+      map((activities) => {
+        console.log('Actividades desde API:', activities); // Debug para revisar la respuesta completa
+        return activities;
+      }),
+      catchError(this.handleError)
+    );
   }
 
-  public getActivityById(id: string): Observable<any> {
+  // Si necesitas paginar (solo si el backend lo soporta)
+  getActivitiesPaginated(
+    pageSize: number,
+    pageIndex: number
+  ): Observable<any[]> {
+    let params = new HttpParams()
+      .set('pageSize', pageSize.toString())
+      .set('pageIndex', pageIndex.toString());
+
+    return this.http.get<any[]>(this.urlApi, { params }).pipe(
+      map((activities) => activities || []),
+      catchError(this.handleError)
+    );
+  }
+
+  getTotalActivities(): Observable<any> {
+    return this.http.get<any>(`${this.urlApi}/total`);
+  }
+
+  getActivityById(id: string): Observable<any> {
     return this.http.get<any>(`${this.urlApi}/${id}`);
   }
 
@@ -47,19 +105,12 @@ export class ApiActivitiesService {
       .pipe(catchError(this.handleError));
   }
 
-  updateActivity(
-    activity: {
-      orderNumber: string;
-      branchOffice: string;
-      address: string;
-      activityType: string;
-    },
-    id: string
-  ): Observable<any> {
-    console.log(activity);
-    return this.http
-      .patch<any>(`${this.urlApi}/${id}/update`, activity)
-      .pipe(catchError(this.handleError));
+  updateActivity(activity: Activity): Observable<any> {
+    const { id, ...activityData } = activity;
+    return this.http.patch(
+      `http://localhost:3000/activities/${id}/update`,
+      activityData
+    );
   }
 
   searchActivities(term: string): Observable<any> {
@@ -67,16 +118,24 @@ export class ApiActivitiesService {
     return this.http.get<any>(`${this.urlApi}/search`, { params });
   }
 
-  getBranches(): Observable<Branch[]> {
-    return this.http
-      .get<Branch[]>(this.branchApi)
-      .pipe(catchError(this.handleError));
-  }
+  getUserNames(userIds: string[]): Observable<Map<string, string>> {
+    const uncachedIds = userIds.filter((id) => !this.userCache.has(id));
 
-  getActivityTypes(): Observable<ActivityType[]> {
+    if (uncachedIds.length === 0) {
+      return of(this.userCache);
+    }
+
     return this.http
-      .get<ActivityType[]>(this.activityTypeApi)
-      .pipe(catchError(this.handleError));
+      .get<any[]>(this.usersApi, { params: { ids: uncachedIds.join(',') } })
+      .pipe(
+        tap((users) => {
+          users.forEach((user) =>
+            this.userCache.set(user.id, `${user.firstName} ${user.lastName}`)
+          );
+        }),
+        map(() => this.userCache),
+        catchError(this.handleError)
+      );
   }
 
   private handleError(error: any) {

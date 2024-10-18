@@ -69,6 +69,17 @@ export class ActivityListComponent implements OnInit {
   loadActivities(startAfter?: number) {
     this.apiActivitiesService.getActivities(10, startAfter).subscribe({
       next: (data: any) => {
+        // Recorremos las actividades y convertimos las fechas
+        data.forEach((activity: any) => {
+          if (activity.startedAt && activity.startedAt._seconds) {
+            activity.startedAt = new Date(activity.startedAt._seconds * 1000);
+          }
+          if (activity.assignmentDate && activity.assignmentDate._seconds) {
+            activity.assignmentDate = new Date(
+              activity.assignmentDate._seconds * 1000
+            );
+          }
+        });
         this.dataSource.data = data;
       },
       error: (error) => {

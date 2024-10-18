@@ -30,9 +30,22 @@
           </button>
         </li>
         <li class="mb-6">
+          <button (click)="navigateTo('assignments')" class="menu-item">
+            <span class="material-icons">assignment</span>
+            <span class="ml-4">Asignaciones</span>
+          </button>
+        </li>
+        <li class="mb-6">
           <button (click)="navigateTo('supplies')" class="menu-item">
             <span class="material-icons">inventory</span>
             <span class="ml-4">Suministros</span>
+          </button>
+        </li>
+        <!-- Nuevo botón para el tablero de actividades -->
+        <li class="mb-6">
+          <button (click)="navigateTo('activity-board')" class="menu-item">
+            <span class="material-icons">view_column</span>
+            <span class="ml-4">Tablero de Actividades</span>
           </button>
         </li>
       </ul>

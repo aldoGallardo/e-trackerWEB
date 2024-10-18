@@ -32,6 +32,37 @@ export class ApiEmployeesService {
     return this.http.get<any>(this.urlApi2, { params });
   }
 
+  // Obtener todos los empleados con su nombre y apellido combinados
+  // getAllEmployees(): Observable<
+  //   Map<string, { name: string; lastName: string }>
+  // > {
+  //   return this.http.get<any[]>(this.urlApi2).pipe(
+  //     map((users) => {
+  //       return new Map(
+  //         users.map((user) => [
+  //           user.id,
+  //           { name: user.name || 'N/A', lastName: user.lastName || 'N/A' },
+  //         ])
+  //       );
+  //     }),
+  //     catchError((error) => {
+  //       console.error('Error al obtener empleados:', error);
+  //       return throwError(() => new Error('Error al cargar empleados.'));
+  //     })
+  //   );
+  // }
+
+  getAllEmployees(): Observable<any[]> {
+    return this.http.get<any[]>(this.urlApi2).pipe(
+      catchError((error) => {
+        console.error('Error al obtener empleados:', error);
+        return throwError(
+          () => new Error('Error al cargar empleados, intenta de nuevo.')
+        );
+      })
+    );
+  }
+
   getTotalUsers(): Observable<{ total: number }> {
     return this.http.get<{ total: number }>(`${this.urlApi}/total`);
   }

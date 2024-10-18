@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Branch } from '@core/models/branch.model'; // Modelo de Sucursales
 
 @Injectable({
@@ -12,25 +12,35 @@ export class ApiBranchesService {
 
   constructor(private http: HttpClient) {}
 
-  // Método para obtener sucursales con paginación
+  // Método para obtener sucursales con soporte para paginación opcional
   getBranches(
-    pageSize: number,
-    startAfterBranchId?: number
+    pageSize?: number,
+    startAfterBranchId?: string
   ): Observable<Branch[]> {
-    let params = new HttpParams().set('pageSize', pageSize.toString());
+    let params = new HttpParams();
 
+    // Agregar parámetros opcionales solo si se proporcionan
+    if (pageSize) {
+      params = params.set('pageSize', pageSize.toString());
+    }
     if (startAfterBranchId) {
-      params = params.set('startAfterBranchId', startAfterBranchId.toString());
+      params = params.set('startAfterBranchId', startAfterBranchId);
     }
 
-    return this.http
-      .get<Branch[]>(this.urlApi, { params })
-      .pipe(catchError(this.handleError));
+    return this.http.get<Branch[]>(this.urlApi, { params }).pipe(
+      map((branches) => {
+        console.log('Sucursales desde API:', branches); // Debug
+        return branches;
+      }),
+      catchError(this.handleError)
+    );
   }
 
-  // Method to get the total number of branches
+  // Método para obtener el total de sucursales
   getTotalBranches(): Observable<{ total: number }> {
-    return this.http.get<{ total: number }>(`${this.urlApi}/total`);
+    return this.http
+      .get<{ total: number }>(`${this.urlApi}/total`)
+      .pipe(catchError(this.handleError));
   }
 
   // Método para obtener una sucursal por ID

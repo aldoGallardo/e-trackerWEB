@@ -20,6 +20,7 @@ import { MatSelect } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ApiActivitiesService } from 'src/app/core/services/api-activities.service';
+import { ApiBranchesService } from 'src/app/core/services/api-branches.service';
 import { ApiActivityTypesService } from 'src/app/core/services/api-activityTypes.service';
 import { Activity } from 'src/app/core/models/activity.model';
 
@@ -55,16 +56,17 @@ export class AddActivityDialogComponent implements OnInit {
 
   constructor(
     private apiActivitiesService: ApiActivitiesService,
+    private apiBranchesService: ApiBranchesService,
     private apiActivityTypesService: ApiActivityTypesService
   ) {}
 
   ngOnInit(): void {
     // Obtener sucursales y tipos de actividades
-    this.apiActivitiesService.getBranches().subscribe((data: any[]) => {
+    this.apiBranchesService.getBranches(10).subscribe((data: any[]) => {
       this.branches = data;
       console.log('Sucursales:', this.branches); // Verificar las sucursales
     });
-    this.apiActivitiesService.getActivityTypes().subscribe((data: any[]) => {
+    this.apiActivityTypesService.getActivityTypes().subscribe((data: any[]) => {
       this.activityTypes = data;
       console.log('Tipos de actividades:', this.activityTypes); // Verificar los tipos de actividades
     });

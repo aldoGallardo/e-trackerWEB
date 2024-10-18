@@ -1,1 +1,30 @@
-<!-- <app-list [data]="branches" [columnsConfig]="columnsConfig"></app-list> -->
+<div class="p-6">
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">Sucursales</h1>
+    <p class="text-gray-600">Mostrar todas las sucursales</p>
+  </div>
+
+  <!-- Tarjetas de sucursales -->
+  <div class="grid grid-cols-3 gap-4">
+    <mat-card
+      *ngFor="let branch of filteredBranches"
+      class="bg-gray-100 p-4 rounded-lg mb-4"
+    >
+      <mat-card-title>{{ branch.name }}</mat-card-title>
+    </mat-card>
+  </div>
+
+  <!-- Paginación -->
+  <mat-paginator
+    [length]="totalBranches"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    (page)="handlePageEvent($event)"
+  ></mat-paginator>
+
+  <!-- Botón para agregar sucursal -->
+  <button mat-raised-button color="primary" (click)="openCreateBranchModal()">
+    Agregar Sucursal
+  </button>
+</div>

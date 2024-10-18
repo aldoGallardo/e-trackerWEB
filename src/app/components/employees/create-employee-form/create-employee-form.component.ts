@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-create-employee-form',
@@ -24,6 +25,7 @@ import { MatNativeDateModule } from '@angular/material/core';
   imports: [
     ReactiveFormsModule,
     CommonModule,
+    MatIconModule,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
@@ -38,6 +40,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 export class CreateEmployeeFormComponent implements OnInit {
   employeeForm!: FormGroup;
   branches: Branch[] = [];
+  profileImageUrl: string | ArrayBuffer | null = null; // Para mostrar la imagen seleccionada
 
   constructor(
     private fb: FormBuilder,
@@ -74,7 +77,7 @@ export class CreateEmployeeFormComponent implements OnInit {
       const newEmployee: Employee = this.employeeForm.value;
       this.apiEmployeesService.addEmployee(newEmployee).subscribe(
         (response: any) => {
-          this.router.navigate(['/employees']); // Redirigir a la lista de empleados después de agregar
+          this.router.navigate(['/employees']);
         },
         (error: any) => {
           console.error('Error al agregar empleado', error);
@@ -84,6 +87,17 @@ export class CreateEmployeeFormComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/employees']); // Redirigir a la lista de empleados si se cancela
+    this.router.navigate(['/employees']);
+  }
+
+  onImageSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.profileImageUrl = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
   }
 }
