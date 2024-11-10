@@ -1,15 +1,17 @@
 <div class="flex min-h-screen bg-gray-100">
+  <!-- Sidebar solo se muestra si no estamos en la ruta de login -->
   <app-sidebar
+    *ngIf="!isLoginRoute"
     class="w-64 bg-darkblue-900 text-white shadow-lg z-10"
   ></app-sidebar>
 
   <div class="flex-1">
-    <!-- Navbar Component -->
-    <div class="mx-5">
+    <!-- Navbar solo se muestra si no estamos en la ruta de login -->
+    <div *ngIf="!isLoginRoute" class="mx-5">
       <app-navbar></app-navbar>
-
-      <!-- Main Content Wrapper -->
-      <router-outlet></router-outlet>
     </div>
+
+    <!-- Main Content Wrapper -->
+    <router-outlet></router-outlet>
   </div>
 </div>

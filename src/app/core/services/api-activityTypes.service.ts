@@ -22,4 +22,10 @@ export class ApiActivityTypesService {
     console.error('Request error:', error);
     return throwError(() => new Error('Error occurred, please try again.'));
   }
+
+  getActivityTypeById(id: string): Observable<ActivityType> {
+    return this.http
+      .get<ActivityType>(`${this.urlApi}/${id}`)
+      .pipe(catchError(this.handleError));
+  }
 }

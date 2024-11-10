@@ -1,0 +1,98 @@
+<div class="bg-white p-4 rounded-xl shadow-lg flex flex-col items-center">
+  <h2 class="text-lg font-bold text-gray-700 mb-4">
+    Tiempo promedio por actividad
+  </h2>
+
+  <div class="relative w-48 h-48">
+    <igx-radial-gauge
+      class="w-full h-full"
+      [value]="currentValue"
+      [minimumValue]="currentMinValue"
+      [maximumValue]="currentMaxValue"
+      scaleStartAngle="180"
+      scaleEndAngle="360"
+      scaleBrush="lightgray"
+      scaleSweepDirection="Clockwise"
+      backingBrush="transparent"
+      tickBrush="lightgray"
+      minorTickBrush="lightgray"
+      labelInterval="20"
+      labelExtent="0.75"
+      font="10px Arial"
+      needleShape="NeedleWithBulb"
+      needleBrush="#1E40AF"
+      needleOutline="#1E40AF"
+      needlePivotBrush="#1E40AF"
+      needlePivotOutline="#1E40AF"
+      needleEndExtent="0.65"
+      needlePivotWidthRatio="0.15"
+      transitionDuration="1500"
+    >
+      <igx-radial-gauge-range
+        [startValue]="rangeStart"
+        [endValue]="rangeEnd"
+        brush="#60A5FA"
+        outline="transparent"
+        innerStartExtent="0.5"
+        innerEndExtent="0.5"
+        outerStartExtent="0.8"
+        outerEndExtent="0.8"
+      ></igx-radial-gauge-range>
+      <igx-radial-gauge-range
+        [startValue]="rangeEnd"
+        [endValue]="currentMaxValue"
+        brush="#D1D5DB"
+        outline="transparent"
+        innerStartExtent="0.5"
+        innerEndExtent="0.5"
+        outerStartExtent="0.8"
+        outerEndExtent="0.8"
+      ></igx-radial-gauge-range>
+    </igx-radial-gauge>
+  </div>
+
+  <div class="flex justify-between w-full px-6 mt-4 text-xs text-gray-600">
+    <div>
+      <p>Tiempo estimado</p>
+      <p class="font-semibold">{{ estimatedTime }} min</p>
+    </div>
+    <div>
+      <p>Promedio semana</p>
+      <p class="font-semibold">{{ averageWeeklyTime }} min</p>
+    </div>
+  </div>
+
+  <div
+    class="flex items-center font-semibold text-md mt-3"
+    [ngClass]="{
+      'text-green-600': evaluationText === 'Excelente',
+      'text-yellow-500': evaluationText === 'Adecuado',
+      'text-red-500': evaluationText === 'Mejorable'
+    }"
+    *ngIf="evaluationText"
+  >
+    <span class="material-icons mr-1" *ngIf="evaluationText === 'Excelente'"
+      >check_circle</span
+    >
+    <span class="material-icons mr-1" *ngIf="evaluationText === 'Adecuado'"
+      >error_outline</span
+    >
+    <span class="material-icons mr-1" *ngIf="evaluationText === 'Mejorable'"
+      >warning</span
+    >
+    {{ evaluationText }}
+  </div>
+
+  <div class="flex items-center justify-center mt-2">
+    <div class="text-center">
+      <h4 class="font-semibold text-sm">{{ currentActivityName }}</h4>
+      <p class="text-gray-500 text-xs">{{ installationsText }}</p>
+    </div>
+    <button
+      class="ml-3 p-1 rounded-full bg-gray-200 hover:bg-gray-300 transition"
+      (click)="nextActivity()"
+    >
+      <span class="material-icons text-gray-600">chevron_right</span>
+    </button>
+  </div>
+</div>

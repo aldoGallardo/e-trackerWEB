@@ -1,0 +1,21 @@
+<div class="flex flex-wrap gap-4 p-4">
+  <div
+    *ngFor="let okr of okrs"
+    class="bg-white shadow-md rounded-lg p-4 w-full md:w-1/2 lg:w-1/3"
+  >
+    <h2 class="text-xl font-bold mb-2">{{ okr.title }}</h2>
+    <p class="text-gray-600 mb-4">{{ okr.description }}</p>
+
+    <div *ngFor="let kr of okr.keyResults" class="mb-2">
+      <h3 class="text-lg font-semibold">KR: {{ kr.title }}</h3>
+      <p class="text-gray-600">{{ kr.kpi.title }}: {{ kr.kpi.meta }}</p>
+    </div>
+
+    <div class="flex justify-end mt-4">
+      <button mat-raised-button color="primary" class="mr-2">Editar</button>
+      <button mat-raised-button color="warn" (click)="deleteOKR(okr.id)">
+        Eliminar
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-.side-menu .menu-item {
+/* .side-menu .menu-item {
   display: flex;
   align-items: center;
   padding: 10px 20px;
@@ -18,28 +18,28 @@
 }
 
 /* Global layout container */
-.layout-wrapper {
+/* .layout-wrapper {
   display: flex;
-  gap: 20px; /* Space between sidebar and content */
-  padding: 20px; /* Padding around the entire layout */
+  gap: 20px;
+  padding: 20px;
   box-sizing: border-box;
-}
+} */
 
 /* Sidebar */
-.side-menu {
+/* .side-menu {
   width: 260px;
   background-color: #1e3a8a;
   border-radius: 20px;
   padding: 20px;
   min-height: calc(100vh - 40px); /* Full height minus padding */
-}
+/* } */
 
 /* Main content area */
-.main-content {
+/* .main-content {
   flex: 1;
   background-color: #f5f5f5;
   padding: 20px;
   border-radius: 20px;
   min-height: calc(100vh - 40px);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for separation */
-}
+/* } */

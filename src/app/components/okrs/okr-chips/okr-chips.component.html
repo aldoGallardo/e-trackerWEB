@@ -1,0 +1,141 @@
+<div>
+  <h3 class="font-bold text-lg mb-2">Dimensiones</h3>
+  <div class="flex flex-wrap gap-2">
+    <button
+      *ngFor="let dimension of dimensions"
+      (click)="selectDimension(dimension)"
+      class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded-full"
+    >
+      {{ dimension }}
+    </button>
+  </div>
+</div>
+
+<div *ngIf="selectedDimension" class="mt-4">
+  <h3 class="font-bold text-lg mb-2">Acciones</h3>
+  <div class="flex flex-wrap gap-2">
+    <button
+      *ngFor="let action of actions"
+      (click)="selectAction(action)"
+      class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded-full"
+    >
+      {{ action }}
+    </button>
+  </div>
+</div>
+
+<div *ngIf="selectedAction" class="mt-4">
+  <h3 class="font-bold text-lg mb-2">Métricas</h3>
+  <div class="flex flex-wrap gap-2">
+    <button
+      *ngFor="let metric of metrics"
+      (click)="selectMetric(metric)"
+      class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded-full"
+    >
+      {{ metric }}
+    </button>
+  </div>
+</div>
+
+<div *ngIf="selectedMetric" class="mt-4">
+  <h3 class="font-bold text-lg mb-2">Metas</h3>
+  <div class="flex flex-wrap gap-2">
+    <button
+      *ngFor="let goal of goals"
+      (click)="selectGoal(goal)"
+      class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded-full"
+    >
+      {{ goal }}
+    </button>
+  </div>
+</div>
+
+<div *ngIf="selectedGoal" class="mt-4">
+  <h3 class="font-bold text-lg mb-2">Plazos</h3>
+  <div class="flex flex-wrap gap-2">
+    <button
+      *ngFor="let timeframe of timeframes"
+      (click)="selectTimeframe(timeframe)"
+      class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded-full"
+    >
+      {{ timeframe }}
+    </button>
+  </div>
+</div>
+
+<div *ngIf="selectedTimeframe" class="mt-6">
+  <h3 class="font-bold text-lg mb-2">OKR Armado</h3>
+  <p class="text-gray-700">{{ assembledOKR }}</p>
+</div>
+
+<!-- <div class="p-6 bg-gray-100 rounded-md shadow-lg">
+  <div class="mb-4">
+    <h3 class="font-semibold mb-2">Dimensiones</h3>
+    <div class="flex flex-wrap gap-2">
+      <button
+        *ngFor="let dimension of dimensions"
+        (click)="selectDimension(dimension)"
+        class="bg-gray-200 text-gray-700 py-1 px-3 rounded-full hover:bg-gray-300"
+      >
+        {{ dimension }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="selectedDimension" class="mb-4">
+    <h3 class="font-semibold mb-2">Acciones</h3>
+    <div class="flex flex-wrap gap-2">
+      <button
+        *ngFor="let action of actions"
+        (click)="selectAction(action)"
+        class="bg-gray-200 text-gray-700 py-1 px-3 rounded-full hover:bg-gray-300"
+      >
+        {{ action }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="selectedAction" class="mb-4">
+    <h3 class="font-semibold mb-2">Métricas</h3>
+    <div class="flex flex-wrap gap-2">
+      <button
+        *ngFor="let metric of metrics"
+        (click)="selectMetric(metric)"
+        class="bg-gray-200 text-gray-700 py-1 px-3 rounded-full hover:bg-gray-300"
+      >
+        {{ metric }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="selectedMetric" class="mb-4">
+    <h3 class="font-semibold mb-2">Metas</h3>
+    <div class="flex flex-wrap gap-2">
+      <button
+        *ngFor="let goal of goals"
+        (click)="selectGoal(goal)"
+        class="bg-gray-200 text-gray-700 py-1 px-3 rounded-full hover:bg-gray-300"
+      >
+        {{ goal }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="selectedGoal" class="mb-4">
+    <h3 class="font-semibold mb-2">Plazos</h3>
+    <div class="flex flex-wrap gap-2">
+      <button
+        *ngFor="let timeline of timelines"
+        (click)="selectTimeline(timeline)"
+        class="bg-gray-200 text-gray-700 py-1 px-3 rounded-full hover:bg-gray-300"
+      >
+        {{ timeline }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="assembledOKR" class="mt-6 p-4 bg-white border rounded-md">
+    <h3 class="text-lg font-semibold mb-2">OKR Armado</h3>
+    <p class="text-gray-700">{{ assembledOKR }}</p>
+  </div>
+</div> -->

@@ -1,14 +1,22 @@
+import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations'; // Importamos animaciones
 import { AppComponent } from './app/app.component';
-import { routes } from './app/app.routes'; // Importamos las rutas desde el archivo app.routes.ts
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideRouter } from '@angular/router';
+import { routes } from './app/app.routes';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { environment } from './environments/environment';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideRouter(routes), // Proporcionamos las rutas
-    provideHttpClient(), // Proporcionamos el cliente HTTP para las peticiones
-    provideAnimations(), // Proporcionamos soporte para animaciones
+    provideRouter(routes),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideHttpClient(),
+    importProvidersFrom(BrowserAnimationsModule),
   ],
 }).catch((err) => console.error(err));

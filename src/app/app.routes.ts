@@ -6,36 +6,33 @@ import { ActivitiesComponent } from './components/activities/activities.componen
 import { AssignmentsComponent } from './components/assignments/assignments.component';
 import { SuppliesComponent } from './components/supplies/supplies.component';
 import { CreateEmployeeFormComponent } from './components/employees/create-employee-form/create-employee-form.component';
-import { ActivityBoardComponent } from './components/activity-board/activity-board.component'; // Importar el componente del tablero de actividades
+import { ActivityBoardComponent } from './components/activity-board/activity-board.component';
+import { LoginComponent } from './components/login/login.component';
+import { authGuard } from './core/guards/auth.guard'; // Importa el guardia de autenticación
+import { OkrsComponent } from './components/okrs/okrs.component'; // Importa el componente OKR
 
 export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    data: {
-      breadcrumb: 'Dashboard',
-      title: 'Dashboard',
-    },
+    canActivate: [authGuard],
   },
   {
     path: 'employees',
     component: EmployeesComponent,
-    data: {
-      breadcrumb: 'Todos los empleados',
-      title: 'Todos los empleados',
-    },
+    canActivate: [authGuard],
+    data: { breadcrumb: 'Todos los empleados', title: 'Todos los empleados' },
   },
   {
-    path: 'employees/create', // Ruta específica para crear un nuevo empleado
+    path: 'employees/create',
     component: CreateEmployeeFormComponent,
-    data: {
-      breadcrumb: 'Agregar Empleado',
-      title: 'Agregar Empleado',
-    },
+    canActivate: [authGuard],
+    data: { breadcrumb: 'Agregar Empleado', title: 'Agregar Empleado' },
   },
   {
     path: 'branches',
     component: BranchesComponent,
+    canActivate: [authGuard],
     data: {
       breadcrumb: 'Sucursales',
       title: 'Sucursales',
@@ -45,6 +42,7 @@ export const routes: Routes = [
   {
     path: 'activities',
     component: ActivitiesComponent,
+    canActivate: [authGuard],
     data: {
       breadcrumb: 'Actividades',
       title: 'Actividades',
@@ -54,6 +52,7 @@ export const routes: Routes = [
   {
     path: 'assignments',
     component: AssignmentsComponent,
+    canActivate: [authGuard],
     data: {
       breadcrumb: 'Asignaciones',
       title: 'Asignaciones',
@@ -63,6 +62,7 @@ export const routes: Routes = [
   {
     path: 'supplies',
     component: SuppliesComponent,
+    canActivate: [authGuard],
     data: {
       breadcrumb: 'Suministros',
       title: 'Suministros',
@@ -70,14 +70,26 @@ export const routes: Routes = [
     },
   },
   {
-    path: 'activity-board', // Nueva ruta para el tablero de actividades
+    path: 'activity-board',
     component: ActivityBoardComponent,
+    canActivate: [authGuard],
     data: {
       breadcrumb: 'Tablero de Actividades',
       title: 'Tablero de Actividades',
       subtitle: 'Mostrar todas las actividades en tablero',
     },
   },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, // Redirigir al dashboard por defecto
-  { path: '**', redirectTo: 'dashboard' }, // Redirigir cualquier ruta no válida al dashboard
+  {
+    path: 'okrs',
+    component: OkrsComponent,
+    canActivate: [authGuard],
+    data: {
+      breadcrumb: 'OKRs',
+      title: 'OKRs',
+      subtitle: 'Objetivos y Resultados Clave',
+    },
+  },
+  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login' },
 ];
