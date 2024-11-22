@@ -1,0 +1,141 @@
+<div class="kpi-wrapper">
+  <!-- Encabezado con título y filtros -->
+  <div class="bg-white p-6 rounded-lg shadow-md h-full w-full">
+    <div class="flex justify-between items-center mb-4">
+      <div class="flex items-center space-x-4">
+        <h2 class="text-lg font-poppins font-semibold text-gray-800">KPIS</h2>
+
+        <!-- Filtro de Dimensión -->
+        <div class="relative inline-block">
+          <button
+            class="flex items-center text-gray-700 text-sm font-medium py-1 px-4 rounded-full border border-gray-300 hover:bg-gray-100 transition"
+            (click)="toggleDimensionDropdown()"
+          >
+            <span
+              class="material-icons mr-2 text-gray-600"
+              style="color: #28303f"
+              >tune</span
+            >
+            {{ selectedDimensionLabel }}
+            <span
+              class="material-icons ml-1 text-gray-600"
+              style="color: #28303f"
+              >expand_more</span
+            >
+          </button>
+
+          <!-- Dropdown para Dimensión -->
+          <div
+            *ngIf="dimensionDropdownOpen"
+            class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50"
+          >
+            <button
+              *ngFor="let dimension of dimensions"
+              class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              (click)="selectDimension(dimension.value)"
+            >
+              {{ dimension.label }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtros de lugar y tiempo -->
+      <div class="flex space-x-4">
+        <!-- Filtro de Lugar -->
+        <button
+          class="flex items-center text-gray-700 text-sm font-medium py-1 px-4 rounded-full border border-gray-300 hover:bg-gray-100 transition"
+        >
+          <span class="material-icons mr-2 text-gray-600" style="color: #28303f"
+            >pin_drop</span
+          >
+          {{ selectedPlace }}
+          <span class="material-icons ml-1 text-gray-600" style="color: #28303f"
+            >expand_more</span
+          >
+        </button>
+
+        <!-- Filtro de Tiempo -->
+        <div class="relative inline-block">
+          <button
+            class="flex items-center text-gray-700 text-sm font-medium py-1 px-4 rounded-full border border-gray-300 hover:bg-gray-100 transition"
+            (click)="toggleTimeDropdown()"
+          >
+            <span
+              class="material-icons mr-2 text-gray-600"
+              style="color: #28303f"
+              >calendar_today</span
+            >
+            {{ getCurrentViewLabel() }}
+            <span
+              class="material-icons ml-1 text-gray-600"
+              style="color: #28303f"
+              >expand_more</span
+            >
+          </button>
+
+          <!-- Dropdown de selección -->
+          <div
+            *ngIf="timeDropdownOpen"
+            class="absolute left-0 mt-1 w-40 bg-white rounded-lg shadow-lg z-10"
+          >
+            <button
+              *ngFor="let view of views"
+              class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              (click)="selectView(view)"
+            >
+              {{ view.label }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Línea separadora -->
+    <div class="border-t border-gray-200 my-4"></div>
+
+    <!-- Carrusel de KPI Cards -->
+    <div class="flex items-center gap-4">
+      <!-- Botón para retroceder -->
+      <button
+        class="p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition flex items-center justify-center"
+        (click)="previousGroup()"
+      >
+        <span class="material-icons text-gray-600">chevron_left</span>
+      </button>
+
+      <!-- Contenedor del carrusel -->
+      <div class="overflow-hidden w-full">
+        <div
+          class="flex gap-4 transition-transform duration-500 ease-in-out flex-nowrap"
+          [style.transform]="'translateX(' + -activeIndex * 100 + '%)'"
+        >
+          <!-- Tarjetas KPI -->
+          <div
+            *ngFor="let kpi of filteredKpis; let i = index"
+            class="flex flex-col items-center justify-center p-4 rounded-lg shadow-md aspect-square min-w-[20%] bg-white"
+            [ngClass]="getCardColor(i)"
+          >
+            <h3 class="text-sm font-medium mb-2">{{ kpi.name }}</h3>
+            <div class="flex items-center justify-center gap-2">
+              <span class="material-icons text-blue-500 text-3xl">{{
+                kpi.icon
+              }}</span>
+              <p class="text-4xl font-poppins font-bold text-gray-700">
+                {{ kpi.value }}%
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón para avanzar -->
+      <button
+        class="p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition flex items-center justify-center"
+        (click)="nextGroup()"
+      >
+        <span class="material-icons text-gray-600">chevron_right</span>
+      </button>
+    </div>
+  </div>
+</div>

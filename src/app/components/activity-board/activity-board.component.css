@@ -40,3 +40,16 @@
 .text-blue-600 {
   color: #1d4ed8;
 }
+
+.activity-board {
+  grid-template-columns: 1fr; /* Una columna para pantallas pequeñas */
+}
+
+@media (min-width: 768px) {
+  .activity-board {
+    grid-template-columns: repeat(
+      3,
+      1fr
+    ); /* Tres columnas en pantallas medianas y grandes */
+  }
+}

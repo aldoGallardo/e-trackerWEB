@@ -1,98 +1,95 @@
-<div class="bg-white p-4 rounded-xl shadow-lg flex flex-col items-center">
-  <h2 class="text-lg font-bold text-gray-700 mb-4">
-    Tiempo promedio por actividad
-  </h2>
+<div
+  class="relative bg-white rounded-lg shadow-md flex flex-col justify-between h-full w-full p-4"
+>
+  <!-- Encabezado -->
+  <div class="chart-header">
+    <div class="flex justify-between items-center mb-2">
+      <h2 class="text-lg font-semibold font-poppins text-gray-900 text-center">
+        Tiempo/Actividad
+      </h2>
 
-  <div class="relative w-48 h-48">
-    <igx-radial-gauge
-      class="w-full h-full"
-      [value]="currentValue"
-      [minimumValue]="currentMinValue"
-      [maximumValue]="currentMaxValue"
-      scaleStartAngle="180"
-      scaleEndAngle="360"
-      scaleBrush="lightgray"
-      scaleSweepDirection="Clockwise"
-      backingBrush="transparent"
-      tickBrush="lightgray"
-      minorTickBrush="lightgray"
-      labelInterval="20"
-      labelExtent="0.75"
-      font="10px Arial"
-      needleShape="NeedleWithBulb"
-      needleBrush="#1E40AF"
-      needleOutline="#1E40AF"
-      needlePivotBrush="#1E40AF"
-      needlePivotOutline="#1E40AF"
-      needleEndExtent="0.65"
-      needlePivotWidthRatio="0.15"
-      transitionDuration="1500"
-    >
-      <igx-radial-gauge-range
-        [startValue]="rangeStart"
-        [endValue]="rangeEnd"
-        brush="#60A5FA"
-        outline="transparent"
-        innerStartExtent="0.5"
-        innerEndExtent="0.5"
-        outerStartExtent="0.8"
-        outerEndExtent="0.8"
-      ></igx-radial-gauge-range>
-      <igx-radial-gauge-range
-        [startValue]="rangeEnd"
-        [endValue]="currentMaxValue"
-        brush="#D1D5DB"
-        outline="transparent"
-        innerStartExtent="0.5"
-        innerEndExtent="0.5"
-        outerStartExtent="0.8"
-        outerEndExtent="0.8"
-      ></igx-radial-gauge-range>
-    </igx-radial-gauge>
-  </div>
+      <!-- Filtro de Actividad -->
+      <div class="relative">
+        <button
+          class="flex items-center text-gray-700 text-sm font-medium py-1 px-4 rounded-full border border-gray-300 hover:bg-gray-100 transition"
+          (click)="toggleActivityDropdown()"
+        >
+          <span class="material-icons mr-2" style="color: #28303f"
+            >calendar_today</span
+          >
+          <span class="text-sm font-medium font-lexend">{{
+            currentActivity.name
+          }}</span>
+          <span class="material-icons text-gray-500 ml-1">expand_more</span>
+        </button>
 
-  <div class="flex justify-between w-full px-6 mt-4 text-xs text-gray-600">
-    <div>
-      <p>Tiempo estimado</p>
-      <p class="font-semibold">{{ estimatedTime }} min</p>
-    </div>
-    <div>
-      <p>Promedio semana</p>
-      <p class="font-semibold">{{ averageWeeklyTime }} min</p>
+        <!-- Dropdown -->
+        <div
+          *ngIf="activityDropdownOpen"
+          class="absolute left-0 mt-2 w-40 bg-white rounded-lg shadow-lg z-50"
+        >
+          <button
+            *ngFor="let activity of activities"
+            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            (click)="selectActivity(activity)"
+          >
+            {{ activity.name }}
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div
-    class="flex items-center font-semibold text-md mt-3"
-    [ngClass]="{
-      'text-green-600': evaluationText === 'Excelente',
-      'text-yellow-500': evaluationText === 'Adecuado',
-      'text-red-500': evaluationText === 'Mejorable'
-    }"
-    *ngIf="evaluationText"
-  >
-    <span class="material-icons mr-1" *ngIf="evaluationText === 'Excelente'"
-      >check_circle</span
+  <!-- Línea separadora -->
+  <div class="border-t"></div>
+
+  <!-- Gráfico -->
+  <div class="flex flex-col items-center justify-center mt-4 chart-container">
+    <div
+      echarts
+      [options]="chartOptions"
+      class="chart-container w-full h-full"
+    ></div>
+    <div
+      class="absolute inset-0 flex flex-col items-center justify-center space-y-2"
     >
-    <span class="material-icons mr-1" *ngIf="evaluationText === 'Adecuado'"
-      >error_outline</span
-    >
-    <span class="material-icons mr-1" *ngIf="evaluationText === 'Mejorable'"
-      >warning</span
-    >
-    {{ evaluationText }}
+      <div class="gradient-icon p-2 rounded-full">
+        <span class="material-icons text-white text-base">calendar_today</span>
+      </div>
+      <h3 class="text-3xl font-bold font-poppins text-gray-900">
+        {{ currentActivity.standard }}
+      </h3>
+      <p class="text-sm font-medium text-gray-400">
+        {{ currentActivity.evaluation }}
+      </p>
+    </div>
   </div>
 
-  <div class="flex items-center justify-center mt-2">
-    <div class="text-center">
-      <h4 class="font-semibold text-sm">{{ currentActivityName }}</h4>
-      <p class="text-gray-500 text-xs">{{ installationsText }}</p>
+  <!-- Descripción y Botones -->
+  <div class="w-full text-center mt-6">
+    <h4 class="text-base font-semibold font-poppins text-gray-900">
+      {{ currentActivity.name }}
+    </h4>
+    <div class="flex justify-between items-center mt-2 px-4">
+      <!-- Botón Anterior -->
+      <button
+        class="p-3 rounded-full gradient-button shadow-md transition"
+        (click)="previousActivity()"
+        aria-label="Actividad anterior"
+      >
+        <span class="material-icons text-white">chevron_left</span>
+      </button>
+      <p class="text-sm font-regular font-poppins text-gray-500 mx-4">
+        {{ currentActivity.installations }}
+      </p>
+      <!-- Botón Siguiente -->
+      <button
+        class="p-3 rounded-full gradient-button shadow-md transition"
+        (click)="nextActivity()"
+        aria-label="Actividad siguiente"
+      >
+        <span class="material-icons text-white">chevron_right</span>
+      </button>
     </div>
-    <button
-      class="ml-3 p-1 rounded-full bg-gray-200 hover:bg-gray-300 transition"
-      (click)="nextActivity()"
-    >
-      <span class="material-icons text-gray-600">chevron_right</span>
-    </button>
   </div>
 </div>

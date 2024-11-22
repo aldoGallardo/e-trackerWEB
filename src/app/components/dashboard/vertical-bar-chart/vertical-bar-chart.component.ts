@@ -1,78 +1,170 @@
 import { Component } from '@angular/core';
-import {
-  IgxCategoryChartComponent,
-  IgxLegendComponent,
-  IgxCategoryChartModule,
-  IgxLegendModule,
-} from 'igniteui-angular-charts';
 import { CommonModule } from '@angular/common';
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts/core';
+import { BarChart } from 'echarts/charts';
+import { TooltipComponent, GridComponent } from 'echarts/components';
+import { CanvasRenderer } from 'echarts/renderers';
+
+// Registra los módulos necesarios de ECharts
+echarts.use([BarChart, TooltipComponent, GridComponent, CanvasRenderer]);
 
 @Component({
   selector: 'app-vertical-bar-chart',
   standalone: true,
-  imports: [CommonModule, IgxCategoryChartModule, IgxLegendModule],
+  imports: [CommonModule, NgxEchartsModule],
   templateUrl: './vertical-bar-chart.component.html',
   styleUrls: ['./vertical-bar-chart.component.css'],
 })
 export class VerticalBarChartComponent {
-  // Definimos el modo de vista actual y el conjunto de datos
-  currentView: 'monthly' | 'quarterly' | 'yearly' = 'monthly';
+  chartOptions: any = {}; // Configuración inicial del gráfico
+  dropdownOpen = false;
+  currentView: 'weekly' | 'monthly' | 'quarterly' | 'semiannual' | 'yearly' =
+    'monthly';
   activityData: any[] = [];
 
-  // Datos para diferentes vistas
+  views = [
+    { label: 'Semanal', value: 'weekly' },
+    { label: 'Mensual', value: 'monthly' },
+    { label: 'Cuatrimestral', value: 'quarterly' },
+    { label: 'Semestral', value: 'semiannual' },
+    { label: 'Anual', value: 'yearly' },
+  ];
+
+  weeklyData = [
+    { label: 'Lunes', activities: 5 },
+    { label: 'Martes', activities: 8 },
+    { label: 'Miércoles', activities: 6 },
+    { label: 'Jueves', activities: 7 },
+    { label: 'Viernes', activities: 9 },
+    { label: 'Sábado', activities: 4 },
+    { label: 'Domingo', activities: 3 },
+  ];
+
   monthlyData = [
-    { month: 'Ene', activities: 18 },
-    { month: 'Feb', activities: 30 },
-    { month: 'Mar', activities: 16 },
-    { month: 'Abr', activities: 17 },
-    { month: 'May', activities: 19 },
-    { month: 'Jun', activities: 15 },
-    { month: 'Jul', activities: 18 },
-    { month: 'Ago', activities: 27 },
-    { month: 'Sep', activities: 16 },
-    { month: 'Oct', activities: 25 },
-    { month: 'Nov', activities: 17 },
-    { month: 'Dic', activities: 29 },
+    { label: 'Ene', activities: 18 },
+    { label: 'Feb', activities: 30 },
+    { label: 'Mar', activities: 16 },
+    { label: 'Abr', activities: 17 },
+    { label: 'May', activities: 19 },
+    { label: 'Jun', activities: 15 },
+    { label: 'Jul', activities: 18 },
+    { label: 'Ago', activities: 27 },
+    { label: 'Sep', activities: 16 },
+    { label: 'Oct', activities: 25 },
+    { label: 'Nov', activities: 17 },
+    { label: 'Dic', activities: 29 },
   ];
 
   quarterlyData = [
-    { quarter: 'Q1', activities: 64 },
-    { quarter: 'Q2', activities: 51 },
-    { quarter: 'Q3', activities: 61 },
-    { quarter: 'Q4', activities: 71 },
+    { label: 'Q1', activities: 64 },
+    { label: 'Q2', activities: 51 },
+    { label: 'Q3', activities: 61 },
+    { label: 'Q4', activities: 71 },
+  ];
+
+  semiannualData = [
+    { label: '1er Semestre', activities: 110 },
+    { label: '2do Semestre', activities: 120 },
   ];
 
   yearlyData = [
-    { year: '2020', activities: 230 },
-    { year: '2021', activities: 240 },
-    { year: '2022', activities: 255 },
-    { year: '2023', activities: 247 },
+    { label: '2020', activities: 230 },
+    { label: '2021', activities: 240 },
+    { label: '2022', activities: 255 },
+    { label: '2023', activities: 247 },
   ];
 
   constructor() {
     this.updateData();
   }
 
-  // Función para cambiar la vista
-  toggleView() {
-    if (this.currentView === 'monthly') {
-      this.currentView = 'quarterly';
-    } else if (this.currentView === 'quarterly') {
-      this.currentView = 'yearly';
-    } else {
-      this.currentView = 'monthly';
-    }
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  selectView(view: { label: string; value: string }) {
+    this.currentView = view.value as
+      | 'weekly'
+      | 'monthly'
+      | 'quarterly'
+      | 'semiannual'
+      | 'yearly';
+    this.dropdownOpen = false;
     this.updateData();
   }
 
-  // Actualizar los datos según la vista seleccionada
   updateData() {
-    if (this.currentView === 'monthly') {
-      this.activityData = this.monthlyData;
-    } else if (this.currentView === 'quarterly') {
-      this.activityData = this.quarterlyData;
-    } else {
-      this.activityData = this.yearlyData;
+    let xAxisName = '';
+    switch (this.currentView) {
+      case 'weekly':
+        this.activityData = this.weeklyData;
+        xAxisName = 'Días';
+        break;
+      case 'monthly':
+        this.activityData = this.monthlyData;
+        xAxisName = 'Meses';
+        break;
+      case 'quarterly':
+        this.activityData = this.quarterlyData;
+        xAxisName = 'Cuatrimestres';
+        break;
+      case 'semiannual':
+        this.activityData = this.semiannualData;
+        xAxisName = 'Semestres';
+        break;
+      case 'yearly':
+        this.activityData = this.yearlyData;
+        xAxisName = 'Años';
+        break;
     }
+
+    this.chartOptions = {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: { type: 'shadow' },
+      },
+      xAxis: {
+        type: 'category',
+        data: this.activityData.map((item) => item.label),
+        name: xAxisName,
+        nameLocation: 'middle', // Ubicación del nombre
+        nameGap: 30, // Espaciado del nombre
+        nameTextStyle: {
+          color: '#28303f', // Cambia este valor al color deseado
+          fontFamily: 'Poppins',
+          bold: true,
+          fontSize: 16,
+        },
+        axisLine: {
+          lineStyle: { color: '#D0D3D9', fontFamily: 'Poppins' },
+        },
+        axisLabel: { color: '#6B7280', fontFamily: 'Poppins' },
+      },
+      yAxis: {
+        type: 'value',
+        axisLine: { lineStyle: { color: '#D0D3D9' } },
+        axisLabel: { color: '#6B7280', fontFamily: 'Poppins' },
+      },
+      series: [
+        {
+          type: 'bar',
+          data: this.activityData.map((item) => item.activities),
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+              { offset: 0, color: '#1B2030' },
+              { offset: 1, color: '#536396' },
+            ]),
+            borderRadius: [5, 5, 0, 0],
+          },
+          barWidth: '50%',
+        },
+      ],
+    };
+  }
+
+  getCurrentViewLabel(): string {
+    const view = this.views.find((v) => v.value === this.currentView);
+    return view ? view.label : '';
   }
 }

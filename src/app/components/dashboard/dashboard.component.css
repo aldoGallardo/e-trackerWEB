@@ -1,0 +1,10 @@
+.dashboard-container {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); /* Asegura que las columnas sean flexibles */
+  gap: 16px;
+  height: calc(100vh - 64px); /* Ajusta la altura restando la navbar */
+  width: calc(100vw - 16rem); /* Ajusta el ancho restando la sidebar */
+  padding: 16px; /* Añade un padding para evitar que los componentes estén pegados a los bordes */
+  box-sizing: border-box; /* Incluye el padding en el tamaño total */
+  margin-left: 200px; /* Mueve el contenedor principal a la derecha para dejar espacio para la sidebar */
+}

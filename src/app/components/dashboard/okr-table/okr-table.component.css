@@ -1,0 +1,99 @@
+/* Contenedor general del componente */
+.okr-wrapper {
+  width: 100%; /* Asegura que el contenedor ocupe todo el espacio disponible */
+  height: 100%; /* Asegura que ocupe toda la altura disponible */
+  margin: 0 auto; /* Centra horizontalmente */
+  padding: 20px; /* Mantén padding para no estar pegado a los bordes */
+  background-color: #f5f7fa;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column; /* Alinea los elementos de forma vertical */
+  align-items: flex-start; /* Alinea los elementos desde el inicio (izquierda) */
+}
+
+.okr-container {
+  width: 100%; /* Asegura que el contenedor ocupe todo el espacio disponible */
+  flex-grow: 1; /* Hace que el contenedor ocupe todo el espacio restante */
+}
+
+/* Encabezado flotante */
+.okr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Centra verticalmente */
+  background-color: #e5efff; /* Color ajustado */
+  padding: 12px 15px;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky; /* Encabezado fijo */
+  top: 0;
+  z-index: 2;
+  text-align: center; /* Centra horizontalmente */
+}
+
+.okr-header-item {
+  flex: 1; /* Espaciado uniforme */
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #424246;
+  text-align: center; /* Centra horizontalmente */
+}
+
+/* Contenido de las filas */
+.okr-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Centra verticalmente */
+  padding: 15px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.okr-cell {
+  flex: 1; /* Hace que cada celda ocupe un espacio uniforme */
+  padding: 8px; /* Ajusta el espaciado dentro de las celdas */
+  text-align: center; /* Centra el contenido horizontalmente */
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Centra el contenido verticalmente */
+}
+
+/* Barra de progreso */
+.progress-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 20px; /* Tamaño consistente */
+  background-color: #f1f3f5;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 10px 0 0 10px;
+  transition: width 0.3s ease-in-out;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Centra texto dentro de la barra */
+}
+
+.progress-remaining {
+  height: 100%;
+  border-radius: 0 10px 10px 0;
+  opacity: 0.4;
+}
+/* Contenedor con scroll */
+.okr-table {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Asegura que ocupe todo el espacio disponible */
+  flex-grow: 1; /* Permite que la tabla crezca y ocupe el espacio restante */
+  overflow-y: auto; /* Habilita el scroll si es necesario */
+  padding-right: 10px; /* Espaciado para evitar que el scroll tape contenido */
+}

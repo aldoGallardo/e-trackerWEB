@@ -1,0 +1,109 @@
+/* Contenedor principal */
+.chart-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  height: 100%; /* Se ajusta al espacio asignado */
+  width: 100%; /* Se ajusta al espacio asignado */
+}
+
+.chart-header {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  position: relative;
+  text-align: center;
+}
+
+.chart-header h2 {
+  flex: 1; /* Toma todo el espacio disponible para garantizar que el h2 esté centrado */
+  margin: 0; /* Elimina márgenes adicionales */
+  text-align: center; /* Centra el texto del h2 */
+  font-size: 1cm; /* Tamaño del texto */
+  font-family: poppins;
+}
+
+.chart-header .relative {
+  position: absolute; /* Para que el filtro no interfiera con el centrado */
+  right: 0; /* Ubica el filtro a la derecha del contenedor */
+}
+.chart-subtitle {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-top: 0.5rem;
+}
+
+/* Gráfico de barras */
+.chart-bar-container {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 60%; /* Ocupa 60% del contenedor */
+  gap: 12px;
+}
+
+.chart-bar {
+  flex: 1;
+  max-width: 15%;
+  background: linear-gradient(to top, #2c3e50, #4c65a8);
+  color: white;
+  text-align: center;
+  line-height: 1.5;
+  border-radius: 10px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.chart-bar:hover {
+  transform: scale(1.05);
+}
+
+/* Valores en la parte superior de las barras */
+.chart-bar-value {
+  position: absolute;
+  top: -1.5rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #28303f;
+}
+
+/* Footer */
+.chart-footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-top: 1rem;
+}
+
+/* Dropdown */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.5rem;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+/* Texto centrado dentro del gráfico */
+.chart-center-text {
+  position: absolute;
+  top: 50%; /* Centra verticalmente */
+  left: 50%; /* Centra horizontalmente */
+  transform: translate(-50%, -50%); /* Ajusta la posición para centrar */
+  font-size: 1.5rem; /* Ajusta el tamaño de la fuente según lo necesario */
+  font-weight: bold;
+  color: #28303f; /* Color del texto */
+  text-align: center;
+  z-index: 2; /* Asegura que el texto esté sobre las barras */
+  pointer-events: none; /* Evita que el texto interfiera con la interacción */
+}

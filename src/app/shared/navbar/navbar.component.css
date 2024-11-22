@@ -1,0 +1,21 @@
+.app-navbar h1 {
+  font-size: 1.25rem; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+  color: inherit; /* Hereda el color del navbar */
+}
+
+.app-navbar button {
+  margin-left: auto; /* Empuja el botón hacia la derecha */
+  background-color: #ef4444; /* Fondo rojo */
+  color: white; /* Texto blanco */
+  font-weight: 600; /* Seminegrita */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 8px 16px; /* Espaciado interno */
+  transition: background-color 0.3s ease; /* Transición suave al pasar el cursor */
+  border: none; /* Limpia bordes predeterminados */
+  cursor: pointer; /* Cambia el cursor al pasar por el botón */
+}
+
+.app-navbar button:hover {
+  background-color: #dc2626; /* Fondo rojo más oscuro */
+}

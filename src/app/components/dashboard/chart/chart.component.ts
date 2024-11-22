@@ -1,12 +1,21 @@
 import { Component } from '@angular/core';
-import { IgxRadialGaugeModule } from 'igniteui-angular-gauges';
 import { CommonModule } from '@angular/common';
+import { NgxEchartsModule, NGX_ECHARTS_CONFIG } from 'ngx-echarts';
 
 @Component({
   selector: 'app-chart',
-  templateUrl: './chart.component.html',
   standalone: true,
-  imports: [IgxRadialGaugeModule, CommonModule],
+  imports: [CommonModule, NgxEchartsModule],
+  providers: [
+    {
+      provide: NGX_ECHARTS_CONFIG,
+      useFactory: () => ({
+        echarts: () => import('echarts'),
+      }),
+    },
+  ],
+  templateUrl: './chart.component.html',
+  styleUrls: ['./chart.component.css'],
 })
 export class ChartComponent {
   activities = [
@@ -17,8 +26,6 @@ export class ChartComponent {
       maxValue: 120,
       standard: '1:45',
       installations: '20 Instalaciones en la última semana',
-      estimatedTime: 120,
-      averageWeeklyTime: 90,
       evaluation: 'Excelente',
     },
     {
@@ -28,8 +35,6 @@ export class ChartComponent {
       maxValue: 110,
       standard: '1:30',
       installations: '15 Mantenimientos en la última semana',
-      estimatedTime: 110,
-      averageWeeklyTime: 100,
       evaluation: 'Adecuado',
     },
     {
@@ -39,82 +44,80 @@ export class ChartComponent {
       maxValue: 100,
       standard: '2:00',
       installations: '10 Inspecciones en la última semana',
-      estimatedTime: 100,
-      averageWeeklyTime: 80,
-      evaluation: 'Mejorable',
-    },
-    {
-      name: 'Reparación',
-      value: 115,
-      minValue: 0,
-      maxValue: 130,
-      standard: '2:15',
-      installations: '5 Reparaciones en la última semana',
-      estimatedTime: 130,
-      averageWeeklyTime: 120,
       evaluation: 'Mejorable',
     },
   ];
 
+  activityDropdownOpen = false;
   currentActivityIndex = 0;
 
   get currentActivity() {
     return this.activities[this.currentActivityIndex];
   }
 
-  get currentValue() {
-    return this.currentActivity.value;
+  chartOptions: any;
+
+  ngOnInit() {
+    this.updateChart();
   }
 
-  get currentMinValue() {
-    return this.currentActivity.minValue;
+  toggleActivityDropdown() {
+    this.activityDropdownOpen = !this.activityDropdownOpen;
   }
 
-  get currentMaxValue() {
-    return this.currentActivity.maxValue;
+  selectActivity(activity: any) {
+    this.currentActivityIndex = this.activities.indexOf(activity);
+    this.activityDropdownOpen = false;
+    this.updateChart();
   }
 
-  get standardTime() {
-    return this.currentActivity.standard;
-  }
+  updateChart() {
+    const activity = this.currentActivity;
 
-  get currentActivityName() {
-    return this.currentActivity.name;
-  }
-
-  get installationsText() {
-    return this.currentActivity.installations;
-  }
-
-  get estimatedTime() {
-    return this.currentActivity.estimatedTime;
-  }
-
-  get averageWeeklyTime() {
-    return this.currentActivity.averageWeeklyTime;
-  }
-
-  get evaluationText() {
-    const { value, estimatedTime } = this.currentActivity;
-    if (value <= estimatedTime * 0.75) {
-      return 'Excelente';
-    } else if (value <= estimatedTime) {
-      return 'Adecuado';
-    } else {
-      return 'Mejorable';
-    }
-  }
-
-  get rangeStart() {
-    return this.currentMinValue;
-  }
-
-  get rangeEnd() {
-    return this.currentActivity.maxValue * 0.75;
+    this.chartOptions = {
+      series: [
+        {
+          type: 'gauge',
+          startAngle: 225,
+          endAngle: -45,
+          radius: '100%',
+          pointer: { show: false },
+          progress: {
+            show: true,
+            width: 14,
+            roundCap: true,
+            itemStyle: { color: '#5B6998' },
+          },
+          axisLine: {
+            lineStyle: {
+              width: 14,
+              color: [
+                [activity.value / activity.maxValue, '#5B6998'],
+                [1, '#e5e7eb'],
+              ],
+              roundCap: true,
+            },
+          },
+          axisTick: { show: false },
+          splitLine: { show: false },
+          axisLabel: { show: false },
+          detail: { show: false },
+          data: [{ value: activity.value }],
+        },
+      ],
+    };
   }
 
   nextActivity() {
     this.currentActivityIndex =
       (this.currentActivityIndex + 1) % this.activities.length;
+    this.updateChart();
+  }
+
+  previousActivity() {
+    this.currentActivityIndex =
+      (this.currentActivityIndex - 1 + this.activities.length) %
+      this.activities.length;
+    this.updateChart();
   }
 }

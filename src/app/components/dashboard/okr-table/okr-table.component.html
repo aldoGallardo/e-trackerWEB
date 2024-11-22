@@ -1,0 +1,44 @@
+<div class="col-span-2 h-full w-full">
+  <div class="okr-wrapper">
+    <div class="okr-container">
+      <div class="okr-title">
+        <span class="material-icons okr-title-icon">track_changes</span>
+        OKR
+      </div>
+      <div class="border-t border-gray-200 my-4"></div>
+
+      <div class="okr-header">
+        <div class="okr-header-item">Fecha</div>
+        <div class="okr-header-item">Objetivo</div>
+        <div class="okr-header-item">Resultado Clave</div>
+        <div class="okr-header-item">Meta</div>
+        <div class="okr-header-item">Progreso</div>
+      </div>
+
+      <div class="okr-table">
+        <div *ngFor="let item of okrList" class="okr-row">
+          <div class="okr-cell">{{ item.date }}</div>
+          <div class="okr-cell">{{ item.objective }}</div>
+          <div class="okr-cell">{{ item.keyResult }}</div>
+          <div class="okr-cell">{{ item.goal }}</div>
+          <div class="okr-cell">
+            <div class="progress-container">
+              <div
+                class="progress-bar"
+                [style.width]="item.progress + '%'"
+                [style.background]="getProgressColor(item.progress)"
+              >
+                {{ item.progress }}%
+              </div>
+              <div
+                class="progress-remaining"
+                [style.width]="100 - item.progress + '%'"
+                [style.background]="getRemainingColor(item.progress)"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,115 +1,60 @@
-<!-- <div class="relative bg-white p-4 rounded-xl shadow-lg">
-  <div class="absolute top-4 right-4 flex space-x-2">
-    <button
-      class="flex items-center bg-gray-100 text-gray-700 text-xs font-semibold py-1 px-3 rounded-full hover:bg-gray-200"
-    >
-      <span class="material-icons text-sm">location_on</span>
-      El Porvenir
-    </button>
-    <button
-      (click)="toggleView()"
-      class="flex items-center bg-gray-100 text-gray-700 text-xs font-semibold py-1 px-3 rounded-full hover:bg-gray-200"
-    >
-      <span class="material-icons text-sm">calendar_today</span>
-      {{
-        currentView === "monthly"
-          ? "Mensual"
-          : currentView === "quarterly"
-          ? "Trimestral"
-          : "Anual"
-      }}
-    </button>
+<div class="relative bg-white p-6 rounded-lg shadow-md w-full h-full">
+  <!-- Encabezado con filtros -->
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-lg font-poppins font-semibold text-gray-800">
+      Nº Actividades Completadas
+    </h2>
+
+    <div class="flex space-x-4">
+      <!-- Botón de ubicación -->
+      <button
+        class="flex items-center text-gray-700 text-sm font-medium py-1 px-4 rounded-full border border-gray-300 hover:bg-gray-100 transition"
+      >
+        <span class="material-icons mr-2 text-gray-700" style="color: #28303f"
+          >pin_drop</span
+        >
+        El Porvenir
+        <span class="material-icons ml-1" style="color: #28303f"
+          >expand_more</span
+        >
+      </button>
+
+      <div class="relative inline-block">
+        <!-- Botón de filtro de tiempo -->
+        <button
+          class="flex items-center text-gray-700 text-sm font-medium py-1 px-4 rounded-full border border-gray-300 hover:bg-gray-100 transition"
+          (click)="toggleDropdown()"
+        >
+          <span class="material-icons mr-2 text-gray-600" style="color: #28303f"
+            >calendar_today</span
+          >
+          {{ getCurrentViewLabel() }}
+          <span class="material-icons ml-1 text-gray-600" style="color: #28303f"
+            >expand_more</span
+          >
+        </button>
+
+        <!-- Dropdown de selección -->
+        <div
+          *ngIf="dropdownOpen"
+          class="absolute left-0 mt-1 w-40 bg-white rounded-lg shadow-lg z-10"
+        >
+          <button
+            *ngFor="let view of views"
+            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            (click)="selectView(view)"
+          >
+            {{ view.label }}
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
+  <!-- Línea separadora -->
+  <div class="border-t border-gray-200 my-4"></div>
 
-  <h2 class="text-xl font-bold mb-4 text-gray-700">
-    Número de actividades completadas
-  </h2>
-
-  <div class="flex justify-center mb-4">
-    <igx-legend #legend orientation="Horizontal"></igx-legend>
+  <!-- Contenedor del gráfico -->
+  <div class="chart-container w-full h-full">
+    <div echarts [options]="chartOptions" class="w-full h-full"></div>
   </div>
-
-  <igx-category-chart
-    #chart
-    [dataSource]="activityData"
-    chartType="Column"
-    [legend]="legend"
-    xAxisInterval="1"
-    [xAxisTitle]="
-      currentView === 'monthly'
-        ? 'Mes'
-        : currentView === 'quarterly'
-        ? 'Trimestre'
-        : 'Año'
-    "
-    yAxisTitle="Actividades"
-    yAxisTitleLeftMargin="10"
-    yAxisTitleRightMargin="5"
-    yAxisLabelLeftMargin="0"
-    isHorizontalZoomEnabled="false"
-    isVerticalZoomEnabled="false"
-    isCategoryHighlightingEnabled="true"
-    crosshairsDisplayMode="None"
-    class="w-full h-72"
-  ></igx-category-chart>
-</div> -->
-
-<div class="relative bg-white p-4 rounded-xl shadow-lg">
-  <!-- Botones en la esquina superior derecha del contenedor -->
-  <div class="absolute top-4 right-4 flex space-x-2">
-    <button
-      class="flex items-center bg-gray-100 text-gray-700 text-xs font-semibold py-1 px-3 rounded-full hover:bg-gray-200"
-    >
-      <span class="material-icons text-sm">location_on</span>
-      El Porvenir
-    </button>
-    <button
-      (click)="toggleView()"
-      class="flex items-center bg-gray-100 text-gray-700 text-xs font-semibold py-1 px-3 rounded-full hover:bg-gray-200"
-    >
-      <span class="material-icons text-sm">calendar_today</span>
-      {{
-        currentView === "monthly"
-          ? "Mensual"
-          : currentView === "quarterly"
-          ? "Trimestral"
-          : "Anual"
-      }}
-    </button>
-  </div>
-
-  <h2 class="text-xl font-bold mb-4 text-gray-700">
-    Número de actividades completadas
-  </h2>
-
-  <div class="flex justify-center mb-4">
-    <igx-legend #legend orientation="Horizontal"></igx-legend>
-  </div>
-
-  <igx-category-chart
-    #chart
-    [dataSource]="activityData"
-    chartType="Column"
-    [legend]="legend"
-    xAxisInterval="1"
-    [xAxisGap]="0.4"
-    [xAxisLabelAngle]="-20"
-    [xAxisTitle]="
-      currentView === 'monthly'
-        ? 'Mes'
-        : currentView === 'quarterly'
-        ? 'Trimestre'
-        : 'Año'
-    "
-    yAxisTitle="Actividades"
-    yAxisTitleLeftMargin="10"
-    yAxisTitleRightMargin="5"
-    yAxisLabelLeftMargin="0"
-    [yAxisInterval]="10"
-    isHorizontalZoomEnabled="false"
-    isVerticalZoomEnabled="false"
-    isCategoryHighlightingEnabled="true"
-    crosshairsDisplayMode="None"
-    class="w-full h-72"
-  ></igx-category-chart>
 </div>

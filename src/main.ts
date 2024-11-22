@@ -9,6 +9,7 @@ import { routes } from './app/app.routes';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from './environments/environment';
+import { provideEcharts } from 'ngx-echarts';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -17,6 +18,7 @@ bootstrapApplication(AppComponent, {
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideHttpClient(),
+    provideEcharts({}),
     importProvidersFrom(BrowserAnimationsModule),
   ],
 }).catch((err) => console.error(err));

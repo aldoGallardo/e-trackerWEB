@@ -26,14 +26,16 @@
     "chartjs-gauge": "^0.3.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "echarts": "^5.5.1",
     "fflate": "^0.8.1",
     "firebase": "^10.14.1",
     "flowbite": "^2.5.2",
-    "igniteui-angular": "^18.2.2",
+    "igniteui-angular": "^18.2.4",
     "igniteui-angular-charts": "^18.1.1",
     "igniteui-angular-core": "^18.1.1",
     "igniteui-angular-gauges": "^18.1.1",
     "ng2-charts": "^4.1.1",
+    "ngx-echarts": "^18.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^17.18.11",
     "rollup": "^4.24.0",
@@ -58,8 +60,8 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.14",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
     "typescript": "~5.5.2"
   }
 }
