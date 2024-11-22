@@ -26,9 +26,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    initFlowbite();
-  }
+  ngOnInit(): void {}
 
   toggleTheme() {
     document.documentElement.classList.toggle('dark');

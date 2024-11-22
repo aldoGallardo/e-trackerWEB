@@ -1,16 +1,15 @@
 /* Contenedor principal del componente */
 .kpi-wrapper {
-  width: 100%; /* Ocupa todo el espacio disponible */
-  height: 100%; /* Asegura que ocupe toda la altura disponible */
-  margin: 0; /* Elimina el margen */
-  padding: 20px; /* Espaciado interno */
-  background-color: #f5f7fa;
-  border-radius: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  display: flex;
+  display: flex; /* Flexbox para alineación dinámica */
   flex-direction: column; /* Alinea los elementos verticalmente */
-  align-items: center; /* Centra los elementos dentro del contenedor */
-  box-sizing: border-box; /* Incluye el padding y el border en el tamaño total */
+  align-items: center; /* Centra los elementos horizontalmente */
+  justify-content: space-between; /* Espaciado entre elementos */
+  width: 100%; /* Asegura que ocupe todo el ancho disponible */
+  height: 100%; /* Asegura que ocupe toda la altura asignada */
+  padding: 20px; /* Espaciado interno */
+  background-color: #f5f7fa; /* Fondo claro */
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
 :host {
@@ -131,8 +130,11 @@
 /* Contenedor del carrusel */
 .flex-nowrap {
   display: flex;
-  flex-wrap: nowrap; /* Evita que las tarjetas se envuelvan en filas adicionales */
-  gap: 1rem;
+  flex-wrap: nowrap; /* Evita que las tarjetas se envuelvan */
+  gap: 1rem; /* Espaciado entre las tarjetas */
+  width: 100%; /* Asegura que ocupe todo el ancho disponible */
+  overflow-x: auto; /* Activa scroll horizontal si es necesario */
+  padding: 10px; /* Espaciado interno adicional */
 }
 
 .flex-nowrap .flex {

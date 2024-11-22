@@ -32,8 +32,14 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  private routeTitles: { [key: string]: string } = {
+    '/dashboard': 'Panel Principal',
+    '/employees': 'Gestión de Empleados',
+    '/activities': 'Seguimiento de Actividades',
+  };
+
   private updateTitle(): void {
-    // Aquí podrías agregar lógica para actualizar título y subtítulo si necesitas dinámicos
-    // Por defecto, mantiene los valores iniciales.
+    const currentRoute = this.router.url; // Obtiene la ruta actual
+    this.title = this.routeTitles[currentRoute] || 'Bienvenido a e-Tracker'; // Asigna el título
   }
 }

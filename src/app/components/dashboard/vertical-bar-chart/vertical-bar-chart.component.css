@@ -1,84 +1,75 @@
-/* Contenedor del Dropdown */
-.relative .absolute {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 0.25rem;
-  min-width: 10rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Asegura que los bordes sean consistentes */
-}
-
-/* Botones dentro del Dropdown */
-.relative .absolute button {
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding: 0.75rem 1rem; /* Más espacioso */
-  font-size: 0.875rem;
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  color: #374151;
-  border: none; /* Elimina bordes entre opciones */
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-}
-
-.chart-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%; /* Asegura que el gráfico ocupe el 100% de la celda */
-  width: 100%; /* Asegura que el gráfico ocupe el 100% de la celda */
-}
-
-.chart-card {
+.vertical-bar-chart-wrapper {
+  grid-area: vertical-bar-chart; /* Asigna esta sección al área definida en el grid */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  width: 100%; /* Asegura que la tarjeta ocupe todo el ancho */
   height: 100%; /* Asegura que ocupe toda la altura disponible */
+  width: 100%; /* Asegura que ocupe todo el ancho disponible */
+  background-color: #ffffff; /* Fondo blanco */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  overflow: hidden; /* Evita desbordamientos externos */
 }
 
-/* Hover sobre las opciones */
-.relative .absolute button:hover {
+.vertical-bar-chart-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Usa toda la altura del wrapper */
+  width: 100%; /* Usa todo el ancho del wrapper */
+  padding: 16px; /* Espaciado interno */
+}
+
+/* Encabezado Alineado a la Izquierda */
+.vertical-bar-chart-fixed {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinea los elementos a la izquierda */
+  background-color: #ffffff; /* Fondo blanco */
+  padding: 8px 0; /* Espaciado interno */
+}
+
+.chart-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 8px; /* Espaciado inferior */
+}
+
+.chart-filters {
+  display: flex;
+  gap: 8px; /* Espaciado entre botones */
+}
+
+/* Botones de filtro */
+.chart-filters button {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  background-color: #f9fafb;
+  border: 1px solid #d1d5db;
+  border-radius: 999px; /* Bordes completamente redondeados */
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.chart-filters button:hover {
+  background-color: #f3f4f6;
   color: #111827;
 }
 
-/* Ajuste de espaciado entre elementos */
-.relative .absolute button + button {
-  margin-top: 0; /* Elimina márgenes innecesarios */
+/* Contenedor del gráfico */
+.chart-content {
+  flex-grow: 1; /* Usa todo el espacio restante */
+  display: flex;
+  justify-content: center; /* Centra el gráfico horizontalmente */
+  align-items: center; /* Centra el gráfico verticalmente */
+  overflow: hidden; /* Evita desbordamiento */
 }
 
-/* Bordes redondeados solo en el contenedor, no en cada opción */
-.relative .absolute {
-  border-radius: 0.5rem;
-}
-
-.relative .absolute button:first-child {
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-}
-
-.relative .absolute button:last-child {
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-}
-
-.border-t {
-  border-top: 1px solid #e5e7eb; /* Color del borde */
-}
-.my-4 {
-  margin-top: 1rem; /* Espaciado superior */
-  margin-bottom: 1rem; /* Espaciado inferior */
-}
-
-.w-full {
-  width: 100%;
-}
-
-.h-full {
-  height: 100%;
+/* Gráfico dentro del contenedor */
+.chart-instance {
+  width: 100%; /* Ocupa todo el ancho disponible */
+  height: 100%; /* Ocupa todo el alto disponible */
 }

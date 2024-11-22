@@ -1,60 +1,71 @@
-<div class="relative bg-white p-6 rounded-lg shadow-md w-full h-full">
-  <!-- Encabezado con filtros -->
-  <div class="flex justify-between items-center mb-4">
-    <h2 class="text-lg font-poppins font-semibold text-gray-800">
-      Nº Actividades Completadas
-    </h2>
+<div class="vertical-bar-chart-wrapper">
+  <div class="vertical-bar-chart-container">
+    <!-- Encabezado Fijo -->
+    <div class="vertical-bar-chart-fixed">
+      <!-- Título -->
+      <div class="chart-title">
+        <h2 class="text-lg font-poppins font-semibold text-gray-800">
+          Nº Actividades Completadas
+        </h2>
+      </div>
 
-    <div class="flex space-x-4">
-      <!-- Botón de ubicación -->
-      <button
-        class="flex items-center text-gray-700 text-sm font-medium py-1 px-4 rounded-full border border-gray-300 hover:bg-gray-100 transition"
-      >
-        <span class="material-icons mr-2 text-gray-700" style="color: #28303f"
-          >pin_drop</span
-        >
-        El Porvenir
-        <span class="material-icons ml-1" style="color: #28303f"
-          >expand_more</span
-        >
-      </button>
-
-      <div class="relative inline-block">
-        <!-- Botón de filtro de tiempo -->
+      <!-- Filtros -->
+      <div class="chart-filters">
+        <!-- Botón de ubicación -->
         <button
           class="flex items-center text-gray-700 text-sm font-medium py-1 px-4 rounded-full border border-gray-300 hover:bg-gray-100 transition"
-          (click)="toggleDropdown()"
         >
-          <span class="material-icons mr-2 text-gray-600" style="color: #28303f"
-            >calendar_today</span
+          <span class="material-icons mr-2 text-gray-700" style="color: #28303f"
+            >pin_drop</span
           >
-          {{ getCurrentViewLabel() }}
-          <span class="material-icons ml-1 text-gray-600" style="color: #28303f"
+          El Porvenir
+          <span class="material-icons ml-1" style="color: #28303f"
             >expand_more</span
           >
         </button>
 
-        <!-- Dropdown de selección -->
-        <div
-          *ngIf="dropdownOpen"
-          class="absolute left-0 mt-1 w-40 bg-white rounded-lg shadow-lg z-10"
-        >
+        <!-- Filtro de tiempo -->
+        <div class="relative inline-block">
           <button
-            *ngFor="let view of views"
-            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-            (click)="selectView(view)"
+            class="flex items-center text-gray-700 text-sm font-medium py-1 px-4 rounded-full border border-gray-300 hover:bg-gray-100 transition"
+            (click)="toggleDropdown()"
           >
-            {{ view.label }}
+            <span
+              class="material-icons mr-2 text-gray-600"
+              style="color: #28303f"
+              >calendar_today</span
+            >
+            {{ getCurrentViewLabel() }}
+            <span
+              class="material-icons ml-1 text-gray-600"
+              style="color: #28303f"
+              >expand_more</span
+            >
           </button>
+
+          <!-- Dropdown -->
+          <div
+            *ngIf="dropdownOpen"
+            class="absolute left-0 mt-1 w-40 bg-white rounded-lg shadow-lg z-10"
+          >
+            <button
+              *ngFor="let view of views"
+              class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              (click)="selectView(view)"
+            >
+              {{ view.label }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Línea separadora -->
-  <div class="border-t border-gray-200 my-4"></div>
 
-  <!-- Contenedor del gráfico -->
-  <div class="chart-container w-full h-full">
-    <div echarts [options]="chartOptions" class="w-full h-full"></div>
+    <!-- Separador -->
+    <div class="border-t border-gray-200 my-4"></div>
+
+    <!-- Contenedor desplazable (Gráfico) -->
+    <div class="chart-content">
+      <div echarts [options]="chartOptions" class="chart-instance"></div>
+    </div>
   </div>
 </div>

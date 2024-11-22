@@ -29,7 +29,7 @@ body {
   width: 100%;
   overflow: hidden; /* Evita que el contenido desborde */
   font-family: "Poppins", sans-serif;
-  background-color: var(--bg-color); /* Fondo basado en variables */
+  background-color: #ffffff; /* Fondo transparente */
   color: var(--text-color); /* Texto basado en variables */
 }
 
@@ -46,7 +46,7 @@ body {
 .app-layout {
   display: grid;
   grid-template-areas:
-    "navbar navbar"
+    "sidebar app-navbar"
     "sidebar content";
   grid-template-rows: 64px auto;
   grid-template-columns: 300px 1fr;
@@ -56,7 +56,6 @@ body {
 /* Estilos para el sidebar */
 .sidebar {
   grid-area: sidebar; /* Si estás usando CSS Grid y tienes una estructura que lo necesita */
-  color: #111827; /* Texto oscuro para contraste (puedes cambiar según prefieras) */
   padding: 1rem; /* Espaciado interno */
   overflow-y: auto; /* Scroll interno para contenido largo */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
@@ -65,28 +64,28 @@ body {
   border: 1px solid #dfe1e7; /* Borde de color suave */
   border-top-right-radius: 25px; /* Bordes redondeados superiores */
   border-bottom-right-radius: 25px; /* Bordes redondeados inferiores */
-  position: fixed; /* Fijo en su lugar */
   height: 100%; /* Ocupa toda la altura de la ventana */
 }
 
 /* Estilos para el navbar */
-.navbar {
-  grid-area: navbar; /* Define su posición dentro del grid layout */
-  display: flex; /* Flexbox para alinear elementos horizontalmente */
+.app-navbar {
+  grid-area: app-navbar; /* Define su posición dentro del grid layout */
+  display: flex; /* Flexbox para alineación horizontal */
   align-items: center; /* Centrado vertical */
   justify-content: space-between; /* Espaciado entre el título y el botón */
-  background-color: white; /* Fondo blanco */
+  background-color: transparent; /* Fondo transparente */
   height: 64px; /* Altura fija */
-  padding: 0 16px; /* Espaciado horizontal */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-  z-index: 10; /* Se asegura de que esté sobre el contenido */
+}
+
+.none {
+  grid-area: none;
 }
 
 /* Estilos para el contenido principal */
 .content {
   grid-area: content;
-  background-color: #f5f5f5; /* Fondo gris claro */
-  overflow-y: auto; /* Scroll interno si es necesario */
+  background-color: transparent; /* Fondo transparente */
+  overflow-y: auto; /* Evita scroll interno */
   padding: 16px; /* Espaciado interno */
 }
 

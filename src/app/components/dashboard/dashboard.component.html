@@ -1,29 +1,26 @@
-<div content>
-  <!-- Columna izquierda (2/5 del ancho total) -->
-  <div class="h-full flex flex-col">
-    <app-okr-table class="h-full flex-grow"></app-okr-table>
+<div class="dashboard">
+  <!-- OKR Table (Columna Izquierda) -->
+  <div class="okr-table">
+    <app-okr-table></app-okr-table>
   </div>
 
-  <!-- Columna derecha (3/5 del ancho total) -->
-  <div class="grid grid-rows-3 gap-6 h-full">
-    <!-- Fila 1: KPI Cards -->
-    <div class="row-span-1 flex">
-      <app-kpi-cards class="h-full flex-grow"></app-kpi-cards>
-    </div>
+  <!-- KPI Cards (Primera Fila de la Columna Derecha) -->
+  <div class="kpi-cards">
+    <app-kpi-cards></app-kpi-cards>
+  </div>
 
-    <!-- Fila 2: Vertical Bar Chart -->
-    <div class="row-span-1 flex">
-      <app-vertical-bar-chart class="h-full flex-grow"></app-vertical-bar-chart>
-    </div>
+  <!-- Vertical Bar Chart (Segunda Fila de la Columna Derecha) -->
+  <div class="vertical-bar-chart">
+    <app-vertical-bar-chart></app-vertical-bar-chart>
+  </div>
 
-    <!-- Fila 3: Chart y Report Bar Chart -->
-    <div class="grid grid-cols-2 gap-6 h-full">
-      <div class="h-full flex">
-        <app-chart class="h-full flex-grow"></app-chart>
-      </div>
-      <div class="h-full flex">
-        <app-report-bar-chart class="h-full flex-grow"></app-report-bar-chart>
-      </div>
+  <!-- Chart y Report Bar Chart (Tercera Fila de la Columna Derecha) -->
+  <div class="charts">
+    <div class="chart">
+      <app-chart></app-chart>
+    </div>
+    <div class="report-bar-chart">
+      <app-report-bar-chart></app-report-bar-chart>
     </div>
   </div>
 </div>

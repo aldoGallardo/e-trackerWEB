@@ -1,0 +1,17 @@
+<nav app-navbar class="navbar">
+  <!-- Contenedor del título -->
+  <div class="navbar-left">
+    <h1 class="text-xl font-bold text-gray-900">Dashboard</h1>
+    <p class="text-sm text-gray-500">¡Bienvenido de vuelta!</p>
+  </div>
+
+  <!-- Botón de cerrar sesión -->
+  <div class="navbar-right">
+    <button
+      (click)="logout()"
+      class="bg-red-500 text-white font-semibold rounded-lg px-4 py-2 hover:bg-red-600 transition-colors"
+    >
+      Cerrar Sesión
+    </button>
+  </div>
+</nav>

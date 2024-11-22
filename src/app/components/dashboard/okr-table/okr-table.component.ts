@@ -145,5 +145,26 @@ export class OkrTableComponent {
       goal: '20%',
       progress: 20,
     },
+    {
+      date: '11/24',
+      objective: 'Optimizar la logística de transporte',
+      keyResult: 'Reducir tiempos de espera',
+      goal: '70%',
+      progress: 70,
+    },
+    {
+      date: '11/24',
+      objective: 'Incrementar la calidad del servicio',
+      keyResult: 'Mejorar la satisfacción del cliente',
+      goal: '40%',
+      progress: 40,
+    },
+    {
+      date: '11/24',
+      objective: 'Aumentar la capacidad de respuesta',
+      keyResult: 'Disminuir tiempos de atención',
+      goal: '20%',
+      progress: 20,
+    },
   ];
 }

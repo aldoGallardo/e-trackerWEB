@@ -1,21 +1,49 @@
-.app-navbar h1 {
-  font-size: 1.25rem; /* Tamaño de fuente */
-  font-weight: bold; /* Negrita */
-  color: inherit; /* Hereda el color del navbar */
+.navbar {
+  display: flex; /* Flexbox para alineación horizontal */
+  width: 100%; /* Ancho completo */
+  justify-content: space-between; /* Espacio entre el título y el botón */
+  align-items: center; /* Centrado vertical */
+  padding: 0 1rem; /* Espaciado interno horizontal */
+  height: 64px; /* Altura fija */
 }
 
-.app-navbar button {
-  margin-left: auto; /* Empuja el botón hacia la derecha */
+.navbar-left {
+  display: flex;
+  flex-direction: column; /* Alinea el título y subtítulo verticalmente */
+  justify-content: center; /* Asegura el centrado vertical en su contenedor */
+}
+
+.navbar-left h1 {
+  margin: 0; /* Elimina márgenes */
+  font-size: 1.25rem; /* Tamaño del título */
+  font-weight: bold; /* Negrita */
+  color: #111827; /* Texto oscuro */
+}
+
+.navbar-left p {
+  margin: 0; /* Elimina márgenes */
+  font-size: 0.875rem; /* Tamaño del subtítulo */
+  color: #6b7280; /* Texto gris */
+}
+
+.navbar-right {
+  display: flex; /* Asegura que los elementos internos sean flexibles */
+  align-items: center; /* Centrado vertical */
+}
+
+.navbar-right button {
   background-color: #ef4444; /* Fondo rojo */
   color: white; /* Texto blanco */
-  font-weight: 600; /* Seminegrita */
-  border-radius: 8px; /* Bordes redondeados */
+  font-size: 1rem; /* Tamaño del texto */
+  font-weight: 600; /* Texto seminegrita */
+  border: none; /* Sin bordes */
+  border-radius: 0.5rem; /* Bordes redondeados */
   padding: 8px 16px; /* Espaciado interno */
-  transition: background-color 0.3s ease; /* Transición suave al pasar el cursor */
-  border: none; /* Limpia bordes predeterminados */
-  cursor: pointer; /* Cambia el cursor al pasar por el botón */
+  cursor: pointer; /* Cursor tipo pointer */
+  transition: background-color 0.3s ease; /* Transición suave */
+  margin: 0; /* Elimina márgenes */
 }
 
-.app-navbar button:hover {
-  background-color: #dc2626; /* Fondo rojo más oscuro */
+.navbar-right button:hover {
+  background-color: #dc2626; /* Rojo más oscuro */
 }
