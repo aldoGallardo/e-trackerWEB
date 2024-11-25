@@ -5,13 +5,12 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Activity } from '@core/models/activity.model';
 import { ApiActivityTypesService } from './api-activityTypes.service';
 import { ApiBranchesService } from './api-branches.service';
+import { URL_ACTIVITIES, URL_USERS } from 'src/app/env';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiActivitiesService {
-  private urlApi = 'http://localhost:3000/activities';
-  private usersApi = 'http://localhost:3000/users'; // Endpoint para obtener usuarios
   private userCache = new Map<string, string>(); // Cache para los nombres de usuario
 
   constructor(
@@ -34,7 +33,7 @@ export class ApiActivitiesService {
       );
     }
 
-    return this.http.get<any[]>(this.urlApi, { params }).pipe(
+    return this.http.get<any[]>(URL_ACTIVITIES, { params }).pipe(
       switchMap((activities) =>
         this.apiActivityTypesService.getActivityTypes().pipe(
           map((activityTypes) => {
@@ -67,7 +66,7 @@ export class ApiActivitiesService {
 
   // Obtener todas las actividades sin paginación
   getAllActivities(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.urlApi}`).pipe(
+    return this.http.get<any[]>(`${URL_ACTIVITIES}`).pipe(
       map((activities) => {
         console.log('Actividades desde API:', activities); // Debug para revisar la respuesta completa
         return activities;
@@ -85,23 +84,23 @@ export class ApiActivitiesService {
       .set('pageSize', pageSize.toString())
       .set('pageIndex', pageIndex.toString());
 
-    return this.http.get<any[]>(this.urlApi, { params }).pipe(
+    return this.http.get<any[]>(URL_ACTIVITIES, { params }).pipe(
       map((activities) => activities || []),
       catchError(this.handleError)
     );
   }
 
   getTotalActivities(): Observable<any> {
-    return this.http.get<any>(`${this.urlApi}/total`);
+    return this.http.get<any>(`${URL_ACTIVITIES}/total`);
   }
 
   getActivityById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.urlApi}/${id}`);
+    return this.http.get<any>(`${URL_ACTIVITIES}/${id}`);
   }
 
   addActivity(activity: any): Observable<any> {
     return this.http
-      .post<any>(this.urlApi, activity)
+      .post<any>(URL_ACTIVITIES, activity)
       .pipe(catchError(this.handleError));
   }
 
@@ -115,7 +114,7 @@ export class ApiActivitiesService {
 
   searchActivities(term: string): Observable<any> {
     let params = new HttpParams().set('term', term);
-    return this.http.get<any>(`${this.urlApi}/search`, { params });
+    return this.http.get<any>(`${URL_ACTIVITIES}/search`, { params });
   }
 
   getUserNames(userIds: string[]): Observable<Map<string, string>> {
@@ -126,7 +125,7 @@ export class ApiActivitiesService {
     }
 
     return this.http
-      .get<any[]>(this.usersApi, { params: { ids: uncachedIds.join(',') } })
+      .get<any[]>(URL_USERS, { params: { ids: uncachedIds.join(',') } })
       .pipe(
         tap((users) => {
           users.forEach((user) =>

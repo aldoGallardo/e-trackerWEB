@@ -2,14 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { MatChipListbox } from '@angular/material/chips';
-import { IBaseChipEventArgs } from 'igniteui-angular';
 
 @Component({
   selector: 'app-okr-chips',
   standalone: true,
-  imports: [CommonModule, MatChipsModule, MatIconModule, MatChipListbox],
+  imports: [CommonModule, MatChipsModule, MatIconModule],
   templateUrl: './okr-chips.component.html',
   styleUrls: ['./okr-chips.component.css'],
 })

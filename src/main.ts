@@ -6,10 +6,10 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
-import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { environment } from './environments/environment';
 import { provideEcharts } from 'ngx-echarts';
+import { environment } from './environments/environment';
 
 bootstrapApplication(AppComponent, {
   providers: [

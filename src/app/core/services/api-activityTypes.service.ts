@@ -3,18 +3,17 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ActivityType } from '../models/activityType.model';
+import { URL_ACTIVITY_TYPES } from 'src/app/env';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiActivityTypesService {
-  private urlApi = 'http://localhost:3000/activity-types';
-
   constructor(private http: HttpClient) {}
 
   getActivityTypes(): Observable<ActivityType[]> {
     return this.http
-      .get<ActivityType[]>(this.urlApi)
+      .get<ActivityType[]>(URL_ACTIVITY_TYPES)
       .pipe(catchError(this.handleError));
   }
 
@@ -25,7 +24,7 @@ export class ApiActivityTypesService {
 
   getActivityTypeById(id: string): Observable<ActivityType> {
     return this.http
-      .get<ActivityType>(`${this.urlApi}/${id}`)
+      .get<ActivityType>(`${URL_ACTIVITY_TYPES}/${id}`)
       .pipe(catchError(this.handleError));
   }
 }

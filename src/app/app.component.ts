@@ -3,7 +3,6 @@ import { Router, NavigationEnd } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { initFlowbite } from 'flowbite';
 import { CommonModule } from '@angular/common';
 
 @Component({

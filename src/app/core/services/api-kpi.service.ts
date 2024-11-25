@@ -1,42 +1,41 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { URL_KPIS } from 'src/app/env';
 
 @Injectable({
   providedIn: 'root',
 })
 export class KpiService {
-  private apiUrl = 'http://localhost:3000/kpis'; // Cambia esta URL según tu configuración
-
   constructor(private http: HttpClient) {}
 
   // Obtener todos los KPIs
   getAllKpis(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}`);
+    return this.http.get<any[]>(`${URL_KPIS}`);
   }
 
   // Obtener un KPI por ID
   getKpiById(kpiId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${kpiId}`);
+    return this.http.get(`${URL_KPIS}/${kpiId}`);
   }
 
   // Crear un KPI
   createKpi(kpiData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}`, kpiData);
+    return this.http.post(`${URL_KPIS}`, kpiData);
   }
 
   // Actualizar un KPI
   updateKpi(kpiId: string, kpiData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${kpiId}`, kpiData);
+    return this.http.put(`${URL_KPIS}/${kpiId}`, kpiData);
   }
 
   // Calcular KPI
   calculateKpi(kpiId: string, variables: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/calculate/${kpiId}`, variables);
+    return this.http.post(`${URL_KPIS}/calculate/${kpiId}`, variables);
   }
 
   // Eliminar un KPI
   deleteKpi(kpiId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${kpiId}`);
+    return this.http.delete(`${URL_KPIS}/${kpiId}`);
   }
 }
