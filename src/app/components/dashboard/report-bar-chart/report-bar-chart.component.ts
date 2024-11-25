@@ -17,7 +17,7 @@ export class ReportBarChartComponent {
   location = 'El Porvenir';
 
   // Lista de ubicaciones para el dropdown
-  locations = ['El Porvenir', 'Sucursal Lima', 'Sucursal Arequipa'];
+  locations = ['El Porvenir', 'Lima', 'Arequipa'];
 
   // Estado del dropdown
   dropdownOpen = false;
@@ -33,7 +33,7 @@ export class ReportBarChartComponent {
   ];
 
   // Información del pie
-  branch = 'Sucursal Nuevo Cajamarca';
+  branch = 'Sucursal El porvenir';
   employees = 6;
 
   // Métodos del dropdown
