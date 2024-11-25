@@ -106,10 +106,7 @@ export class ApiActivitiesService {
 
   updateActivity(activity: Activity): Observable<any> {
     const { id, ...activityData } = activity;
-    return this.http.patch(
-      `http://localhost:3000/activities/${id}/update`,
-      activityData
-    );
+    return this.http.patch(`${URL_ACTIVITIES}/${id}/update`, activityData);
   }
 
   searchActivities(term: string): Observable<any> {

@@ -3,13 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Branch } from '@core/models/branch.model'; // Modelo de Sucursales
+import { URL_BRANCHES } from 'src/app/env';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiBranchesService {
-  private urlApi = 'http://localhost:3000/branchOffices'; // URL para sucursales
-
   constructor(private http: HttpClient) {}
 
   // Método para obtener sucursales con soporte para paginación opcional
@@ -27,7 +26,7 @@ export class ApiBranchesService {
       params = params.set('startAfterBranchId', startAfterBranchId);
     }
 
-    return this.http.get<Branch[]>(this.urlApi, { params }).pipe(
+    return this.http.get<Branch[]>(URL_BRANCHES, { params }).pipe(
       map((branches) => {
         console.log('Sucursales desde API:', branches); // Debug
         return branches;
@@ -39,28 +38,28 @@ export class ApiBranchesService {
   // Método para obtener el total de sucursales
   getTotalBranches(): Observable<{ total: number }> {
     return this.http
-      .get<{ total: number }>(`${this.urlApi}/total`)
+      .get<{ total: number }>(`${URL_BRANCHES}/total`)
       .pipe(catchError(this.handleError));
   }
 
   // Método para obtener una sucursal por ID
   getBranchById(id: string): Observable<Branch> {
     return this.http
-      .get<Branch>(`${this.urlApi}/${id}`)
+      .get<Branch>(`${URL_BRANCHES}/${id}`)
       .pipe(catchError(this.handleError));
   }
 
   // Método para agregar una nueva sucursal
   addBranch(branch: Branch): Observable<Branch> {
     return this.http
-      .post<Branch>(this.urlApi, branch)
+      .post<Branch>(URL_BRANCHES, branch)
       .pipe(catchError(this.handleError));
   }
 
   // Método para eliminar una sucursal
   deleteBranch(id: number): Observable<void> {
     return this.http
-      .delete<void>(`${this.urlApi}/${id}`)
+      .delete<void>(`${URL_BRANCHES}/${id}`)
       .pipe(catchError(this.handleError));
   }
 

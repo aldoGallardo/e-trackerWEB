@@ -23,6 +23,7 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ApiEmployeesService } from '@core/services/api-employees.service';
 
 @Component({
   selector: 'app-assignment-list',
@@ -56,7 +57,10 @@ export class AssignmentListComponent implements OnInit {
   // @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private apiAssignmentsService: ApiAssignmentsService) {} // Inyecta el servicio
+  constructor(
+    private apiAssignmentsService: ApiAssignmentsService,
+    private apiEmployeesService: ApiEmployeesService
+  ) {} // Inyecta el servicio
 
   ngOnInit(): void {
     // Obtener sucursales y tipos de actividades
@@ -64,7 +68,7 @@ export class AssignmentListComponent implements OnInit {
       this.length = data.total;
     });
     this.loadAssignments();
-    this.apiAssignmentsService.getEmployees().subscribe((data: any) => {
+    this.apiEmployeesService.getAllEmployees().subscribe((data: any) => {
       this.employees = data;
       console.log(data);
     });

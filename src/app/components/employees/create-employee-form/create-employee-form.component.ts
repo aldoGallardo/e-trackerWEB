@@ -18,6 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { ApiBranchesService } from '@core/services/api-branches.service';
 
 @Component({
   selector: 'app-create-employee-form',
@@ -45,6 +46,7 @@ export class CreateEmployeeFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private apiEmployeesService: ApiEmployeesService,
+    private apiBranchesService: ApiBranchesService,
     private router: Router
   ) {}
 
@@ -62,7 +64,7 @@ export class CreateEmployeeFormComponent implements OnInit {
       userType: ['', Validators.required],
     });
 
-    this.apiEmployeesService.getBranches().subscribe(
+    this.apiBranchesService.getBranches().subscribe(
       (branches: Branch[]) => {
         this.branches = branches;
       },

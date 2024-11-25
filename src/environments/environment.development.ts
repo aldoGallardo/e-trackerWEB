@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:3000',
+  apiUrl: 'http://localhost:3000',
   firebaseConfig: {
     apiKey: 'AIzaSyB-FADOYIBtUxpxjmSTEA6nz9GpzN9jiY8',
     authDomain: 'e-tracker-5aa39.firebaseapp.com',

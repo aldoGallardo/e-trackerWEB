@@ -96,7 +96,7 @@
 }
 
 /* Dimensiones de tarjetas */
-.min-w-[20%] {
+/* .min-w-[20%] {
   min-width: 20%;
 }
 
@@ -106,16 +106,16 @@
 
 .min-w-[100px] {
   min-width: 100px;
-}
+} */
 
 /* Proporciones */
 .aspect-square {
-  aspect-ratio: 1 / 1; /* Relación cuadrada */
+  aspect-ratio: 1 / 1;
 }
-
+/*
 .aspect-[1.1] {
-  aspect-ratio: 1.1; /* Relación rectangular */
-}
+  aspect-ratio: 1.1;
+  */
 
 /* Espaciados y paddings */
 .p-3 {
@@ -157,9 +157,9 @@
   min-width: 100px; /* Ajuste mínimo */
 }
 
-.min-w-[20%] {
-  min-width: 20%; /* Ajusta el ancho de cada tarjeta para 5 visibles */
-}
+/* .min-w-[20%] {
+  min-width: 20%;
+} */
 
 /* Contenedor de las tarjetas */
 .overflow-hidden {

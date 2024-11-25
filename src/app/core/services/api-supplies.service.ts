@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Supply } from '../models/supply.model';
-import { URL_SERVICES, URL_SUPPLIES } from 'src/app/env';
+import { URL_SUPPLIES } from 'src/app/env';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +25,7 @@ export class ApiSuppliesService {
       );
     }
 
-    return this.http.get<any>(URL_SERVICES, { params });
+    return this.http.get<any>(URL_SUPPLIES, { params });
   }
 
   // Método para obtener el total de suministros
