@@ -1,26 +1,12 @@
 <div class="dashboard">
-  <!-- OKR Table (Columna Izquierda) -->
-  <div class="okr-table">
-    <app-okr-table></app-okr-table>
-  </div>
+  <app-okr-table class="okr-table"></app-okr-table>
 
-  <!-- KPI Cards (Primera Fila de la Columna Derecha) -->
-  <div class="kpi-cards">
-    <app-kpi-cards></app-kpi-cards>
-  </div>
+  <app-kpi-cards class="kpi-cards"></app-kpi-cards>
 
-  <!-- Vertical Bar Chart (Segunda Fila de la Columna Derecha) -->
-  <div class="vertical-bar-chart">
-    <app-vertical-bar-chart></app-vertical-bar-chart>
-  </div>
+  <app-vertical-bar-chart class="vertical-bar-chart"></app-vertical-bar-chart>
 
-  <!-- Chart y Report Bar Chart (Tercera Fila de la Columna Derecha) -->
   <div class="charts">
-    <div class="chart">
-      <app-chart></app-chart>
-    </div>
-    <div class="report-bar-chart">
-      <app-report-bar-chart></app-report-bar-chart>
-    </div>
+    <app-chart class="chart-left"></app-chart>
+    <app-report-bar-chart class="chart-right"></app-report-bar-chart>
   </div>
 </div>

@@ -1,60 +1,52 @@
-<div
-  chart
-  class="relative bg-white rounded-lg shadow-md flex flex-col justify-between h-full w-full p-4"
->
-  <!-- Encabezado -->
-  <div class="chart-header">
-    <div class="flex justify-between items-center mb-2">
-      <h2 class="text-lg font-semibold font-poppins text-gray-900 text-center">
-        Tiempo/Actividad
-      </h2>
-
-      <!-- Filtro de Actividad -->
-      <div class="relative">
-        <button
-          class="flex items-center text-gray-700 text-sm font-medium py-1 px-4 rounded-full border border-gray-300 hover:bg-gray-100 transition"
-          (click)="toggleActivityDropdown()"
+<div class="chart-wrapper">
+  <div class="chart-container">
+    <!-- Encabezado -->
+    <div class="chart-header">
+      <div class="flex justify-between items-center mb-2">
+        <h2
+          class="text-lg font-semibold font-poppins text-gray-900 text-center"
         >
-          <span class="material-icons mr-2" style="color: #28303f"
-            >calendar_today</span
-          >
-          <span class="text-sm font-medium font-lexend">{{
-            currentActivity.name
-          }}</span>
-          <span class="material-icons text-gray-500 ml-1">expand_more</span>
-        </button>
+          Tiempo/Actividad
+        </h2>
 
-        <!-- Dropdown -->
-        <div
-          *ngIf="activityDropdownOpen"
-          class="absolute left-0 mt-2 w-40 bg-white rounded-lg shadow-lg z-50"
-        >
+        <!-- Filtro de Actividad -->
+        <div class="chart-filters relative inline-block">
           <button
-            *ngFor="let activity of activities"
-            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-            (click)="selectActivity(activity)"
+            class="flex items-center text-gray-700 text-sm font-medium py-1 px-4 rounded-full border border-gray-300 hover:bg-gray-100 transition"
+            (click)="toggleActivityDropdown()"
           >
-            {{ activity.name }}
+            <span class="material-icons mr-2" style="color: #28303f"
+              >calendar_today</span
+            >
+            <span class="text-sm font-medium font-poppins">{{
+              currentActivity.name
+            }}</span>
+            <span class="material-icons text-gray-500 ml-1">expand_more</span>
           </button>
+
+          <!-- Dropdown -->
+          <div
+            *ngIf="activityDropdownOpen"
+            class="absolute left-0 mt-1 w-40 bg-white rounded-lg shadow-lg z-10"
+          >
+            <button
+              *ngFor="let activity of activities"
+              [class.selected]="activity === currentActivity"
+              (click)="selectActivity(activity)"
+            >
+              {{ activity.name }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Línea separadora -->
-  <div class="border-t"></div>
+    <!-- Línea separadora -->
+    <div class="border-t"></div>
 
-  <!-- Gráfico -->
-  <div class="flex flex-col items-center justify-center mt-4 chart-container">
-    <div
-      echarts
-      [options]="chartOptions"
-      class="chart-container w-full h-full"
-    ></div>
-    <div
-      class="absolute inset-0 flex flex-col items-center justify-center space-y-2"
-    >
-      <div class="gradient-icon p-2 rounded-full">
+    <!-- Elementos superpuestos -->
+    <div class="chart-overlay">
+      <div class="gradient-icon">
         <span class="material-icons text-white text-base">calendar_today</span>
       </div>
       <h3 class="text-3xl font-bold font-poppins text-gray-900">
@@ -64,33 +56,39 @@
         {{ currentActivity.evaluation }}
       </p>
     </div>
-  </div>
 
-  <!-- Descripción y Botones -->
-  <div class="w-full text-center mt-6">
-    <h4 class="text-base font-semibold font-poppins text-gray-900">
-      {{ currentActivity.name }}
-    </h4>
-    <div class="flex justify-between items-center mt-2 px-4">
-      <!-- Botón Anterior -->
-      <button
-        class="p-3 rounded-full gradient-button shadow-md transition"
-        (click)="previousActivity()"
-        aria-label="Actividad anterior"
-      >
-        <span class="material-icons text-white">chevron_left</span>
-      </button>
-      <p class="text-sm font-regular font-poppins text-gray-500 mx-4">
-        {{ currentActivity.installations }}
-      </p>
-      <!-- Botón Siguiente -->
-      <button
-        class="p-3 rounded-full gradient-button shadow-md transition"
-        (click)="nextActivity()"
-        aria-label="Actividad siguiente"
-      >
-        <span class="material-icons text-white">chevron_right</span>
-      </button>
+    <!-- Gráfico -->
+    <div class="flex-1">
+      <!-- Contenedor del gráfico de ECharts -->
+      <div class="h-full w-full" echarts [options]="chartOptions"></div>
+    </div>
+
+    <!-- Descripción y Botones -->
+    <div class="w-full text-center">
+      <h4 class="text-base font-semibold font-poppins text-gray-900">
+        {{ currentActivity.name }}
+      </h4>
+      <div class="flex justify-between items-center mt-2 px-4">
+        <!-- Botón Anterior -->
+        <button
+          class="p-3 rounded-full gradient-button shadow-md transition"
+          (click)="previousActivity()"
+          aria-label="Actividad anterior"
+        >
+          <span class="material-icons text-white">chevron_left</span>
+        </button>
+        <p class="text-sm font-regular font-poppins text-gray-500 mx-4">
+          {{ currentActivity.installations }}
+        </p>
+        <!-- Botón Siguiente -->
+        <button
+          class="p-3 rounded-full gradient-button shadow-md transition"
+          (click)="nextActivity()"
+          aria-label="Actividad siguiente"
+        >
+          <span class="material-icons text-white">chevron_right</span>
+        </button>
+      </div>
     </div>
   </div>
 </div>

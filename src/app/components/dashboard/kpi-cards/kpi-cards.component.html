@@ -1,6 +1,7 @@
-<div class="kpi-cards">
-  <!-- Encabezado con título y filtros -->
-  <div class="bg-white p-6 rounded-lg shadow-md h-full w-full">
+<div class="kpi-cards-wrapper">
+  <div class="kpi-cards-container">
+    <!-- Encabezado con título y filtros -->
+
     <div class="flex justify-between items-center mb-4">
       <div class="flex items-center space-x-4">
         <h2 class="text-lg font-poppins font-semibold text-gray-800">KPIS</h2>
@@ -92,7 +93,7 @@
     </div>
 
     <!-- Línea separadora -->
-    <div class="border-t border-gray-200 my-4"></div>
+    <div class="border-t border-gray-200"></div>
 
     <!-- Carrusel de KPI Cards -->
     <div class="flex items-center gap-4">
@@ -105,7 +106,7 @@
       </button>
 
       <!-- Contenedor del carrusel -->
-      <div class="overflow-hidden w-full">
+      <div class="overflow-hidden">
         <div
           class="flex gap-4 transition-transform duration-500 ease-in-out flex-nowrap"
           [style.transform]="'translateX(' + -activeIndex * 100 + '%)'"
@@ -113,11 +114,13 @@
           <!-- Tarjetas KPI -->
           <div
             *ngFor="let kpi of filteredKpis; let i = index"
-            class="flex flex-col items-center justify-center p-4 rounded-lg shadow-md aspect-square min-w-[20%] bg-white"
+            class="flex flex-col items-center justify-center p-4 rounded-lg shadow-md bg-white"
             [ngClass]="getCardColor(i)"
           >
-            <h3 class="text-sm font-medium mb-2">{{ kpi.name }}</h3>
-            <div class="flex items-center justify-center gap-2">
+            <h3 class="text-sm font-medium font-poppins mb-1">
+              {{ kpi.name }}
+            </h3>
+            <div class="flex items-center justify-center gap-4">
               <span class="material-icons text-blue-500 text-3xl">{{
                 kpi.icon
               }}</span>

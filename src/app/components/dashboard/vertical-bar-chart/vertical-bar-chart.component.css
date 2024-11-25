@@ -1,57 +1,57 @@
+/* Contenedor principal */
 .vertical-bar-chart-wrapper {
-  grid-area: vertical-bar-chart; /* Asigna esta sección al área definida en el grid */
-  display: flex;
-  flex-direction: column;
-  height: 100%; /* Asegura que ocupe toda la altura disponible */
-  width: 100%; /* Asegura que ocupe todo el ancho disponible */
-  background-color: #ffffff; /* Fondo blanco */
-  border-radius: 10px; /* Bordes redondeados */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-  overflow: hidden; /* Evita desbordamientos externos */
+  height: 100%;
+  width: 100%;
 }
 
+/* Contenedor general */
 .vertical-bar-chart-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%; /* Usa toda la altura del wrapper */
-  width: 100%; /* Usa todo el ancho del wrapper */
-  padding: 16px; /* Espaciado interno */
-}
-
-/* Encabezado Alineado a la Izquierda */
-.vertical-bar-chart-fixed {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Alinea los elementos a la izquierda */
+  display: flex; /* Flexbox para alinear verticalmente */
+  flex-direction: column; /* Alineación vertical */
+  height: 100%; /* Altura máxima */
+  width: 100%; /* Ancho máximo */
+  border-radius: 10px; /* Bordes redondeados del contenedor principal */
   background-color: #ffffff; /* Fondo blanco */
-  padding: 8px 0; /* Espaciado interno */
+  padding: 16px; /* Espaciado interno */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  border: 1px solid #e9ecef; /* Borde para resaltar */
 }
 
-.chart-title {
+/* Encabezado fijo */
+.vertical-bar-chart-fixed {
+  position: sticky;
+  top: 0; /* Fijo al tope del contenedor */
+  z-index: 2; /* Encima del contenido desplazable */
+  background-color: #ffffff;
+  padding-bottom: 8px; /* Espaciado inferior */
+}
+
+/* Título */
+.chart-title h2 {
+  margin: 0;
   font-size: 1.25rem;
-  font-weight: bold;
+  font-weight: 600;
   color: #111827;
-  margin-bottom: 8px; /* Espaciado inferior */
 }
 
+/* Filtros */
 .chart-filters {
   display: flex;
-  gap: 8px; /* Espaciado entre botones */
+  gap: 8px;
 }
 
-/* Botones de filtro */
 .chart-filters button {
   display: flex;
   align-items: center;
-  padding: 8px 16px;
+  padding: 8px 12px;
   font-size: 0.875rem;
   font-weight: 500;
   color: #374151;
-  background-color: #f9fafb;
+  background-color: #ffffff;
   border: 1px solid #d1d5db;
-  border-radius: 999px; /* Bordes completamente redondeados */
+  border-radius: 999px;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .chart-filters button:hover {
@@ -59,17 +59,8 @@
   color: #111827;
 }
 
-/* Contenedor del gráfico */
-.chart-content {
-  flex-grow: 1; /* Usa todo el espacio restante */
-  display: flex;
-  justify-content: center; /* Centra el gráfico horizontalmente */
-  align-items: center; /* Centra el gráfico verticalmente */
-  overflow: hidden; /* Evita desbordamiento */
-}
-
-/* Gráfico dentro del contenedor */
-.chart-instance {
-  width: 100%; /* Ocupa todo el ancho disponible */
-  height: 100%; /* Ocupa todo el alto disponible */
+.chart-area {
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }

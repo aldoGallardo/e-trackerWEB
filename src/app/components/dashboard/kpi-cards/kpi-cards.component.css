@@ -1,15 +1,23 @@
 /* Contenedor principal del componente */
-.kpi-wrapper {
-  display: flex; /* Flexbox para alineación dinámica */
-  flex-direction: column; /* Alinea los elementos verticalmente */
-  align-items: center; /* Centra los elementos horizontalmente */
-  justify-content: space-between; /* Espaciado entre elementos */
-  width: 100%; /* Asegura que ocupe todo el ancho disponible */
-  height: 100%; /* Asegura que ocupe toda la altura asignada */
-  padding: 20px; /* Espaciado interno */
-  background-color: #f5f7fa; /* Fondo claro */
-  border-radius: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+/* Contenedor principal */
+.kpi-cards-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.kpi-cards-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Se asegura de ocupar todo el espacio vertical */
+  width: 100%; /* Se asegura de ocupar todo el espacio horizontal */
+  overflow: hidden; /* Evita desbordamiento externo */
+  border-radius: 10px; /* Bordes redondeados del contenedor principal */
+  background-color: #ffffff; /* Fondo blanco */
+  padding: 16px; /* Espaciado interno */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  border: 1px solid #e9ecef; /* Borde para resaltar */
 }
 
 :host {

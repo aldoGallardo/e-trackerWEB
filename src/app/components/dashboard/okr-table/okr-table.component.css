@@ -1,14 +1,16 @@
-.okr-wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%; /* Ocupa toda la altura disponible */
+/* Contenedor principal */
+.okr-table-wrapper {
+  grid-area: okr-table; /* Define que este componente ocupe la celda izquierda */
+  height: 100%;
+  width: 100%;
 }
 
-.okr-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%; /* Se asegura de ocupar todo el espacio vertical */
-  overflow: hidden; /* Evita desbordamiento externo */
+/* Contenedor general */
+.okr-table-container {
+  display: flex; /* Flexbox para alinear verticalmente */
+  flex-direction: column; /* Alineación vertical */
+  height: 100%; /* Altura máxima */
+  width: 100%; /* Ancho máximo */
   border-radius: 10px; /* Bordes redondeados del contenedor principal */
   background-color: #ffffff; /* Fondo blanco */
   padding: 16px; /* Espaciado interno */
@@ -53,12 +55,6 @@
   text-transform: uppercase;
   color: #424246;
   text-align: center;
-}
-
-/* Contenedor desplazable de la tabla */
-.okr-table {
-  flex-grow: 1; /* Usa todo el espacio restante */
-  overflow-y: auto; /* Activa el desplazamiento vertical */
 }
 
 /* Filas de la tabla */

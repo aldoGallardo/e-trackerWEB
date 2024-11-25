@@ -1,4 +1,24 @@
 /* Contenedor principal */
+.reported-bar-chart-wrapper {
+  grid-area: okr-reported-bar-chart-wrapper; /* Define que este componente ocupe la celda izquierda */
+  height: 100%;
+  width: 100%;
+}
+
+/* Contenedor general */
+.reported-bar-chart-container {
+  display: flex; /* Flexbox para alinear verticalmente */
+  flex-direction: column; /* Alineación vertical */
+  height: 100%; /* Altura máxima */
+  width: 100%; /* Ancho máximo */
+  border-radius: 10px; /* Bordes redondeados del contenedor principal */
+  background-color: #ffffff; /* Fondo blanco */
+  padding: 16px; /* Espaciado interno */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  border: 1px solid #e9ecef; /* Borde para resaltar */
+}
+
+/* Contenedor principal */
 .chart-card {
   display: flex;
   flex-direction: column;

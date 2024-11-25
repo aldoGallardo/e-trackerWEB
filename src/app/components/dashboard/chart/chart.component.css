@@ -1,10 +1,34 @@
+.chart-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
 /* Contenedor principal */
 .chart-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px; /* Bordes redondeados del contenedor principal */
+  background-color: #ffffff; /* Fondo blanco */
+  padding: 16px; /* Espaciado interno */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  border: 1px solid #e9ecef; /* Borde para resaltar */
+  height: 100%; /* Altura máxima */
+  width: 100%; /* Ancho máximo */
+}
+
+/* Superposición del contenido */
+
+.gradient-icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
   align-items: center;
-  height: 100%; /* Asegura que el gráfico ocupe el 100% de la celda */
-  width: 100%; /* Asegura que el gráfico ocupe el 100% de la celda */
+  justify-content: center;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  background: linear-gradient(0deg, #4c65a8 0%, #2c3e6f 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Encabezado */
@@ -61,18 +85,17 @@
   margin-left: 8px; /* Espaciado entre el icono y el texto */
 }
 
-/* Icono central */
-.gradient-icon {
-  background: linear-gradient(0deg, #4c65a8 0%, #2c3e6f 100%);
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1.5px solid #ffffff;
-  border-radius: 50%;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px; /* Aumenta el espacio entre el icono y el gráfico */
+/* Texto del estándar y evaluación */
+.chart-overlay h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #28303f;
+  margin: 8px 0;
+}
+
+.chart-overlay p {
+  font-size: 0.875rem;
+  color: #6c757d;
 }
 
 /* Botones de navegación */

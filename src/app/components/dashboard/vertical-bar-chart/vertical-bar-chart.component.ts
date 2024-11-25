@@ -75,6 +75,12 @@ export class VerticalBarChartComponent {
     { label: '2023', activities: 247 },
   ];
 
+  places = [
+    { label: 'Porvenir', value: 'porvenir' },
+    { label: 'Natasha', value: 'natasha' },
+    { label: 'Nuevo Cajamarca', value: 'nuevoCajamarca' },
+  ];
+
   constructor() {
     this.updateData();
   }

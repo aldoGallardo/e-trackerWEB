@@ -3,41 +3,39 @@
   grid-template-areas:
     "okr-table kpi-cards"
     "okr-table vertical-bar-chart"
-    "okr-table charts";
+    "okr-table chart reported-bar-chart";
   grid-template-columns: 2fr 3fr; /* Columna izquierda (2/5), derecha (3/5) */
-  grid-template-rows: auto auto auto; /* Tres filas ajustables */
-  gap: 16px; /* Espaciado entre las celdas */
+  grid-template-rows: 1fr 1.5fr 1.5fr; /* Tres filas ajustables */
+  gap: 18px; /* Espaciado entre celdas */
   height: 100%; /* Ocupa toda la altura disponible */
   width: 100%; /* Ocupa todo el ancho disponible */
 }
 
 .okr-table {
   grid-area: okr-table; /* Define que este componente ocupe la celda izquierda */
-  display: flex; /* Para manejar contenido interno como flexbox */
   background-color: transparent; /* Fondo transparente */
   overflow: hidden; /* Evita que el contenido desborde */
 }
 
 .kpi-cards {
-  grid-area: kpi-cards; /* Define que este componente ocupe la celda izquierda */
-  display: flex; /* Para manejar contenido interno como flexbox */
+  grid-area: kpi-cards; /* Define que este componente ocupe la celda derecha */
   background-color: transparent; /* Fondo transparente */
   overflow: hidden; /* Evita que el contenido desborde */
 }
 
 .vertical-bar-chart {
   grid-area: vertical-bar-chart; /* Asegura que esté correctamente ubicado en el grid */
-  display: flex; /* Habilita Flexbox para manejar hijos */
-  flex-direction: column; /* Organiza el contenido verticalmente */
-  justify-content: center; /* Centra verticalmente el contenido si es necesario */
-  align-items: center; /* Centra horizontalmente el contenido si es necesario */
   background-color: transparent; /* Fondo transparente */
   overflow: hidden; /* Evita desbordamientos visibles */
 }
 
-.charts {
-  grid-area: charts;
-  display: grid; /* Grid interno para dividir esta sección en dos columnas */
-  grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
-  gap: 16px;
+.chart-left {
+  grid-area: chart; /* Asegura que esté correctamente ubicado en el grid */
+  background-color: transparent; /* Fondo transparente */
+  overflow: hidden; /* Evita desbordamientos visibles */
+}
+.chart-right {
+  grid-area: reported-bar-chart;
+  background-color: transparent; /* Fondo opcional */
+  overflow: hidden; /* Evita desbordamiento */
 }

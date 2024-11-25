@@ -1,7 +1,7 @@
 <div class="vertical-bar-chart-wrapper">
   <div class="vertical-bar-chart-container">
     <!-- Encabezado Fijo -->
-    <div class="vertical-bar-chart-fixed">
+    <div class="flex justify-between items-center">
       <!-- Título -->
       <div class="chart-title">
         <h2 class="text-lg font-poppins font-semibold text-gray-800">
@@ -61,11 +61,11 @@
     </div>
 
     <!-- Separador -->
-    <div class="border-t border-gray-200 my-4"></div>
+    <div class="border-t border-gray-200"></div>
 
-    <!-- Contenedor desplazable (Gráfico) -->
-    <div class="chart-content">
-      <div echarts [options]="chartOptions" class="chart-instance"></div>
+    <!-- Contenedor Gráfico -->
+    <div class="flex-1">
+      <div class="w-full h-full" echarts [options]="chartOptions"></div>
     </div>
   </div>
 </div>

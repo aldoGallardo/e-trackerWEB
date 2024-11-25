@@ -5,6 +5,7 @@ import { VerticalBarChartComponent } from './vertical-bar-chart/vertical-bar-cha
 import { KpiCardsComponent } from './kpi-cards/kpi-cards.component';
 import { OkrTableComponent } from './okr-table/okr-table.component';
 import { ReportBarChartComponent } from './report-bar-chart/report-bar-chart.component';
+import { ActivitiesComponent } from '../activities/activities.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,7 @@ import { ReportBarChartComponent } from './report-bar-chart/report-bar-chart.com
     VerticalBarChartComponent,
     KpiCardsComponent,
     ReportBarChartComponent,
+    ActivitiesComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],

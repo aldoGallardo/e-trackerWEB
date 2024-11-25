@@ -1,5 +1,5 @@
-<div class="okr-wrapper">
-  <div class="okr-container">
+<div class="okr-table-wrapper">
+  <div class="okr-table-container">
     <!-- Contenedor Fijo -->
     <div class="okr-fixed">
       <!-- Título -->
@@ -8,7 +8,7 @@
         OKR
       </div>
       <!-- Separador -->
-      <div class="border-t border-gray-200 my-4"></div>
+      <div class="border-t border-gray-200 p-1"></div>
 
       <!-- Encabezado -->
       <div class="okr-header">
@@ -21,7 +21,7 @@
     </div>
 
     <!-- Tabla -->
-    <div class="okr-table">
+    <div class="flex-1 overflow-auto">
       <div *ngFor="let item of okrList" class="okr-row">
         <div class="okr-cell">{{ item.date }}</div>
         <div class="okr-cell">{{ item.objective }}</div>
