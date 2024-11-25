@@ -6,7 +6,7 @@
     "okr-table charts";
   grid-template-columns: 2fr 3fr; /* Columna izquierda (2/5), derecha (3/5) */
   grid-template-rows: 1fr 1.5fr 1.5fr; /* Tres filas ajustables */
-  gap: 18px; /* Espaciado entre celdas */
+  gap: 12px; /* Espaciado entre celdas */
   height: 100%; /* Ocupa toda la altura disponible */
   width: 100%; /* Ocupa todo el ancho disponible */
 }
@@ -33,5 +33,5 @@
   grid-area: charts;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 18px; /* Espaciado entre celdas */
+  gap: 12px; /* Espaciado entre celdas */
 }

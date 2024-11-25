@@ -19,14 +19,10 @@
 /* Superposición del contenido */
 
 .gradient-icon {
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 30px;
+  width: 30px;
   border: 2px solid #ffffff;
   border-radius: 50%;
-  margin-bottom: 10px;
   background: linear-gradient(0deg, #4c65a8 0%, #2c3e6f 100%);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -75,11 +71,6 @@
   border-color: #5b6998; /* Cambio de borde al hacer hover */
 }
 
-.relative.inline-block button .material-icons {
-  font-size: 1.25rem; /* Ajusta el tamaño del icono */
-  color: #28303f; /* Color del icono */
-}
-
 .relative.inline-block button span {
   font-size: 0.875rem;
   margin-left: 8px; /* Espaciado entre el icono y el texto */
@@ -101,8 +92,8 @@
 /* Botones de navegación */
 .gradient-button {
   background: linear-gradient(0deg, #4c65a8 0%, #2c3e6f 100%);
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;

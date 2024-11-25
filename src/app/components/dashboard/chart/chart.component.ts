@@ -114,13 +114,13 @@ export class ChartComponent implements AfterViewInit {
           pointer: { show: false },
           progress: {
             show: true,
-            width: 25,
+            width: 16,
             roundCap: true,
             itemStyle: { color: '#5B6998' },
           },
           axisLine: {
             lineStyle: {
-              width: 25,
+              width: 16,
               color: [
                 [activity.value / activity.maxValue, '#5B6998'],
                 [1, '#e5e7eb'],

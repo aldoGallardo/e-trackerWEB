@@ -1,5 +1,5 @@
 <div class="chart-wrapper">
-  <div class="chart-container">
+  <div class="chart-container flex">
     <!-- Encabezado -->
     <div class="chart-header">
       <div class="flex justify-between items-center mb-2">
@@ -44,22 +44,24 @@
     <!-- Línea separadora -->
     <div class="border-t"></div>
 
-    <!-- Elementos superpuestos -->
-    <div class="chart-overlay">
-      <div class="gradient-icon">
-        <span class="material-icons text-white text-base">calendar_today</span>
-      </div>
-      <h3 class="text-3xl font-bold font-poppins text-gray-900">
-        {{ currentActivity.standard }}
-      </h3>
-      <p class="text-sm font-medium text-gray-400">
-        {{ currentActivity.evaluation }}
-      </p>
-    </div>
-
     <!-- Contenedor Gráfico -->
-    <div class="flex-1">
-      <div class="h-full w-full" echarts [options]="chartOptions"></div>
+    <div class="flex-1 relative">
+      <div class="w-full h-full" echarts [options]="chartOptions"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div class="flex justify-center">
+          <div class="gradient-icon text-center">
+            <span class="material-icons text-white text-base"
+              >calendar_today</span
+            >
+          </div>
+        </div>
+        <h3 class="text-xl text-center font-bold font-poppins text-gray-900">
+          {{ currentActivity.standard }}
+        </h3>
+        <p class="text-sm text-center font-medium text-gray-400">
+          {{ currentActivity.evaluation }}
+        </p>
+      </div>
     </div>
 
     <!-- Descripción y Botones -->
@@ -67,21 +69,20 @@
       <h4 class="text-base font-semibold font-poppins text-gray-900">
         {{ currentActivity.name }}
       </h4>
-      <div class="flex justify-between items-center mt-2 px-4">
-        <!-- Botón Anterior -->
+      <div class="flex justify-between items-center px-2">
         <button
-          class="p-3 rounded-full gradient-button shadow-md transition"
+          class="rounded-full gradient-button shadow-md transition"
           (click)="previousActivity()"
           aria-label="Actividad anterior"
         >
           <span class="material-icons text-white">chevron_left</span>
         </button>
-        <p class="text-sm font-regular font-poppins text-gray-500 mx-4">
+        <p class="text-sm font-regular font-poppins text-gray-500">
           {{ currentActivity.installations }}
         </p>
-        <!-- Botón Siguiente -->
+
         <button
-          class="p-3 rounded-full gradient-button shadow-md transition"
+          class="rounded-full gradient-button shadow-md transition"
           (click)="nextActivity()"
           aria-label="Actividad siguiente"
         >
